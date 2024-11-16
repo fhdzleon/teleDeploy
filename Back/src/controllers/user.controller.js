@@ -15,7 +15,9 @@ const register = async function(req,res){
     res.send('success');
   })
   .catch((error)=>{
-    console.log(error);
+    if(error.errorResponse.code === 11000){
+      res.status(409).json({error:'User already exists!'});
+    }
   });
 }
 
