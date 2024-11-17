@@ -3,7 +3,9 @@ import React from "react";
 const RegisterForm = () => {
   return (
     <div className="mt-12">
-      <h1 className="text-white text-center mb-2 text-lg">Registrate</h1>
+      <h1 className="text-white text-center mb-2 text-lg">
+        Fromulario de registro
+      </h1>
       <form className=" flex flex-col space-y-5 max-w-3xl mx-auto" action="">
         <input
           className="p-2 text-black"
