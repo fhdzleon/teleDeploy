@@ -1,5 +1,5 @@
 const unknownEndpoint = (_request, reponse) => {
-  reponse.status(400).send({ error: "Ruta desconodida" });
+  reponse.status(400).send({ error: "Unknown route" });
 };
 
 const errorHandler = (error, request, response, next) => {
