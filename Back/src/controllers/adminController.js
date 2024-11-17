@@ -1,32 +1,32 @@
-// src/controllers/adminController.js
 
-const Turno = require('../models/Turno');
-const Medico = require('../models/Medico'); // Modelo de médico, si lo tienes
+const Turno = require('../models/Turn');
+const User = require('../models/User');
 
 const AdminController = {
   // Crear turno
   crearTurno: async (req, res) => {
     try {
-      const { fecha, hora, medicoId } = req.body;
-
-      // Verificar si el médico existe
-      const medico = await Medico.findById(medicoId);
-      if (!medico) {
-        return res.status(404).json({ error: 'Médico no encontrado' });
+      const { fecha, hora, medico } = req.body;
+  
+      // Verificar que el usuario asignado como médico exista y sea un doctor
+      const usuarioMedico = await User.findById(medico);
+  
+      if (!usuarioMedico) {
+        return res.status(400).json({ error: "El usuario asignado no existe" });
       }
-
-      const turno = new Turno({
-        fecha,
-        hora,
-        medico: medicoId
-      });
-
-      await turno.save();
-
-      res.status(201).json({ message: 'Turno creado exitosamente', turno });
+  
+      if (usuarioMedico.role !== 'doctor') {
+        return res.status(400).json({ error: "El usuario asignado no es un médico válido" });
+      }
+  
+      // Crear y guardar el turno
+      const nuevoTurno = new Turno({ fecha, hora, medico });
+      await nuevoTurno.save();
+  
+      res.status(201).json({ message: "Turno creado con éxito", turno: nuevoTurno });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Error al crear el turno' });
+      res.status(500).json({ error: "Error al crear el turno" });
     }
   },
 
@@ -77,7 +77,7 @@ const AdminController = {
   // Ver turnos publicados (para pacientes)
   verTurnos: async (req, res) => {
     try {
-      const turnos = await Turno.find({ disponible: true }).populate('medico', 'nombre');
+      const turnos = await Turno.find({ disponible: true }).populate('medico', 'name lastName');
 
       if (!turnos.length) {
         return res.status(404).json({ message: 'No hay turnos disponibles' });

@@ -1,21 +1,24 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const middleware = require("./middleware/middleware");
-const app = express();
 const { connectToDatabase } = require("./db/database");
 const router = require("./routes/routes");
-const bodyParser = require('body-parser');
-const adminRoutes = require('./routes/adminRoutes');
+const adminRoutes = require("./routes/admin");
+
+const app = express();
 
 connectToDatabase();
 
-app.use(express.json());
 app.use(cors());
-app.use(router);
-
-app.use(middleware.unknownEndpoint);
-app.use(middleware.errorHandler);
 app.use(bodyParser.json());
-app.use('/api/admin', adminRoutes);
+app.use(express.json());
+
+app.use("/api", router); 
+app.use("/api/admin", adminRoutes); 
+
+
+app.use(middleware.unknownEndpoint); 
+app.use(middleware.errorHandler); 
 
 module.exports = app;

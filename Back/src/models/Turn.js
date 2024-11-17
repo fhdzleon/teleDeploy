@@ -1,25 +1,24 @@
-const mongoose = require('mongoose');
-
-const turnoSchema = new mongoose.Schema({
+const mongoose = require("mongoose");
+const turnSchema = new mongoose.Schema({
   fecha: {
     type: Date,
-    required: true
+    required: true,
   },
   hora: {
     type: String,
-    required: true
+    required: true,
   },
   medico: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Medico',
-    required: true
+    ref: 'User', // Relación con el modelo User
+    required: true,
   },
   disponible: {
     type: Boolean,
-    default: true  // Los turnos se pueden marcar como disponibles o no
+    default: true,
   }
 });
 
-const Turno = mongoose.model('Turno', turnoSchema);
+const Turn = mongoose.model("Turn", turnSchema)
 
-module.exports = Turno;
+module.exports = Turn;
