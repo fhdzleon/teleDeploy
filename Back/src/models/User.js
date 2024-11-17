@@ -3,14 +3,12 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    unique: true,
     minlength: 3,
     required: true,
   },
 
   lastName: {
     type: String,
-    unique: true,
     minlength: 3,
     required: true,
   },
@@ -39,6 +37,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["admin", "doctor", "patient"],
+    default: "patient",
     required: true,
   },
 });
