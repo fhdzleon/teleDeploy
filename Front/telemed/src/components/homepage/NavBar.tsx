@@ -1,22 +1,25 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import Link from "next/link"
-
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const path = usePathname();
+  const isHomePage = path === '/'; // Check if the current path is '/'
   const navItems = [
     { name: "Nosotros", href: "#nosotros" },
     { name: "Obras Sociales", href: "#obras-sociales" },
     { name: "Faqs", href: "#faqs" },
     { name: "Contacto", href: "#contacto" },
-  ]
+  ];
 
   return (
+    <>
+    {isHomePage && 
     <header className="bg-white shadow-md relative">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -39,7 +42,9 @@ export default function NavBar() {
             </div>
           </div>
           <div className="hidden md:block">
-            <button className="rounded-full bg-slate-200 px-4 py-2">Ingresar</button>
+            <button className="rounded-full bg-slate-200 px-4 py-2">
+              Ingresar
+            </button>
           </div>
           <div className="md:hidden">
             <button
@@ -48,12 +53,34 @@ export default function NavBar() {
               aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? (
-                <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="block h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
-                <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="block h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               )}
             </button>
@@ -61,7 +88,6 @@ export default function NavBar() {
         </div>
       </nav>
 
-      
       {isMenuOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg z-50">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -86,5 +112,7 @@ export default function NavBar() {
         </div>
       )}
     </header>
-  )
+    }
+    </>
+  );
 }
