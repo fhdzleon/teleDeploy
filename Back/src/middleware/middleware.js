@@ -21,7 +21,38 @@ const errorHandler = (error, request, response, next) => {
   next(error);
 };
 
+const checkString = function(array){
+  let flag = true
+  for(let i=0; i<array.length; i++){
+    if(array[i].includes('=') || array[i].includes(';') || array[i].includes("'") || array[i].includes('"')){
+      flag = false;
+    }
+  }
+  return flag;
+}
+const checkRegister = function(req,res,next){
+  const {name,lastName,email,password,phone,gender,role} = req.body;
+  if(!name || !lastName || !email || !password || !phone || !gender || !role){
+    res.status(400).json({error:'empty fields!'});
+  }
+  else{
+    if(typeof(phone) !== 'number' || typeof(name) !== 'string' || typeof(lastName) !== 'string' || typeof(email) !== 'string' || typeof(password) !== 'string'){
+      res.status(400).json({error:'invalid format!'});
+    }
+    else{
+      const verifyValues = checkString([name,lastName,email,password,gender,role]);
+      if(verifyValues === false){
+        res.status(400).json({error:'invalid format!'});
+      }
+      else{
+        next();
+      }
+    }
+  }
+}
+
 module.exports = {
     unknownEndpoint,
-    errorHandler
+    errorHandler,
+    checkRegister
   };

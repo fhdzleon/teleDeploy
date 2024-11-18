@@ -13,11 +13,9 @@ connectToDatabase();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(router); 
 
-app.use("/api", router); 
 app.use("/api/admin", adminRoutes); 
-
-
 app.use(middleware.unknownEndpoint); 
 app.use(middleware.errorHandler); 
 

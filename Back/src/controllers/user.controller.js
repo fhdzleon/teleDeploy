@@ -2,29 +2,18 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.js");
 
 const register = async function (req, res) {
-  try {
-    const { name, lastName, email, password, gender, phone, role = "patient" } = req.body;
-
-    // Generar hash para la contraseña
+    const { name, lastName, email, password, gender, phone, role} = req.body;
     const salt = await bcrypt.genSalt(5);
     const hash = await bcrypt.hash(password, salt);
-
-    // Crear usuario
-    const newUser = await User.create({
-      name,
-      lastName,
-      email,
-      password: hash,
-      phone,
-      gender,
-      role,
+    User.create({name:name,lastName:lastName,email:email,password:hash,gender:gender,phone:phone,role:role})
+    .then((result)=>{
+      res.status(201).json({message:'success'});
+    })
+    .catch((error)=>{
+      if(error.errorResponse.code === 11000){
+        res.status(409).json({error:'this user already exist!'});
+      }
     });
-
-    res.status(201).json({ message: "Usuario registrado con éxito", user: newUser });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error al registrar usuario", error });
-  }
 };
 
 module.exports = { register };
