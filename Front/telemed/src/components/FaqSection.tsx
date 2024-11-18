@@ -36,7 +36,7 @@ export default function FaqSection() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
-      <h2 className="text-4xl text-center mb-12 font-medium text-gray-800 leading-tight">Preguntas frecuentes</h2>
+      <h2 id="faqs" className="text-4xl text-center mb-12 font-medium text-gray-800 leading-tight">Preguntas frecuentes</h2>
       
       <div className="grid md:grid-cols-2 gap-8">
         <div className="bg-gray-200 rounded-2xl aspect-square flex items-center justify-center">
@@ -47,11 +47,11 @@ export default function FaqSection() {
           {faqItems.map((item) => (
             <div
               key={item.id}
-              className="bg-gray-200  rounded-2xl overflow-hidden"
+              className="bg-gray-200 rounded-2xl overflow-hidden"
             >
               <button
                 onClick={() => setOpenItem(openItem === item.id ? null : item.id)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-300/50 transition-colors"
+                className="w-full flex items-center justify-between p-12 text-left hover:bg-gray-300/50 transition-colors"
               >
                 <span className="font-medium">{item.question}</span>
                 <span className="ml-4">

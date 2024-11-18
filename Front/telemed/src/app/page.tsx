@@ -8,7 +8,10 @@ export default function Home() {
     <>
       <Hero />
       <div>
-        <h2 className="text-center text-4xl font-medium text-gray-800 mb-5 leading-tight mt-5">
+        <h2
+          id="nosotros"
+          className="text-center text-4xl font-medium text-gray-800 mb-5 leading-tight mt-5"
+        >
           Nosotros
         </h2>
         <p className="text-xl text-gray-600 leading-relaxed text-center">
