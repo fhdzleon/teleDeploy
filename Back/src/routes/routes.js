@@ -10,6 +10,6 @@ const router = express.Router();
 // router.use('/login/api',checkLogin);
 
 router.post('/register/api', validateFieldsAndRole, register);
-router.use('/login/api', roleAuthorization(["patient"]), loginRouter);
+router.use('/login/api', roleAuthorization(["admin", "doctor", "patient"]), loginRouter);
 
 module.exports = router;
