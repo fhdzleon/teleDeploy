@@ -22,13 +22,12 @@ const errorHandler = (error, request, response, next) => {
 };
 
 const checkString = function(array){
-  let flag = true
   for(let i=0; i<array.length; i++){
-    if(array[i].includes('=') || array[i].includes(';') || array[i].includes("'") || array[i].includes('"')){
-      flag = false;
+    if(array[i].includes('$') || array[i].includes('$eq') || array[i].includes("$ne") || array[i].includes('$gt')){
+      return false;
     }
   }
-  return flag;
+  return true;
 }
 const checkRegister = function(req,res,next){
   const {name,lastName,email,password,phone,gender,role} = req.body;
@@ -40,8 +39,27 @@ const checkRegister = function(req,res,next){
       res.status(400).json({error:'invalid format!'});
     }
     else{
-      const verifyValues = checkString([name,lastName,email,password,gender,role]);
-      if(verifyValues === false){
+      if(checkString([name,lastName,email,password,gender,role]) === false){
+        res.status(400).json({error:'invalid format!'});
+      }
+      else{
+        next();
+      }
+    }
+  }
+}
+
+const checkLogin = function(req,res,next){
+  const {email,password} = req.body;
+  if(!email || !password){
+    res.status(400).json({error:'empty fields!'});
+  }
+  else{
+    if(typeof(email) !== 'string' || typeof(password) !== 'string'){
+      res.status(400).json({error:'invalid fromat!'});
+    }
+    else{
+      if(checkString([email,password]) === false){
         res.status(400).json({error:'invalid format!'});
       }
       else{
@@ -54,5 +72,6 @@ const checkRegister = function(req,res,next){
 module.exports = {
     unknownEndpoint,
     errorHandler,
-    checkRegister
+    checkRegister,
+    checkLogin
   };
