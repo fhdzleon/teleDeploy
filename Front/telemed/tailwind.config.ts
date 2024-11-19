@@ -11,9 +11,15 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "#6427CE",
+        secundary: "#DEDCFF",
+        tertiary: "#F3F2FF",
+        acent: "#433BFF",
+        bg: "#FBFBFE",
+        text: "#050315",
       },
       fontFamily: {
-        hostGrotesk: ['var(--font-hostGrotesk)']
+        hostGrotesk: ["var(--font-hostGrotesk)"],
       },
     },
   },

@@ -1,13 +1,18 @@
 import React from "react";
 import RegisterForm from "@/components/registerForm/RegisterForm";
-import LoginForm from "@/components/loginForm/LoginForm";
+import Link from "next/link";
 
 const Page = () => {
   return (
     <>
-      <h2 className="text-center mt-16">TESTEO PARA FORMULARIOS</h2>
-      <LoginForm />
       <RegisterForm />
+      <div>
+        Ya estas registrado?
+        <Link href={"/auth/signin"}>
+          <span>ingresa</span>
+        </Link>
+        a tu cuenta
+      </div>
     </>
   );
 };
