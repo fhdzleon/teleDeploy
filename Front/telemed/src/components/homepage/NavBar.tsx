@@ -24,17 +24,17 @@ export default function NavBar() {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-3xl font-semibold text-gray-500">
+            <Link href="/" className="text-4xl font-bold text-black">
               Telemed
             </Link>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-baseline space-x-12">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-gray-500 hover:bg-gray-100 hover:text-gray-700 px-3 py-2 rounded-md text-md font-medium transition-colors"
+                  className="text-black hover:bg-gray-100 hover:text-gray-700 px-3 py-2 rounded-md text-md font-medium transition-colors"
                 >
                   {item.name}
                 </Link>
@@ -42,7 +42,7 @@ export default function NavBar() {
             </div>
           </div>
           <div className="hidden md:block">
-            <button className="rounded-full bg-slate-200 px-4 py-2">
+            <button className="rounded-full text-white bg-purple-800 px-4 py-2">
               Ingresar
             </button>
           </div>

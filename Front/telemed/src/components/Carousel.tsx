@@ -3,29 +3,20 @@
 import Image from "next/image";
 import React, { useRef } from "react";
 
-interface CarouselItem {
-  id: number;
-  imageUrl?: string;
-  alt?: string;
-}
 
 export default function ObrasCarousel() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const items: CarouselItem[] = Array.from({ length: 10 }, (_, i) => ({
-    id: i + 1,
-  }));
-
-  //   const items = [
-  //     { id: 1, imageUrl: "/images/pikachi.jpg", alt: "Obra social 1" },
-  //     { id: 2, imageUrl: "/images/pikachi.jpg", alt: "Obra social 2" },
-  //     { id: 3, imageUrl: "/images/pikachi.jpg", alt: "Obra social 2" },
-  //     { id: 4, imageUrl: "/images/pikachi.jpg", alt: "Obra social 2" },
-  //     { id: 5, imageUrl: "/images/pikachi.jpg", alt: "Obra social 2" },
-  //     { id: 6, imageUrl: "/images/pikachi.jpg", alt: "Obra social 2" },
-  //     { id: 7, imageUrl: "/images/pikachi.jpg", alt: "Obra social 2" },
-  //     { id: 8, imageUrl: "/images/pikachi.jpg", alt: "Obra social 2" },
-  //   ]
+  
+    const items = [
+      { id: 1, imageUrl: "/images/luispasteur.png", alt: "Obra social 1" },
+      { id: 2, imageUrl: "/images/medicus2.png", alt: "Obra social 2" },
+      { id: 3, imageUrl: "/images/osde.png", alt: "Obra social 3" },
+      { id: 4, imageUrl: "/images/sancorsalud.png", alt: "Obra social 4" },
+      { id: 5, imageUrl: "/images/ospe.jpeg", alt: "Obra social 5" },
+      { id: 6, imageUrl: "/images/avalian.png", alt: "Obra social 6" },
+      {id:7, imageUrl: "/images/prevencionsalud.png", alt: "obra social 7"}
+    ]
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -73,12 +64,12 @@ export default function ObrasCarousel() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex-none snap-center w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center shadow-md"
+              className="flex-none snap-center w-48 h-48 rounded-full bg-gray-300 flex items-center justify-center shadow-md"
             >
               {item.imageUrl ? (
                 <Image
-                  width={10}
-                  height={10}
+                  width={200}
+                  height={200}
                   src={item.imageUrl}
                   alt={item.alt || `Obra social ${item.id}`}
                   className="w-full h-full rounded-full object-cover"

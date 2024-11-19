@@ -2,6 +2,7 @@ import Hero from "@/components/homepage/Hero";
 import CardN from "../components/CardN";
 import ObrasCarousel from "@/components/Carousel";
 import FaqSection from "../components/FaqSection";
+import FormH from "@/components/FormH";
 
 export default function Home() {
   return (
@@ -20,14 +21,17 @@ export default function Home() {
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center p-10 md:space-x-5 space-y-5 md:space-y-0">
           <CardN
+            url="/images/today.png"
             title="Disponibilidad 24/7"
             text="Puedes consultar a un médico por videollamada a cualquier hora, todos los dias del año"
           />
           <CardN
+            url="/images/social.png"
             title="Equipo Multidisciplinario"
             text="Contamos con especialistas comprometidos con la excelencia médica y el bienestar de cada paciente."
           />
           <CardN
+            url="/images/check.png"
             title="Innovación en Salud"
             text="Usamos tecnología avanzada para transformar el acceso a la salud, con altos estándares de seguridad."
           />
@@ -35,16 +39,26 @@ export default function Home() {
         {/* obras sociales */}
         <section>
           <h2
-        id="obras-sociales"
-        className="text-center text-3xl mb-8 font-medium text-gray-800 leading-tight"
-      >
-        Obras sociales
-      </h2>
+            id="obras-sociales"
+            className="text-center text-3xl mb-8 font-medium text-gray-800 leading-tight"
+          >
+            Obras sociales
+          </h2>
           <ObrasCarousel />
         </section>
 
-        <section>
-          <FaqSection />
+        <FaqSection />
+        <section
+        style={{backgroundColor: "#DEDCFF"}}
+         className="text-center flex flex-col space-y-2   ">
+          <h2 className="text-4xl font-medium ">Contáctanos</h2>
+
+          <p className="">Escribenos y nos conectaremos a la brevedad</p>
+
+          <p>Telemed@telemed.com</p>
+
+          <p>(111)1111111 </p>
+          <FormH />
         </section>
       </div>
     </>
