@@ -42,12 +42,7 @@ export default function ObrasCarousel() {
 
   return (
     <div className="w-full bg-gradient-to-b from-gray-100 to-gray-200 py-8">
-      <h2
-        id="obras-sociales"
-        className="text-center text-3xl mb-8 font-medium text-gray-800 leading-tight"
-      >
-        Obras sociales
-      </h2>
+      
       <div className="relative max-w-7xl mx-auto px-4">
         <button
           onClick={() => scroll("left")}

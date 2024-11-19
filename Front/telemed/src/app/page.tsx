@@ -24,16 +24,22 @@ export default function Home() {
             text="Puedes consultar a un médico por videollamada a cualquier hora, todos los dias del año"
           />
           <CardN
-            title="Disponibilidad 24/7"
-            text="Puedes consultar a un médico por videollamada a cualquier hora, todos los dias del año"
+            title="Equipo Multidisciplinario"
+            text="Contamos con especialistas comprometidos con la excelencia médica y el bienestar de cada paciente."
           />
           <CardN
-            title="Disponibilidad 24/7"
-            text="Puedes consultar a un médico por videollamada a cualquier hora, todos los dias del año"
+            title="Innovación en Salud"
+            text="Usamos tecnología avanzada para transformar el acceso a la salud, con altos estándares de seguridad."
           />
         </div>
         {/* obras sociales */}
         <section>
+          <h2
+        id="obras-sociales"
+        className="text-center text-3xl mb-8 font-medium text-gray-800 leading-tight"
+      >
+        Obras sociales
+      </h2>
           <ObrasCarousel />
         </section>
 
