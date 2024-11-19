@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const turnSchema = new mongoose.Schema({
   fecha: {
     type: Date,
@@ -10,15 +11,18 @@ const turnSchema = new mongoose.Schema({
   },
   medico: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Relación con el modelo User
+    ref: "User", // Relación con el modelo User
     required: true,
   },
   disponible: {
     type: Boolean,
     default: true,
-  }
+  },
+  patient: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Relación con el modelo User
+    default: null,
+  },
 });
 
-const Turn = mongoose.model("Turn", turnSchema)
-
-module.exports = Turn;
+module.exports = mongoose.model("Turn", turnSchema);

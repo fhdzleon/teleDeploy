@@ -5,6 +5,7 @@ const middleware = require("./middleware/middleware");
 const { connectToDatabase } = require("./db/database");
 const router = require("./routes/routes");
 const adminRoutes = require("./routes/admin");
+const turnRoutes = require("./routes/turnRouter");
 
 const app = express();
 
@@ -16,7 +17,8 @@ app.use(express.json());
 app.use(router); 
 
 app.use("/api/admin", adminRoutes); 
-app.use(middleware.unknownEndpoint); 
+app.use("/api", router); 
+app.use("/api/turns", turnRoutes)
 app.use(middleware.errorHandler); 
 
 module.exports = app;
