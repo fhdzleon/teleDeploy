@@ -49,9 +49,10 @@ export default function Home() {
 
         <FaqSection />
         <section
-        style={{backgroundColor: "#DEDCFF"}}
-         className="text-center flex flex-col space-y-2   ">
-          <h2 className="text-4xl font-medium ">Contáctanos</h2>
+        id="contacto"
+          className="text-center flex flex-col space-y-2 purple-light  "
+        >
+          <h2 className="text-4xl font-medium my-5 ">Contáctanos</h2>
 
           <p className="">Escribenos y nos conectaremos a la brevedad</p>
 

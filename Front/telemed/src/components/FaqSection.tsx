@@ -50,7 +50,7 @@ export default function FaqSection() {
       </h2>
 
       <div className="grid md:grid-cols-2 gap-8">
-        <div className="flex items-center justify-center">
+        <div className="md:flex items-center justify-center hidden">
           <Image
             width={450}
             height={400}

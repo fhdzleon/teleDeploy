@@ -27,86 +27,139 @@ const FormH = () => {
     // Aquí puedes agregar la lógica para enviar los datos del formulario
   };
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <input
-              type="text"
-              name="nombre"
-              placeholder="Nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+     <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-md w-full max-w-[750px] p-12">
+        <form onSubmit={handleSubmit}>
+          <div className="-mx-3 flex flex-wrap">
+            <div className="w-full sm:w-1/2">
+              <div className="mb-5 mr-0 md:mr-5">
+                <label
+                  htmlFor="nombre"
+                  className="mb-3 block text-start text-base font-medium text-[#07074D]"
+                >
+                  Nombre
+                </label>
+                <input
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  type="text"
+                  name="nombre"
+                  id="nombre"
+                  
+                  className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
+                />
+              </div>
+            </div>
+            <div className="w-full sm:w-1/2">
+              <div className="mb-5">
+                <label
+                  htmlFor="apellido"
+                  className="mb-3 text-start block text-base font-medium text-[#07074D]"
+                >
+                  Apellido
+                </label>
+                <input
+                  value={formData.apellido}
+                  onChange={handleChange}
+                  type="text"
+                  name="apellido"
+                  id="apellido"
+                  
+                  className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
+                />
+              </div>
+            </div>
           </div>
-          <div>
-            <input
-              type="text"
-              name="apellido"
-              placeholder="Apellido"
-              value={formData.apellido}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+
+          <div className="-mx-3 flex flex-wrap">
+            <div className="w-full sm:w-1/2">
+              <div className="mb-5 mr-0 md:mr-5">
+                <label
+                  htmlFor="email"
+                  className="mb-3 text-start block text-base font-medium text-[#07074D]"
+                >
+                  Email
+                </label>
+                <input
+                  value={formData.email}
+                  onChange={handleChange}
+                  type="email"
+                  name="email"
+                  id="email"
+                  
+                  className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
+                />
+              </div>
+            </div>
+            <div className="w-full sm:w-1/2">
+              <div className="mb-5">
+                <label
+                  htmlFor="telefono"
+                  className="mb-3 text-start block text-base font-medium text-[#07074D]"
+                >
+                  Teléfono
+                </label>
+                <input
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  type="text"
+                  name="telefono"
+                  id="telefono"
+                 
+                  className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+
+          <div className="-mx-3 flex flex-wrap">
+            <div className="w-full">
+              <div className="mb-5">
+                <label
+                  htmlFor="motivo"
+                  className="mb-3 text-start block text-base font-medium text-[#07074D]"
+                >
+                  Motivo del contacto
+                </label>
+                <input
+                  value={formData.motivo}
+                  onChange={handleChange}
+                  type="text"
+                  name="motivo"
+                  id="motivo"
+                  className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe]focus:shadow-md"
+                />
+              </div>
+            </div>
           </div>
-          <div>
-            <input
-              type="tel"
-              name="telefono"
-              placeholder="Teléfono"
-              value={formData.telefono}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+
+          <div className="-mx-3 flex flex-wrap">
+            <div className="w-full">
+              <div className="mb-5">
+                <label
+                  htmlFor="mensaje"
+                  className="mb-3 text-start block text-base font-medium text-[#07074D]"
+                >
+                  Escribe tu mensaje aqui
+                </label>
+                <textarea
+                  value={formData.mensaje}
+                  onChange={handleChange}
+                  name="mensaje"
+                  id="mensaje"
+                  className="resize-none w-full h-48 rounded-lg border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <input
-            type="text"
-            name="motivo"
-            placeholder="Motivo del contacto"
-            value={formData.motivo}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <textarea
-            name="mensaje"
-            placeholder="Escribe tu mensaje aquí"
-            value={formData.mensaje}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[150px]"
-            required
-          ></textarea>
-        </div>
-        <div className="flex justify-end">
-          <button
-            type="submit"
-            className="px-4 py-2 bg-[#6d28d9] text-white rounded-md hover:bg-[#5b21b6] focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-          >
-            Enviar
-          </button>
-        </div>
-      </form>
+
+          <div className="-mx-3 flex justify-end">
+            <button className="hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none">
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

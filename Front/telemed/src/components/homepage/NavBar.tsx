@@ -42,14 +42,14 @@ export default function NavBar() {
             </div>
           </div>
           <div className="hidden md:block">
-            <button className="rounded-full text-white bg-purple-800 px-4 py-2">
+            <button className="rounded-full text-white purple px-4 py-2">
               Ingresar
             </button>
           </div>
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-violet-400"
               aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? (
@@ -95,14 +95,14 @@ export default function NavBar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-500 hover:bg-gray-100 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                className="text-gray-500 hover:purple-light hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium transition-colors"
                 onClick={toggleMenu}
               >
                 {item.name}
               </Link>
             ))}
           </div>
-          <div className="pt-4 pb-3 border-t border-gray-200 hover:bg-slate-300 transition-all">
+          <div className="pt-4 pb-3 border-t border-gray-200 hover:purple-light transition-all">
             <div className="px-2">
               <button className="w-full font-medium" onClick={toggleMenu}>
                 Ingresar
