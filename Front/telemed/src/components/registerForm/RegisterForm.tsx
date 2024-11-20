@@ -15,16 +15,17 @@ const RegisterForm = () => {
     phone: "",
     email: "",
     password: "",
+    role: "patient",
   });
 
-  const [errors, setErrors] = useState({
+  /*   const [errors, setErrors] = useState({
     name: "",
     lastName: "",
     gender: "",
     phone: "",
     email: "",
     password: "",
-  });
+  }); */
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -42,26 +43,26 @@ const RegisterForm = () => {
     event?.preventDefault();
     console.log(userData);
 
-    if (Object.keys(errors).length === 0) {
-      try {
-        const response = await fetch("http://localhost:3001/register/api", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        });
+    /*    if (Object.keys(errors).length === 0) { */
+    try {
+      const response = await fetch("http://localhost:3001/register/api", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
 
-        if (!response.ok) throw new Error("Datos invalidos");
+      if (!response.ok) throw new Error("Datos invalidos");
 
-        alert("Registro exitoso");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        alert(error.message);
-      }
-    } else {
-      alert("Revisa los datos");
+      alert("Registro exitoso");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      alert(error.message);
     }
+    /*  } else { */
+    alert("Revisa los datos");
+    /*   } */
 
     setUserData({
       name: "",
@@ -70,6 +71,7 @@ const RegisterForm = () => {
       phone: "",
       email: "",
       password: "",
+      role: "patient",
     });
   };
 
