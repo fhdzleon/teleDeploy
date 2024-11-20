@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/homepage/NavBar";
 import Footer from "@/components/homepage/Footer";
-import {hostGrotesk} from "../lib/fonts"
-
-
+import { hostGrotesk } from "../lib/fonts";
 
 export const metadata: Metadata = {
   title: "Telemed",
@@ -19,11 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${hostGrotesk.variable} antialiased font-hostGrotesk`}
+        className={`${hostGrotesk.variable}  antialiased font-hostGrotesk min-h-screen flex flex-col`}
       >
         <NavBar />
-        {children}
-        <Footer/>
+        <main className="flex-grow flex flex-col min-h-0 ">{children}</main>
+        <Footer />
       </body>
     </html>
   );

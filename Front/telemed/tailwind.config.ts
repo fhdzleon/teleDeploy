@@ -16,7 +16,7 @@ export default {
         tertiary: "#F3F2FF",
         acent: "#433BFF",
         bg: "#FBFBFE",
-        text: "#050315",
+        textColor: "#050315",
       },
       fontFamily: {
         hostGrotesk: ["var(--font-hostGrotesk)"],

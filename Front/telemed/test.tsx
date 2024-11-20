@@ -18,6 +18,7 @@ const LoginForm = () => {
     const { name, value } = event.target;
 
     const newCredentialData = { ...userData, [name]: value };
+
     setUserData(newCredentialData);
 
     const newCredentialErrors = validateLogin(newCredentialData);
@@ -26,7 +27,6 @@ const LoginForm = () => {
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event?.preventDefault();
-
     if (Object.keys(errors).length === 0) {
       try {
         const response = await fetch(
@@ -39,46 +39,47 @@ const LoginForm = () => {
             body: JSON.stringify(userData),
           }
         );
-
-        if (!response.ok) throw new Error("Credenciales inválidas");
-
+        if (!response.ok) {
+          throw new Error("Credenciales invalidas");
+        }
         alert("Usuario autenticado");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         alert(error.message);
       }
     } else {
-      alert("Ingresa tus credenciales correctamente");
+      alert("Ingresa tus credenciales de inicio");
     }
-
-    setUserData({ email: "", password: "" });
+    setUserData({
+      email: "",
+      password: "",
+    });
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col space-y-5 w-full max-w-md mx-auto"
-    >
-      <div className="flex justify-center mb-7">
-        <button className="border border-acent py-2 px-5 rounded-l-full border-r-0">
-          Soy paciente
-        </button>
-        <button className="border border-acent py-2 px-5">Soy médico</button>
-        <button className="border border-acent py-2 px-5 rounded-r-full border-l-0">
-          Soy administrador
-        </button>
+    <div className="flex flex-col justify-center items-center flex-grow ">
+      <p className="font-semibold text-[48px] text-center mb-2 text-lg text-textColor ">
+        Telemed
+      </p>
+
+      <p>Ingrese a su cuenta</p>
+
+      <div className="flex">
+        <button>Soy paciente</button>
+        <button>Soy médico</button>
+        <button>Soy administrador</button>
       </div>
 
-      <div className="flex flex-col space-y-2">
-        <label
-          htmlFor="email"
-          className="w-4/5 mx-auto   block text-start text-base font-medium text-[#07074D]"
-        >
-          Email
-        </label>
+      <form
+        onSubmit={handleSubmit}
+        className=" flex flex-col space-y-5 max-w-3xl mx-auto"
+        action=""
+      >
+        <label htmlFor="email">Email</label>
         <input
-          id="email"
-          className="w-4/5 mx-auto rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+          className="p-2 text-black border rounded-full border-slate-500"
+          type="email"
+          placeholder="Email"
           value={userData.email}
           onChange={handleChange}
           name="email"
@@ -87,37 +88,24 @@ const LoginForm = () => {
         {errors.email && (
           <p className="text-xs text-secundary">{errors.email}</p>
         )}
-      </div>
-
-      <div className="flex flex-col space-y-2 ">
-        <label
-          htmlFor="password"
-          className="w-4/5 mx-auto block text-start text-base font-medium text-[#07074D]"
-        >
-          Contraseña
-        </label>
+        <label htmlFor="password">Contraseña</label>
         <input
-          id="password"
-          className=" w-4/5 mx-auto  rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+          className="p-2 text-black border rounded-full border-slate-500"
           type="password"
           value={userData.password}
           onChange={handleChange}
           name="password"
           required
         />
-
         {errors.password && (
           <p className="text-xs text-secundary">{errors.password}</p>
         )}
-      </div>
 
-      <button
-        type="submit"
-        className=" w-4/5 mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
-      >
-        Iniciar sesión
-      </button>
-    </form>
+        <button className=" bg-primary text-white rounded-3xl p-2">
+          Iniciar sesión
+        </button>
+      </form>
+    </div>
   );
 };
 

@@ -4,16 +4,18 @@ import Link from "next/link";
 
 const Page = () => {
   return (
-    <>
+    <div className="flex flex-col flex-grow justify-center items-center px-4">
+      <Link href={"/"}>
+        <h1 className="font-semibold text-[48px] text-center mb-4">Telemed</h1>
+      </Link>
       <RegisterForm />
-      <div>
-        Ya estas registrado?
+      <p className="text-center mt-8">
+        ¿Ya tienes cuenta?
         <Link href={"/auth/signin"}>
-          <span>ingresa</span>
+          <span className="text-acent font-medium"> inicia sesión</span>
         </Link>
-        a tu cuenta
-      </div>
-    </>
+      </p>
+    </div>
   );
 };
 

@@ -106,9 +106,11 @@ export default function NavBar() {
               </div>
               <div className="pt-4 pb-3 border-t border-gray-200 hover:purple-light transition-all">
                 <div className="px-2">
-                  <button className="w-full font-medium" onClick={toggleMenu}>
-                    Ingresar
-                  </button>
+                  <Link href={"/auth"}>
+                    <button className="w-full font-medium" onClick={toggleMenu}>
+                      Ingresar
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
