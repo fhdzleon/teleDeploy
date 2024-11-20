@@ -26,4 +26,19 @@ const createDiagnosis = async (req, res) => {
   }
 };
 
-module.exports = { createDiagnosis };
+const getDiagnosis = function(req,res){
+  const idUSer = req.params.id.replace(':','');
+  Diagnosis.where('patient').equals(idUSer) // obtiene la historia clinica del usuario
+  .then((result)=>{
+    if(!result.length){
+      res.status(404).send({error:'not found!'});
+    }
+    else{res.json({diagnosis:result});}
+  })
+  .catch((error)=>{
+    console.log(error);
+    res.status(503).json({error:'failed database!'});
+  })
+}
+
+module.exports = { createDiagnosis,getDiagnosis };
