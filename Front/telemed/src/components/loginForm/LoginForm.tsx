@@ -29,20 +29,17 @@ const LoginForm = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
-        /*  const response = await fetch(
-          "https://c22-20-t-webapp.onrender.com/login/api",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(userData),
-          }
-        );
+        const response = await fetch("http://localhost:3000/login/api", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        });
 
-        if (!response.ok) throw new Error("Credenciales inválidas"); */
+        if (!response.ok) throw new Error("Credenciales inválidas");
 
-        alert("Simulacion usuario autenticado");
+        alert("Usuario autenticado");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         alert(error.message);
