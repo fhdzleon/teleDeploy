@@ -1,71 +1,144 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 const RegisterForm = () => {
+  const [step, setStep] = useState(1);
+
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
+
   return (
-    <div className="mt-12">
-      <h1 className="text-white text-center mb-2 text-lg">Registrate</h1>
-      <form className=" flex flex-col space-y-5 max-w-3xl mx-auto" action="">
-        <input
-          className="p-2 text-black"
-          type="text"
-          placeholder="Nombre"
-          name="nombre"
-          required
-        />
-        <input
-          className="p-2 text-black"
-          type="email"
-          placeholder="Email"
-          name="email"
-          required
-        />
-        <input
-          className="p-2 text-black"
-          type="password"
-          placeholder="Password"
-          name="password"
-          required
-        />
-        <input
-          className="p-2 text-black"
-          type="tel"
-          placeholder="Teléfono"
-          name="telefono"
-          pattern="[0-9]{10}"
-          required
-        />
-
-        <div className="flex items-center space-x-4">
-          <label className="font-medium text-white">Sexo:</label>
-          <div className="flex space-x-4 items-center">
-            <label className="flex items-center space-x-2">
+    <>
+      {step === 1 && (
+        <form className=" flex flex-col space-y-5 max-w-6xl mx-auto" action="">
+          <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0">
+            <div>
+              <label
+                className=" block text-start text-base font-medium text-[#07074D]"
+                htmlFor="nombre"
+              >
+                Nombre
+              </label>
               <input
-                className="h-5 w-5 text-red-600 border-gray-300 focus:ring-red-500"
-                type="radio"
-                id="masculino"
-                name="sexo"
-                value="masculino"
+                className=" rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                type="text"
+                name="nombre"
+                required
               />
-              <span>Masculino</span>
-            </label>
-            <label className="flex items-center space-x-2">
+            </div>
+            <div>
+              <label
+                className=" block text-start text-base font-medium text-[#07074D]"
+                htmlFor="apellido"
+              >
+                Apellido
+              </label>
               <input
-                className="h-5 w-5 text-red-600 border-gray-300 focus:ring-red-500"
-                type="radio"
-                id="femenino"
-                name="sexo"
-                value="femenino"
+                className=" rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                type="text"
+                name="apellido"
+                required
               />
-              <span>Femenino</span>
-            </label>
+            </div>
           </div>
-        </div>
 
-        <button className=" bg-red-700 p-2" type="submit">
-          Enviar
-        </button>
-      </form>
-    </div>
+          <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0">
+            <div>
+              <label
+                className="block text-start text-base font-medium text-[#07074D]"
+                htmlFor="sexo"
+              >
+                Sexo
+              </label>
+              <select
+                className="w-full md:w-auto md:min-w-[17rem] rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none"
+                name="sexo"
+                required
+              >
+                <option value="" disabled selected></option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                className=" block text-start text-base font-medium text-[#07074D]"
+                htmlFor="telefono"
+              >
+                Telefono
+              </label>
+              <input
+                className="rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                type="text"
+                name="telefono"
+                required
+              />
+            </div>
+          </div>
+
+          <button
+            className="  hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+            onClick={nextStep}
+          >
+            Siguiente
+          </button>
+        </form>
+      )}
+      {step === 2 && (
+        <form
+          className="flex flex-col space-y-5 max-w-6xl md:min-w-[50rem] mx-auto"
+          action=""
+        >
+          <div className="flex flex-col space-y-6">
+            <div>
+              <label
+                className="md:w-1/2 mx-auto block text-start text-base font-medium text-[#07074D]"
+                htmlFor="email"
+              >
+                Email
+              </label>
+              <input
+                className="md:w-1/2 mx-auto w-full flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                type="email"
+                name="email"
+                required
+              />
+            </div>
+            <div>
+              <label
+                className="md:w-1/2 mx-auto block text-start text-base font-medium text-[#07074D]"
+                htmlFor="apellido"
+              >
+                Contraseña
+              </label>
+              <input
+                className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                type="password"
+                name="contraseña"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row  space-y-2 md:space-0 md:space-x-4">
+            <button
+              onClick={prevStep}
+              className=" w-full md:w-4/5 mx-auto hover:shadow-form rounded-full bg-secundary text-primary py-3 px-8 text-center text-base font-semibold  outline-none"
+            >
+              Volver
+            </button>
+            <button
+              type="submit"
+              className="w-full md:w-4/5 mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+            >
+              Registrarse
+            </button>
+          </div>
+        </form>
+      )}
+    </>
   );
 };
 
