@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { ChangeEvent, useState } from "react";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const router = useRouter();
+
   const [step, setStep] = useState(1);
 
   const nextStep = () => setStep(step + 1);
@@ -55,13 +60,30 @@ const RegisterForm = () => {
 
       if (!response.ok) throw new Error("Datos invalidos");
 
-      alert("Registro exitoso");
+      Swal.fire({
+        icon: "success",
+        title: "¡Usuario registrado, Inicia sesión!",
+        showConfirmButton: true,
+      }).then(() => {
+        router.push("/auth/signin");
+      });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error en el inicio de sesión. Verifica tus credenciales.",
+        confirmButtonColor: "#2b4168",
+      });
     }
     /*  } else { */
-    alert("Revisa los datos");
+    /*     Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Error en el inicio de sesión. Verifica tus credenciales.",
+      confirmButtonColor: "#2b4168",
+    }); */
+
     /*   } */
 
     setUserData({

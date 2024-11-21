@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React, { ChangeEvent, useState } from "react";
 import { validateLogin } from "@/middlewares/validateLogin";
 import { CredentialErrors } from "@/interfaces/interfaces";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -39,13 +44,31 @@ const LoginForm = () => {
 
         if (!response.ok) throw new Error("Credenciales inválidas");
 
-        alert("Usuario autenticado");
+        Swal.fire({
+          icon: "success",
+          title: "¡Inicio de sesión exitoso!",
+          text: "Redirigiendo...",
+          timer: 1500,
+          showConfirmButton: false,
+        }).then(() => {
+          router.push("/");
+        });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        alert(error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Credenciales invalidas",
+          confirmButtonColor: "#2b4168",
+        });
       }
     } else {
-      alert("Ingresa tus credenciales correctamente");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error en el inicio de sesión. Verifica tus credenciales.",
+        confirmButtonColor: "#2b4168",
+      });
     }
 
     setUserData({ email: "", password: "" });
