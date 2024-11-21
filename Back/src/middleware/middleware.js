@@ -35,7 +35,7 @@ const checkRegister = function(req,res,next){
     res.status(400).json({error:'empty fields!'});
   }
   else{
-    if(typeof(phone) !== 'number' || typeof(name) !== 'string' || typeof(lastName) !== 'string' || typeof(email) !== 'string' || typeof(password) !== 'string'){
+    if(typeof(phone) !== 'string' || typeof(name) !== 'string' || typeof(lastName) !== 'string' || typeof(email) !== 'string' || typeof(password) !== 'string'){
       res.status(400).json({error:'invalid format!'});
     }
     else{
