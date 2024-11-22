@@ -1,17 +1,19 @@
 import { create } from "zustand";
 
-interface StoreState {
-  count: number;
-  increment: () => void;
-  decrement: () => void;
+export interface UserPayload {
+  name: string;
+  lastName: string;
+  email: string;
 }
 
-const useStore = create<StoreState>((set) => ({
-  count: 0,
-  increment: () =>
-    set((state: { count: number }) => ({ count: state.count + 1 })),
-  decrement: () =>
-    set((state: { count: number }) => ({ count: state.count - 1 })),
+export interface UserState {
+  user: UserPayload | null;
+  setUser: (user: UserPayload | null) => void;
+}
+
+const useGlobalStore = create<UserState>((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
 }));
 
-export default useStore;
+export default useGlobalStore;
