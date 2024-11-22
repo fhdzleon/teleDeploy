@@ -30,7 +30,7 @@ export default function ObrasCarousel() {
                 className="w-full h-full rounded-full object-cover"
               />
             ) : (
-              <span>No image</span>
+              <span>Sin imagen</span>
             )}
           </div>
         ))}
