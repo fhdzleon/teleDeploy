@@ -21,7 +21,6 @@ export default function Hero() {
         }}
         className="absolute inset-0"
       ></div>
-
       {/* Contenido  */}
       <div className="relative z-10 flex flex-col max-w-3xl">
         <div className="flex-col float-right">
