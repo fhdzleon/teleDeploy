@@ -5,7 +5,7 @@ import LoginForm from "@/components/loginForm/LoginForm";
 const Page = () => {
   return (
     <div className="flex flex-col flex-grow justify-center items-center px-4">
-      <Link href={"/"}>
+      <Link href="/" >
         <h1 className="font-semibold text-[48px] text-center mb-4">Telemed</h1>
       </Link>
 
