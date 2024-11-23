@@ -37,7 +37,7 @@ export default function Home() {
           />
         </div>
         {/* obras sociales */}
-        <section>
+        <section className="hidden md:block">
           <h2
             id="obras-sociales"
             className="text-center text-3xl mb-8 font-medium text-gray-800 leading-tight"

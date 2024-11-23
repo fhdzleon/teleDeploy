@@ -86,7 +86,6 @@ const FormH = () => {
                   type="email"
                   name="email"
                   id="email"
-                  
                   className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
                 />
               </div>
@@ -105,7 +104,6 @@ const FormH = () => {
                   type="text"
                   name="telefono"
                   id="telefono"
-                 
                   className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
                 />
               </div>
