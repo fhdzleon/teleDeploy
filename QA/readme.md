@@ -1,8 +1,9 @@
 # <p> QA <br> 
-## Compartimos en el enlace a continuacion el avance de nuestro trabajo de Testing.  </p>
+## Compartimos en los enlaces a continuacion el avance de nuestro trabajo de Testing.  </p>
 [Ruta de trabajo](https://docs.google.com/document/d/1G5wRXpPVFPg-whGaKVN6AVXtSCvPiImraRYt5KyjlKI/edit?usp=sharing)
+[Casos de prueba](https://docs.google.com/spreadsheets/d/1uWaH-aNiuvGv2bmvubwb8-3pTXphusKp7IRb8ho-WZg/edit?gid=0#gid=0)
+[Reporte de bugs](https://docs.google.com/document/d/1zMbdVUHFzEpWacYYPenFQJv-LQPO3TND/edit?usp=sharing&ouid=108566174638418942379&rtpof=true&sd=true)
 
-_[!IMPORTANT]_
 ### <p>A medida que vayamos avanzando actualizaremos esta sección del repositorio.<br>
 #### Cynthia & Erika</p>
 
