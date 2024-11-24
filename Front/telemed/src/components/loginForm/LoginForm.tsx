@@ -5,6 +5,7 @@ import { validateLogin } from "@/middlewares/validateLogin";
 import { CredentialErrors } from "@/interfaces/interfaces";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { PATHROUTES } from "@/helpers/pathroutes";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -51,7 +52,7 @@ const LoginForm = () => {
           timer: 1500,
           showConfirmButton: false,
         }).then(() => {
-          router.push("/");
+          router.push(PATHROUTES.IN);
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
