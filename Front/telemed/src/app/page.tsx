@@ -1,8 +1,8 @@
 import Hero from "@/components/homepage/Hero";
 import CardN from "../components/CardN";
-import ObrasCarousel from "@/components/Carousel";
-import FaqSection from "../components/FaqSection";
-import FormH from "@/components/FormH";
+import ObrasCarousel from "@/components/homepage/Carousel";
+import FaqSection from "../components/homepage/FaqSection";
+import FormH from "@/components/homepage/FormH";
 
 export default function Home() {
   return (
