@@ -4,6 +4,7 @@
 import React, { ChangeEvent, useState } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { PATHROUTES } from "@/helpers/pathroutes";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -65,7 +66,7 @@ const RegisterForm = () => {
         title: "¡Usuario registrado, Inicia sesión!",
         showConfirmButton: true,
       }).then(() => {
-        router.push("/auth/signin");
+        router.push(PATHROUTES.LOGIN);
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

@@ -4,3 +4,8 @@ export interface Credential {
 }
 
 export type CredentialErrors = Partial<Credential>;
+
+export interface ModalTurnosProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
