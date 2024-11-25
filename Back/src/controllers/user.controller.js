@@ -48,12 +48,15 @@ const login = async function (req, res) {
           // Cookie with JWT
           res.cookie("jwt", token, { expires: dateLimit });
 
-          // Cookie with user data
-          res.cookie("userData", {
+          // Define userData
+          const userData = {
             name: result.name,
             lastName: result.lastName,
             email: result.email,
-          }, { expires: dateLimit });
+          };
+
+          // Cookie with user data
+          res.cookie("userData", userData, { expires: dateLimit });
 
           res.send("authorized");
         } else {
