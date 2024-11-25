@@ -18,12 +18,14 @@ const register = async function (req, res) {
     phone: phone,
     role: role,
   })
-    .then((result) => {
+    .then(() => {
       res.status(201).json({ message: "success" });
     })
     .catch((error) => {
-      if (error.errorResponse.code === 11000) {
+      if (error.errorResponse?.code === 11000) {
         res.status(409).json({ error: "this user already exist!" });
+      } else {
+        res.status(500).json({ error: "internal server error" });
       }
     });
 };
@@ -34,15 +36,26 @@ const login = async function (req, res) {
       if (!result) {
         res.status(401).json({ error: "email or password incorrect" });
       } else {
-        if (bcrypt.compareSync(req.body.password, result.password) === true) {
+        if (bcrypt.compareSync(req.body.password, result.password)) {
           const token = jwt.sign(
             { id: result._id, role: result.role },
             process.env.JWT_SECRET,
             { expiresIn: process.env.EXPIRES }
           );
+
           const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
-          const cookieOption = { expires: dateLimit };
-          res.cookie("jwt", token, cookieOption).send("authorized");
+
+          // Cookie with JWT
+          res.cookie("jwt", token, { expires: dateLimit });
+
+          // Cookie with user data
+          res.cookie("userData", {
+            name: result.name,
+            lastName: result.lastName,
+            email: result.email,
+          }, { expires: dateLimit });
+
+          res.send("authorized");
         } else {
           res.status(401).json({ error: "email or password incorrect" });
         }
@@ -50,6 +63,7 @@ const login = async function (req, res) {
     })
     .catch((error) => {
       console.log(error);
+      res.status(500).json({ error: "internal server error" });
     });
 };
 
