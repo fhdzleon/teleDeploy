@@ -80,7 +80,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
       className="flex flex-col space-y-5 w-full max-w-md mx-auto"
     >
-      <div className="flex justify-center mb-7">
+      {/*  <div className="flex justify-center mb-7">
         <button className="border border-acent py-2 px-5 rounded-l-full border-r-0">
           Soy paciente
         </button>
@@ -88,7 +88,7 @@ const LoginForm = () => {
         <button className="border border-acent py-2 px-5 rounded-r-full border-l-0">
           Soy administrador
         </button>
-      </div>
+      </div> */}
 
       <div className="flex flex-col space-y-2">
         <label
