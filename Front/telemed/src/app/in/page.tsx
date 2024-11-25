@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ModalTurnos from "@/components/modalTurnos/ModalTurnos";
+import WithAuthProtect from "@/helpers/WithAuth";
 
 const Page = () => {
   const [ModalOpen, setModalOpen] = useState(false);
@@ -31,4 +32,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default WithAuthProtect(Page);
