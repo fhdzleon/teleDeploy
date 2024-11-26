@@ -53,13 +53,16 @@ const RegisterForm = () => {
 
     /*    if (Object.keys(errors).length === 0) { */
     try {
-      const response = await fetch("http://localhost:3001/register/api", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "https://c22-20-t-webapp-5y9j.onrender.com/register/api",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       if (!response.ok) throw new Error("Datos invalidos");
 
