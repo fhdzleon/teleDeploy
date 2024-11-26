@@ -24,3 +24,11 @@
 .animate-carousel {
   animation: carousel 25s linear infinite;
 }
+
+@layer base {
+  :root {
+        --radius: 0.5rem
+
+    }
+
+}
