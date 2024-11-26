@@ -12,6 +12,7 @@ const doctores = [
   { nombre: "Dra. Gómez", especialidad: "Dermatología" },
   { nombre: "Dr. Sánchez", especialidad: "Pediatría" },
 ];
+
 const horarios = {
   Cardiología: ["2024-11-30", "2024-12-01"],
   Dermatología: ["2024-12-02", "2024-12-03"],
