@@ -38,7 +38,7 @@ const LoginForm = () => {
     if (Object.keys(errors).length === 0) {
       try {
         const response = await fetch(
-          "https://c22-20-t-webapp-5y9j.onrender.com/login/api",
+          `${process.env.NEXT_PUBLIC_API_URL}/login/api`,
           {
             method: "POST",
             headers: {
