@@ -6,8 +6,10 @@ import { CredentialErrors } from "@/interfaces/interfaces";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
+import useGlobalStore from "@/store/globalStore";
 
 const LoginForm = () => {
+  const setUser = useGlobalStore((state) => state.setUser);
   const router = useRouter();
 
   const [userData, setUserData] = useState({
@@ -35,15 +37,34 @@ const LoginForm = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await fetch("http://localhost:3001/login/api", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        });
+        const response = await fetch(
+          "https://c22-20-t-webapp-5y9j.onrender.com/login/api",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          }
+        );
 
-        if (!response.ok) throw new Error("Credenciales inválidas");
+        if (!response.ok) {
+          throw new Error("Credenciales inválidas");
+        }
+
+        const json = await response.json();
+
+        const user = json.userData;
+        setUser(user);
+
+        const userDataValue = json.userData;
+        const encodedValue = encodeURIComponent(JSON.stringify(userDataValue));
+        document.cookie = `userData=${encodedValue}; path=/; expires=${new Date(
+          new Date().getTime() + 24 * 60 * 60 * 1000 // 1 día de duración
+        ).toUTCString()}`;
+
+        // Almacenar el mismo valor en localStorage
+        localStorage.setItem("userData", JSON.stringify(userDataValue));
 
         Swal.fire({
           icon: "success",
@@ -59,7 +80,7 @@ const LoginForm = () => {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "Credenciales invalidas",
+          text: "Credenciales inválidas",
           confirmButtonColor: "#2b4168",
         });
       }
@@ -80,7 +101,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
       className="flex flex-col space-y-5 w-full max-w-md mx-auto"
     >
-      <div className="flex justify-center mb-7">
+      {/*  <div className="flex justify-center mb-7">
         <button className="border border-acent py-2 px-5 rounded-l-full border-r-0">
           Soy paciente
         </button>
@@ -88,7 +109,7 @@ const LoginForm = () => {
         <button className="border border-acent py-2 px-5 rounded-r-full border-l-0">
           Soy administrador
         </button>
-      </div>
+      </div> */}
 
       <div className="flex flex-col space-y-2">
         <label

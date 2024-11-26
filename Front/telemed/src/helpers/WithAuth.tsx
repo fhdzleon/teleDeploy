@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { sessionStatusStorage } from "@/constants";
@@ -13,10 +14,10 @@ export default function WithAuthProtect(Component: any) {
         redirect("auth/signin");
       }
     }, []);
-    if (!sessionStatus){
-        return null
+    if (!sessionStatus) {
+      return null;
     }
 
-    return <Component {...props}/>
+    return <Component {...props} />;
   };
 }
