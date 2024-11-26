@@ -22,6 +22,7 @@ const RegisterForm = () => {
     email: "",
     password: "",
     socialWork: "",
+    idSocialWork: "",
     role: "patient",
   });
 
@@ -97,6 +98,7 @@ const RegisterForm = () => {
       password: "",
       role: "patient",
       socialWork: "",
+      idSocialWork: "",
     });
   };
 
@@ -248,13 +250,13 @@ const RegisterForm = () => {
                   required
                 >
                   <option value="" disabled></option>
-                  <option value="option1">Opción 1</option>
-                  <option value="option2">Opción 2</option>
-                  <option value="option3">Opción 3</option>
-                  <option value="option4">Opción 4</option>
-                  <option value="option5">Opción 5</option>
-                  <option value="option6">Opción 6</option>
-                  <option value="option7">Opción 7</option>
+                  <option value="option1">Osecac</option>
+                  <option value="option2">Prevencion salud</option>
+                  <option value="option3">Ospe</option>
+                  <option value="option4">Avalian</option>
+                  <option value="option5">Osde</option>
+                  <option value="option6">Osuthgra</option>
+                  <option value="option7">Luis Pasteur</option>
                 </select>
               </div>
               <div>
@@ -265,12 +267,12 @@ const RegisterForm = () => {
                   Numero de afiliado
                 </label>
                 <input
-                  id="afiliacion"
-                  value={userData.password}
+                  id="idSocialWork"
+                  value={userData.idSocialWork}
                   onChange={handleChange}
                   className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
-                  type="password"
-                  name="password"
+                  type="number"
+                  name="idSocialWork"
                   required
                 />
               </div>

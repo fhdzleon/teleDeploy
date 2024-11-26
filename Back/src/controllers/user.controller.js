@@ -7,7 +7,16 @@ dotenv.config();
 
 const register = async (req, res) => {
   try {
-    const { name, lastName, email, password, gender, phone, role, healthcareSystem } = req.body;
+    const {
+      name,
+      lastName,
+      email,
+      password,
+      gender,
+      phone,
+      role,
+      healthcareSystem,
+    } = req.body;
     const salt = await bcrypt.genSalt(5);
     const hash = await bcrypt.hash(password, salt);
 
@@ -32,7 +41,6 @@ const register = async (req, res) => {
     }
   }
 };
-
 
 const login = async function (req, res) {
   User.findOne({ email: req.body.email })
@@ -62,7 +70,10 @@ const login = async function (req, res) {
           // Cookie with user data
           res.cookie("userData", userData, { expires: dateLimit });
 
-          res.send("authorized");
+          res.status(200).json({
+            message: "authorized",
+            userData,
+          });
         } else {
           res.status(401).json({ error: "email or password incorrect" });
         }

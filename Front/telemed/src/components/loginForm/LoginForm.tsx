@@ -6,8 +6,10 @@ import { CredentialErrors } from "@/interfaces/interfaces";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
+import useGlobalStore from "@/store/globalStore";
 
 const LoginForm = () => {
+  const setUser = useGlobalStore((state) => state.setUser);
   const router = useRouter();
 
   const [userData, setUserData] = useState({
@@ -38,12 +40,28 @@ const LoginForm = () => {
         const response = await fetch("http://localhost:3001/login/api", {
           method: "POST",
           headers: {
-            "content-type": "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(userData),
         });
 
-        if (!response.ok) throw new Error("Credenciales inválidas");
+        if (!response.ok) {
+          throw new Error("Credenciales inválidas");
+        }
+
+        const json = await response.json();
+
+        const user = json.userData;
+        setUser(user);
+
+        const userDataValue = json.userData;
+        const encodedValue = encodeURIComponent(JSON.stringify(userDataValue));
+        document.cookie = `userData=${encodedValue}; path=/; expires=${new Date(
+          new Date().getTime() + 24 * 60 * 60 * 1000 // 1 día de duración
+        ).toUTCString()}`;
+
+        // Almacenar el mismo valor en localStorage
+        localStorage.setItem("userData", JSON.stringify(userDataValue));
 
         Swal.fire({
           icon: "success",
@@ -59,7 +77,7 @@ const LoginForm = () => {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "Credenciales invalidas",
+          text: "Credenciales inválidas",
           confirmButtonColor: "#2b4168",
         });
       }
