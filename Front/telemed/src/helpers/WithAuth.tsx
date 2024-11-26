@@ -13,10 +13,10 @@ export default function WithAuthProtect(Component: any) {
         redirect("auth/signin");
       }
     }, []);
-    if (!sessionStatus){
-        return null
+    if (!sessionStatus) {
+      return null;
     }
 
-    return <Component {...props}/>
+    return <Component {...props} />;
   };
 }

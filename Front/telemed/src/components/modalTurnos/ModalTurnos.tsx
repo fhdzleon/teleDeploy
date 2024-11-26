@@ -17,6 +17,13 @@ const ModalTurnos: React.FC<ModalTurnosProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleClose2 = () => {
+    alert("Modulo en construccion");
+    setStep("initial");
+    setIsChecked(false);
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -76,7 +83,7 @@ const ModalTurnos: React.FC<ModalTurnosProps> = ({ isOpen, onClose }) => {
               </label>
             </div>
             <button
-              onClick={() => setStep("select")}
+              onClick={handleClose2}
               className={`w-full text-white py-2 px-4 rounded mb-4 ${
                 isChecked ? "bg-purple-500" : "bg-gray-400 cursor-not-allowed"
               }`}
@@ -89,25 +96,6 @@ const ModalTurnos: React.FC<ModalTurnosProps> = ({ isOpen, onClose }) => {
               className="w-full bg-gray-500 text-white py-2 px-4 rounded"
             >
               Cancelar
-            </button>
-          </>
-        )}
-
-        {step === "select" && (
-          <>
-            <h2 className="text-lg font-bold mb-4">
-              Selecciona una especialidad
-            </h2>
-            <select className="w-full border rounded p-2 mb-4">
-              <option>Especialidad 1</option>
-              <option>Especialidad 2</option>
-              <option>Especialidad 3</option>
-            </select>
-            <button
-              onClick={handleClose}
-              className="w-full bg-purple-500 text-white py-2 px-4 rounded"
-            >
-              Continuar
             </button>
           </>
         )}
