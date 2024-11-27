@@ -10,7 +10,7 @@ export default function NavBar() {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const path = usePathname();
-  console.log(path);
+  // console.log(path);
   const isHomePage = !path.startsWith("/auth");
   const hidingOptions = !(path === "/in" || path === "/dashboard" || path === "/appointment");
   const navItems = [
