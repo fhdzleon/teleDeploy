@@ -12,6 +12,12 @@ const LoginForm = () => {
   const setUser = useGlobalStore((state) => state.setUser);
   const router = useRouter();
 
+  const {setSessionStatusStorage } = useGlobalStore();
+
+  const toggleSessionStatus = () => {
+    setSessionStatusStorage(false); 
+  };
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -38,7 +44,7 @@ const LoginForm = () => {
     if (Object.keys(errors).length === 0) {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/login/api`,
+          `http://localhost:3001/login/api`,
           {
             method: "POST",
             headers: {
@@ -47,7 +53,10 @@ const LoginForm = () => {
             body: JSON.stringify(userData),
           }
         );
-
+        // agregue esto
+        if (response.ok) {
+          toggleSessionStatus();
+        }
         if (!response.ok) {
           throw new Error("Credenciales inválidas");
         }

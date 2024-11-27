@@ -1,20 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { sessionStatusStorage } from "@/constants";
+import useGlobalStore from "@/store/globalStore";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
 export default function WithAuthProtect(Component: any) {
-  const sessionStatus = sessionStatusStorage as boolean;
-
   return function WithAuthProtect(props: any) {
+    // Accede al estado global dentro del cuerpo de esta función
+    const { sessionStatusStorage, setSessionStatusStorage, user } = useGlobalStore();
+
     useEffect(() => {
-      if (!sessionStatus) {
+      // Si no hay usuario, redirigir al inicio de sesión
+      if (sessionStatusStorage) {
         redirect("auth/signin");
       }
-    }, []);
-    if (!sessionStatus) {
+
+      if (user) {
+        setSessionStatusStorage(false);
+        console.log(user);
+      }
+    }, [sessionStatusStorage, user, setSessionStatusStorage]);
+
+    // Mientras sessionStatusStorage sea true, no renderiza nada
+    if (sessionStatusStorage) {
       return null;
     }
 
