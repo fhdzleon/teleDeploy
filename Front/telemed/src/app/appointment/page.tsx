@@ -1,5 +1,8 @@
-import React from "react";
+'use client'
+import WithAuthProtect from "@/helpers/WithAuth";
 import { DoctorCard } from "@/components/doctor/DoctorCard";
+
+
 const page = () => {
   const doctorExample = {
     name: "Dr. Fernandez",
@@ -23,4 +26,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default WithAuthProtect(page);
