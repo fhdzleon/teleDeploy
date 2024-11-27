@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login } = require("../controllers/user.controller");
+const { register, login, getSpecialty } = require("../controllers/user.controller");
 const { checkRegister, checkLogin } = require("../middleware/middleware");
 const { getDiagnosis, createDiagnosis } = require("../controllers/doctor.controller");
 const { addHealthcareSystem } = require("../controllers/healthcareSystemController");
@@ -17,5 +17,7 @@ router.get('/diagnosis/:id',getDiagnosis);
 router.post("/create",createDiagnosis);
 router.post("/add", addHealthcareSystem);
 router.put("/reserve-turn", reserveTurn);
+router.get("/appointment",getSpecialty);
+// router.get("/appointment/doctors/:specialty")
 
 module.exports = router;
