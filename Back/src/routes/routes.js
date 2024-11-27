@@ -13,6 +13,7 @@ router.post('/register/api',register);
 router.post('/login/api',login);
 router.get('/diagnosis/:id',getDiagnosis);
 router.post("/create",createDiagnosis);
+
 router.post("/add", addHealthcareSystem);
 
 module.exports = router;
