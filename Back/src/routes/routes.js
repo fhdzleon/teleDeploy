@@ -13,17 +13,13 @@ router.use('/login/api',checkLogin);
 
 router.post('/register/api',register);
 router.post('/login/api',login);
-
-
 router.put("/reserve-turn", reserveTurn);
-router.get('/turnos', AdminController.verTurnos);
-router.get("/appointment",getSpecialty);
-
+// router.get("/appointment/doctors/:specialty")
 router.post("/add", addHealthcareSystem);
 router.get('/diagnosis/:id',getDiagnosis);
+router.get("/appointment",getSpecialty);
 router.post("/create",createDiagnosis);
 router.post("/add", addHealthcareSystem);
 
-// router.get("/appointment/doctors/:specialty")
 
 module.exports = router;
