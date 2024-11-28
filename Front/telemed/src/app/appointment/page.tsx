@@ -3,24 +3,47 @@
 import { DoctorCard } from "@/components/doctor/DoctorCard";
 
 const page = () => {
+  const { selectedValue } = useGlobalStore();
+
   const doctorExample = {
     name: "Dr. Fernandez",
-    specialty: "Dermátologo",
-    // rating: 4,
-    // availableDays: [
-    //   new Date(2024, 10, 18),
-    //   new Date(2024, 10, 11),
-    //   new Date(2024, 10, 16),
-    //   new Date(2024, 10, 17),
-    //   new Date(2024, 10, 10),
-    //   new Date(2024, 10, 12),
-    //   new Date(2024, 10, 15),
-    // ],
+    specialty: "Dermatólogo",
+  };
+  const doctorExample2 = {
+    name: "Dr. Jose",
+    specialty: "Odontólogo",
+  };
+  const doctorExample3 = {
+    name: "Dr. Jose",
+    specialty: "Cardiologo",
   };
 
   return (
-    <div className="mx-auto p-6 flex ">
-      <DoctorCard {...doctorExample} />
+    <div className="mx-auto p-6 flex flex-col ">
+      <ButtonCarpet text="Solicite su Turno" />
+      <Card className="flex flex-col p-10 items-start md:min-w-[500px] md:min-h-[500px]">
+        <div className="pb-10">
+          <SelectSpeciality />
+        </div>
+        {selectedValue === "Odontólogia" && (
+          <div className="space-y-10">
+            <DoctorCard {...doctorExample} />
+            <DoctorCard {...doctorExample} />
+          </div>
+        )}
+        <div className="space-y-10">
+          {selectedValue === "ojologo" && (
+            <div>
+              <DoctorCard {...doctorExample2} />
+            </div>
+          )}
+          {selectedValue === "Cardiologo" && (
+            <div>
+              <DoctorCard {...doctorExample3} />
+            </div>
+          )}
+        </div>
+      </Card>
     </div>
   );
 };
