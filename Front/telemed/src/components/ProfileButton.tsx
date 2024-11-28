@@ -59,12 +59,14 @@ export default function ProfileDropdown() {
           <Link
             href={PATHROUTES.MAIN}
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            onClick={() => setIsOpen(false)}
           >
             Inicio
           </Link>
           <Link
             href="#"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            onClick={() => setIsOpen(false)}
           >
             Mis datos
           </Link>
@@ -72,6 +74,7 @@ export default function ProfileDropdown() {
           <Link
             href={PATHROUTES.IN}
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            onClick={() => setIsOpen(false)}
           >
             Turnos
           </Link>
