@@ -1,6 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
+import ButtonCarpet from "@/components/ButtonCarpet";
 /* import WithAuthProtect from "@/helpers/WithAuth"; */
 import { DoctorCard } from "@/components/doctor/DoctorCard";
+import SelectSpeciality from "@/components/doctor/SelectSpeciality";
+import { Card } from "@/components/ui/card";
+import useGlobalStore from "@/store/globalStore";
 
 const page = () => {
   const { selectedValue } = useGlobalStore();
