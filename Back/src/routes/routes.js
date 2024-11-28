@@ -17,13 +17,13 @@ router.post('/login/api',login);
 
 router.put("/reserve-turn", reserveTurn);
 router.get('/turnos', AdminController.verTurnos);
+router.get("/appointment",getSpecialty);
 
 router.post("/add", addHealthcareSystem);
 router.get('/diagnosis/:id',getDiagnosis);
 router.post("/create",createDiagnosis);
 router.post("/add", addHealthcareSystem);
-router.put("/reserve-turn", reserveTurn);
-router.get("/appointment",getSpecialty);
+
 // router.get("/appointment/doctors/:specialty")
 
 module.exports = router;
