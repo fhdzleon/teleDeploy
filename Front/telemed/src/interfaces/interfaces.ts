@@ -9,3 +9,7 @@ export interface ModalTurnosProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+export interface buttonInformationProps {
+  text: string;
+}

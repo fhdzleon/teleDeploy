@@ -22,7 +22,7 @@ DoctorCardProps) {
         <div className="flex flex-col md:flex-row justify-between items-center sm:items-start gap-4">
           <div className="space-y-3 p-10">
             <div className="space-y-1 flex flex-col items-center">
-              <div className="bg-slate-300 rounded-full w-48 h-48 "></div>
+              <div className="bg-slate-300 rounded-full w-48 h-48"></div>
               <h3 className="text-lg font-medium">{name}</h3>
               <p className="text-sm text-muted-foreground">{specialty}</p>
             </div>
