@@ -12,10 +12,10 @@ const LoginForm = () => {
   const setUser = useGlobalStore((state) => state.setUser);
   const router = useRouter();
 
-  const {setSessionStatusStorage } = useGlobalStore();
+  const { setSessionStatusStorage } = useGlobalStore();
 
   const toggleSessionStatus = () => {
-    setSessionStatusStorage(false); 
+    setSessionStatusStorage(false);
   };
 
   const [userData, setUserData] = useState({
@@ -43,16 +43,13 @@ const LoginForm = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await fetch(
-          `http://localhost:3001/login/api`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userData),
-          }
-        );
+        const response = await fetch(`http://localhost:3001/login/api`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        });
         // agregue esto
         if (response.ok) {
           toggleSessionStatus();

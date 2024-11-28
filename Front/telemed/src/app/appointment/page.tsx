@@ -1,7 +1,6 @@
-'use client'
-import WithAuthProtect from "@/helpers/WithAuth";
+"use client";
+/* import WithAuthProtect from "@/helpers/WithAuth"; */
 import { DoctorCard } from "@/components/doctor/DoctorCard";
-
 
 const page = () => {
   const doctorExample = {
@@ -26,4 +25,5 @@ const page = () => {
   );
 };
 
-export default WithAuthProtect(page);
+/* export default WithAuthProtect(page); */
+export default page;

@@ -1,5 +1,7 @@
 import React from "react";
 import data from "@/helpers/mockAppointments";
+import Link from "next/link";
+import { PATHROUTES } from "@/helpers/pathroutes";
 
 const Page = () => {
   const formatFecha = (fechaISO: string): string => {
@@ -37,9 +39,11 @@ const Page = () => {
   return (
     <div className="flex flex-col items-center space-y-6 p-8">
       <div className=" w-full max-w-2xl flex justify-end">
-        <button className="px-4 py-2 bg-gray-300 text-black rounded-full hover:bg-blue-600 transition">
-          Solicitar turno
-        </button>
+        <Link href={PATHROUTES.APPOINTEMNT}>
+          <button className="px-4 py-2 bg-gray-300 text-black rounded-full hover:bg-gray-400 transition">
+            Solicitar turno
+          </button>
+        </Link>
       </div>
       <div className="w-full max-w-2xl flex justify-start">
         <span>Proximos turnos</span>
