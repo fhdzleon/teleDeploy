@@ -31,7 +31,7 @@ const Logout = () => {
   return (
     <button
       onClick={handleLogout} // Llama a handleLogout para realizar la limpieza
-      className="rounded-full text-white purple px-4 py-2"
+      className="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hover:text-red-600  "
     >
       Cerrar sesión
     </button>

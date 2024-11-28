@@ -3,4 +3,5 @@ export enum PATHROUTES {
   LOGIN = "/auth/signin",
   REGISTER = "/auth/register",
   IN = "/in",
+  APPOINTEMNT = "/appointment",
 }

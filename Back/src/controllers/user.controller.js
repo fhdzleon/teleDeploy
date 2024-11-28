@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.js");
+const Specialty = require('../models/Especialidad.js');
 
 dotenv.config();
 
@@ -85,4 +86,15 @@ const login = async function (req, res) {
     });
 };
 
-module.exports = { register, login };
+const getSpecialty = function(req,res){
+  Specialty.find({},"especialidad")
+  .then((result)=>{
+    res.json(result)
+  })
+  .catch((error)=>{
+    console.log(error);
+    res.status(503).send('Content not aveliable!');
+  })
+}
+
+module.exports = { register, login, getSpecialty };
