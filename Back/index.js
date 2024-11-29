@@ -7,5 +7,5 @@ const server = http.createServer(app);
 
 
 server.listen(config.PORT, () => {
-    logger.info(`✅ Servidor corriendo en el puerto ${config.PORT}`)
-})
+    logger.info(`✅ Servidor corriendo en el puerto ${config.PORT}`);
+});
