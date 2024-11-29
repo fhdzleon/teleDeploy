@@ -11,7 +11,7 @@ const turnSchema = new mongoose.Schema({
   },
   medico: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Relación con el modelo User
+    ref: "Medico", // Relación con el modelo User
     required: true,
   },
   disponible: {
