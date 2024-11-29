@@ -140,7 +140,7 @@ const RegisterForm = () => {
                   id="name"
                   value={userData.name}
                   onChange={handleChange}
-                  className=" rounded-full md:min-w-[280px] border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className=" rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="text"
                   name="name"
                   required
@@ -157,7 +157,7 @@ const RegisterForm = () => {
                   id="lastName"
                   value={userData.lastName}
                   onChange={handleChange}
-                  className=" rounded-full md:min-w-[280px] border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className=" rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="text"
                   name="lastName"
                   required
@@ -177,7 +177,7 @@ const RegisterForm = () => {
                   id="gender"
                   value={userData.gender}
                   onChange={handleChange}
-                  className="w-full md:w-auto md:min-w-[280px] rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none"
+                  className="w-full md:w-auto md:min-w-[280px] rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none"
                   name="gender"
                   required
                 >
@@ -198,7 +198,7 @@ const RegisterForm = () => {
                   id="phone"
                   value={userData.phone}
                   onChange={handleChange}
-                  className="rounded-full md:min-w-[280px] border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="text"
                   name="phone"
                   required
@@ -248,7 +248,7 @@ const RegisterForm = () => {
                   id="socialWork"
                   value={userData.socialWork}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto w-full   flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto w-full   flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   name="socialWork"
                   required
                 >
@@ -273,7 +273,7 @@ const RegisterForm = () => {
                   id="idSocialWork"
                   value={userData.idSocialWork}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="number"
                   name="idSocialWork"
                   required
@@ -332,7 +332,7 @@ const RegisterForm = () => {
                   id="email"
                   value={userData.email}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto w-full flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto w-full flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="email"
                   name="email"
                   required
@@ -349,7 +349,7 @@ const RegisterForm = () => {
                   id="password"
                   value={userData.password}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="password"
                   name="password"
                   required

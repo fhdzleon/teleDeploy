@@ -12,6 +12,12 @@ const LoginForm = () => {
   const setUser = useGlobalStore((state) => state.setUser);
   const router = useRouter();
 
+  const { setSessionStatusStorage } = useGlobalStore();
+
+  const toggleSessionStatus = () => {
+    setSessionStatusStorage(false);
+  };
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -47,7 +53,10 @@ const LoginForm = () => {
             body: JSON.stringify(userData),
           }
         );
-
+        // agregue esto
+        if (response.ok) {
+          toggleSessionStatus();
+        }
         if (!response.ok) {
           throw new Error("Credenciales inválidas");
         }
@@ -120,7 +129,7 @@ const LoginForm = () => {
         </label>
         <input
           id="email"
-          className="w-4/5 mx-auto rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+          className="w-4/5 mx-auto rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
           value={userData.email}
           onChange={handleChange}
           name="email"
@@ -140,7 +149,7 @@ const LoginForm = () => {
         </label>
         <input
           id="password"
-          className=" w-4/5 mx-auto  rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+          className=" w-4/5 mx-auto  rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
           type="password"
           value={userData.password}
           onChange={handleChange}
