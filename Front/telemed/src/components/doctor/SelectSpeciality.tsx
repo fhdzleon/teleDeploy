@@ -1,4 +1,5 @@
 "use client";
+// import { fetchMedicos } from "@/app/api/actions";
 import {
   Select,
   SelectContent,
@@ -9,27 +10,25 @@ import {
   SelectValue,
 } from "../ui/select";
 import useGlobalStore from "@/store/globalStore";
-
 const SelectSpeciality = () => {
-  const { selectedValue, setSelectedValue } = useGlobalStore();
+  const { setSelectedValue, selectedValue } = useGlobalStore();
 
-  const handleChange = (value: string) => {
+  const handleValueChange = (value: string) => {
     setSelectedValue(value);
-    console.log(value);
   };
+
   return (
-    <Select value={selectedValue} onValueChange={handleChange}>
+    <Select value={selectedValue} onValueChange={handleValueChange}>
       <SelectTrigger className="w-[280px]">
         <SelectValue placeholder="Seleccione una especialidad" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Especialidades</SelectLabel>
-          <SelectItem value="Odontólogia">Odontologia</SelectItem>
-          <SelectItem value="Dermatologia">Dermatologia</SelectItem>
-          <SelectItem value="Cardiologo">Cardiologo</SelectItem>
-          <SelectItem value="Pediatra">Pediatra</SelectItem>
-          <SelectItem value="ojologo">ojologo</SelectItem>
+          <SelectItem value="cardiologia">Cardiologia</SelectItem>
+          <SelectItem value="dermatologia">Dermatologia</SelectItem>
+          <SelectItem value="nutricion">nutricion</SelectItem>
+          <SelectItem value="psicologia">psicologia</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

@@ -5,14 +5,14 @@ import { TimeSlotPicker } from "./TimeSlot";
 
 interface DoctorCardProps {
   name: string;
-  specialty: string;
+  speciality: string;
   //   rating: number;
   //   availableDays: Date[];
 }
 
 export function DoctorCard({
   name,
-  specialty,
+  speciality,
 }: //   rating,
 //   availableDays,
 DoctorCardProps) {
@@ -24,7 +24,7 @@ DoctorCardProps) {
             <div className="space-y-1 flex flex-col items-center">
               <div className="bg-slate-300 rounded-full w-48 h-48"></div>
               <h3 className="text-lg font-medium">{name}</h3>
-              <p className="text-sm text-muted-foreground">{specialty}</p>
+              <p className="text-sm text-muted-foreground">{speciality}</p>
             </div>
             <div className="flex items-center space-x-1"></div>
           </div>
