@@ -5,16 +5,19 @@ import React, { ChangeEvent, useState } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
+import {
+  validateRegisterStep1,
+  validateRegisterStep2,
+  validateRegisterStep3,
+} from "@/middlewares/validateRegister";
+import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 
 const RegisterForm = () => {
   const router = useRouter();
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<number>(1);
 
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => setStep(step - 1);
-
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<registerInputs>({
     name: "",
     lastName: "",
     gender: "",
@@ -26,14 +29,28 @@ const RegisterForm = () => {
     role: "patient",
   });
 
-  /*   const [errors, setErrors] = useState({
-    name: "",
-    lastName: "",
-    gender: "",
-    phone: "",
-    email: "",
-    password: "",
-  }); */
+  const [errors, setErrors] = useState<registerErrors>({});
+
+  // Función para avanzar al siguiente paso
+  const nextStep = () => {
+    let newUserErrors: registerErrors = {};
+
+    if (step === 1) {
+      newUserErrors = validateRegisterStep1(userData);
+    } else if (step === 2) {
+      newUserErrors = validateRegisterStep2(userData);
+    }
+
+    setErrors(newUserErrors);
+
+    if (Object.keys(newUserErrors).length > 0) {
+      return;
+    }
+
+    setStep((prevStep) => prevStep + 1);
+  };
+
+  const prevStep = () => setStep((prevStep) => Math.max(prevStep - 1, 1));
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -43,15 +60,29 @@ const RegisterForm = () => {
     const newUser = { ...userData, [name]: value };
     setUserData(newUser);
 
-    /*   const newUserErrors = validateRegister(newUser);
-    setErrors(newUserErrors); */
+    let newUserErrors: registerErrors = {};
+    if (step === 1) {
+      newUserErrors = validateRegisterStep1(newUser);
+    } else if (step === 2) {
+      newUserErrors = validateRegisterStep2(newUser);
+    } else if (step === 3) {
+      newUserErrors = validateRegisterStep3(newUser);
+    }
+
+    setErrors(newUserErrors);
   };
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event?.preventDefault();
+
+    const newUserErrors = validateRegisterStep1(userData);
+    setErrors(newUserErrors);
     console.log(userData);
 
-    /*    if (Object.keys(errors).length === 0) { */
+    if (Object.keys(newUserErrors).length > 0) {
+      return;
+    }
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/register/api`,
@@ -64,33 +95,35 @@ const RegisterForm = () => {
         }
       );
 
-      if (!response.ok) throw new Error("Datos invalidos");
-
-      Swal.fire({
-        icon: "success",
-        title: "¡Usuario registrado, Inicia sesión!",
-        showConfirmButton: true,
-      }).then(() => {
-        router.push(PATHROUTES.LOGIN);
-      });
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "¡Usuario registrado, Inicia sesión!",
+          showConfirmButton: true,
+        }).then(() => {
+          router.push(PATHROUTES.LOGIN);
+        });
+      } else if (response.status === 409) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "El correo electrónico ya está registrado. Inicia sesión",
+          confirmButtonColor: "#2b4168",
+        }).then(() => {
+          setStep(1);
+        });
+      } else {
+        throw new Error("Datos invalidos");
+      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error en el inicio de sesión. Verifica tus credenciales.",
+        text: "Problema al intentar registrarte, intenta de nuevo",
         confirmButtonColor: "#2b4168",
       });
     }
-    /*  } else { */
-    /*     Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "Error en el inicio de sesión. Verifica tus credenciales.",
-      confirmButtonColor: "#2b4168",
-    }); */
-
-    /*   } */
 
     setUserData({
       name: "",
@@ -140,11 +173,14 @@ const RegisterForm = () => {
                   id="name"
                   value={userData.name}
                   onChange={handleChange}
-                  className=" rounded-full md:min-w-[280px] border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className=" rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="text"
                   name="name"
                   required
                 />
+                {errors.name && (
+                  <p className="text-xs text-gray-400">{errors.name}</p>
+                )}
               </div>
               <div>
                 <label
@@ -157,11 +193,14 @@ const RegisterForm = () => {
                   id="lastName"
                   value={userData.lastName}
                   onChange={handleChange}
-                  className=" rounded-full md:min-w-[280px] border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className=" rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="text"
                   name="lastName"
                   required
                 />
+                {errors.lastName && (
+                  <p className="text-xs text-gray-400">{errors.lastName}</p>
+                )}
               </div>
             </div>
 
@@ -177,7 +216,7 @@ const RegisterForm = () => {
                   id="gender"
                   value={userData.gender}
                   onChange={handleChange}
-                  className="w-full md:w-auto md:min-w-[280px] rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none"
+                  className="w-full md:w-auto md:min-w-[280px] rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none"
                   name="gender"
                   required
                 >
@@ -185,6 +224,9 @@ const RegisterForm = () => {
                   <option value="male">Masculino</option>
                   <option value="female">Femenino</option>
                 </select>
+                {errors.gender && (
+                  <p className="text-xs text-gray-400">{errors.gender}</p>
+                )}
               </div>
 
               <div>
@@ -198,16 +240,19 @@ const RegisterForm = () => {
                   id="phone"
                   value={userData.phone}
                   onChange={handleChange}
-                  className="rounded-full md:min-w-[280px] border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
-                  type="text"
+                  className="rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  type="string"
                   name="phone"
                   required
                 />
+                {errors.phone && (
+                  <p className="text-xs text-gray-400">{errors.phone}</p>
+                )}
               </div>
             </div>
 
             <button
-              className=" md:w-1/2 md:mx-auto  hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+              className=" md:w-1/2 md:mx-auto mt-12 hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
               onClick={nextStep}
             >
               Siguiente
@@ -248,7 +293,7 @@ const RegisterForm = () => {
                   id="socialWork"
                   value={userData.socialWork}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto w-full   flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto w-full   flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   name="socialWork"
                   required
                 >
@@ -273,7 +318,7 @@ const RegisterForm = () => {
                   id="idSocialWork"
                   value={userData.idSocialWork}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="number"
                   name="idSocialWork"
                   required
@@ -332,7 +377,7 @@ const RegisterForm = () => {
                   id="email"
                   value={userData.email}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto w-full flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto w-full flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="email"
                   name="email"
                   required
@@ -349,7 +394,7 @@ const RegisterForm = () => {
                   id="password"
                   value={userData.password}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-acent bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="password"
                   name="password"
                   required

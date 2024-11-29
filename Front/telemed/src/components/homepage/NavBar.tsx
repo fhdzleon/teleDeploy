@@ -13,6 +13,11 @@ export default function NavBar() {
 
   const path = usePathname();
   const isHomePage = path === "/"; // Verifica si estamos en la página principal
+  const isAuth = path.startsWith("/auth");
+
+  if (isAuth) {
+    return null;
+  }
 
   const navItems = [
     { name: "Nosotros", href: "#nosotros" },
