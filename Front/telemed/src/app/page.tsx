@@ -22,8 +22,8 @@ export default function Home() {
         <div className="flex flex-col md:flex-row items-center justify-center p-10 md:space-x-5 space-y-5 md:space-y-0">
           <CardN
             url="/images/today.png"
-            title="Disponibilidad 24/7"
-            text="Puedes consultar a un médico por videollamada a cualquier hora, todos los dias del año"
+            title="Consulta médica a tu alcance"
+            text="Programa tu videollamada con especialistas cualquier día del año, en el horario que prefieras."
           />
           <CardN
             url="/images/social.png"
@@ -49,7 +49,7 @@ export default function Home() {
 
         <FaqSection />
         <section
-        id="contacto"
+          id="contacto"
           className="text-center flex flex-col space-y-2 purple-light  "
         >
           <h2 className="text-4xl font-medium my-5 ">Contáctanos</h2>
