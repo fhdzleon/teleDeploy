@@ -179,7 +179,7 @@ const RegisterForm = () => {
                   required
                 />
                 {errors.name && (
-                  <p className="text-xs text-gray-400">{errors.name}</p>
+                  <p className="text-xs text-red-600">{errors.name}</p>
                 )}
               </div>
               <div>
@@ -199,7 +199,7 @@ const RegisterForm = () => {
                   required
                 />
                 {errors.lastName && (
-                  <p className="text-xs text-gray-400">{errors.lastName}</p>
+                  <p className="text-xs text-red-600">{errors.lastName}</p>
                 )}
               </div>
             </div>
@@ -225,7 +225,7 @@ const RegisterForm = () => {
                   <option value="female">Femenino</option>
                 </select>
                 {errors.gender && (
-                  <p className="text-xs text-gray-400">{errors.gender}</p>
+                  <p className="text-xs text-red-600">{errors.gender}</p>
                 )}
               </div>
 
@@ -246,7 +246,7 @@ const RegisterForm = () => {
                   required
                 />
                 {errors.phone && (
-                  <p className="text-xs text-gray-400">{errors.phone}</p>
+                  <p className="text-xs text-red-600">{errors.phone}</p>
                 )}
               </div>
             </div>
@@ -306,6 +306,9 @@ const RegisterForm = () => {
                   <option value="option6">Osuthgra</option>
                   <option value="option7">Luis Pasteur</option>
                 </select>
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.socialWork}</p>
+                )}
               </div>
               <div>
                 <label
@@ -323,6 +326,9 @@ const RegisterForm = () => {
                   name="idSocialWork"
                   required
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.idSocialWork}</p>
+                )}
               </div>
             </div>
 
@@ -382,6 +388,9 @@ const RegisterForm = () => {
                   name="email"
                   required
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.email}</p>
+                )}
               </div>
               <div>
                 <label
@@ -399,6 +408,9 @@ const RegisterForm = () => {
                   name="password"
                   required
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.password}</p>
+                )}
               </div>
             </div>
 

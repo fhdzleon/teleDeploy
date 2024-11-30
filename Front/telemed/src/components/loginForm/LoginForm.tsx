@@ -136,7 +136,7 @@ const LoginForm = () => {
           required
         />
         {errors.email && (
-          <p className="text-xs text-secundary">{errors.email}</p>
+          <p className="text-xs w-4/5 mx-auto text-red-600">{errors.email}</p>
         )}
       </div>
 
@@ -158,7 +158,9 @@ const LoginForm = () => {
         />
 
         {errors.password && (
-          <p className="text-xs text-secundary">{errors.password}</p>
+          <p className="text-xs w-4/5 mx-auto text-red-600">
+            {errors.password}
+          </p>
         )}
       </div>
 
