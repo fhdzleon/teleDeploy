@@ -24,19 +24,19 @@ export default function FaqSection() {
       id: 2,
       question: "¿Necesito WiFi para utilizar el servicio?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga harum id assumenda officia repudiandae accusamus veritatis labore recusandae, nesciunt modi. ",
+        "No es obligatorio tener WiFi. La conexión mínima requerida es 4G/LTE o una conexión Wi-Fi de alta velocidad para garantizar una videollamada sin interrupciones. ",
     },
     {
       id: 3,
       question: "¿Telemed funciona con cualquier obra social?",
       answer:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod repellendus natus minima aliquam magnam, et debitis quos recusandae voluptatum sit voluptatem ex eos, id odit tempora doloribus voluptatibus, nam sed! ",
+        "Por el momento, nuestra plataforma trabaja con 7 obras sociales. Estamos comprometidos en ampliar nuestra red y, con el tiempo, incorporaremos más opciones. Puedes consultar esta información en la sección de obras sociales disponible en esta página. ",
     },
     {
       id: 4,
       question: "¿Es segura la información que comparto en la plataforma?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur id harum ut quis rem voluptatem, veritatis, aliquid doloremque repellendus adipisci itaque reiciendis iure impedit, porro voluptatibus aut at nisi odio. ",
+        "Absolutamente. Contamos con protocolos de encriptación y seguridad de datos para proteger tu información personal y médica. Nuestro compromiso es garantizar la privacidad y confidencialidad en cada consulta. ",
     },
   ];
 
@@ -64,7 +64,13 @@ export default function FaqSection() {
           {faqItems.map((item) => (
             <div
               key={item.id}
-              style={{ backgroundColor: `${openItem === item.id  ? "rgb(109 40 217 / var(--tw-bg-opacity, 1))" : "#DEDCFF"} `  }}
+              style={{
+                backgroundColor: `${
+                  openItem === item.id
+                    ? "rgb(109 40 217 / var(--tw-bg-opacity, 1))"
+                    : "#DEDCFF"
+                } `,
+              }}
               className={`rounded-2xl overflow-hidden`}
             >
               <button
@@ -74,12 +80,20 @@ export default function FaqSection() {
                 }}
                 className="w-full flex items-center justify-between p-12 text-left hover:bg-violet-700 hover:text-white transition-colors"
               >
-                <span className={`font-medium ${openItem === item.id ? "text-white" : ""}`}>{item.question}</span>
+                <span
+                  className={`font-medium ${
+                    openItem === item.id ? "text-white" : ""
+                  }`}
+                >
+                  {item.question}
+                </span>
                 <span className="ml-4">
                   {openItem === item.id ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`h-6 w-6 ${openItem === item.id ? "text-white" : ""}`}
+                      className={`h-6 w-6 ${
+                        openItem === item.id ? "text-white" : ""
+                      }`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
