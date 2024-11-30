@@ -21,7 +21,7 @@ router.get("/medicos-por-especialidad", getMedicosPorEspecialidad);
 
 router.post("/add", addHealthcareSystem);
 router.get("/diagnosis/:id", getDiagnosis);
-router.get("/appointment", getSpecialty);
+router.get("/appointment/specialty", getSpecialty);
 router.post("/create", createDiagnosis);
 router.post("/add", addHealthcareSystem);
 
