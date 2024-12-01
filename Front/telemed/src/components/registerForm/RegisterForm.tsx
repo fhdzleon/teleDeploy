@@ -5,16 +5,19 @@ import React, { ChangeEvent, useState } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
+import {
+  validateRegisterStep1,
+  validateRegisterStep2,
+  validateRegisterStep3,
+} from "@/middlewares/validateRegister";
+import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 
 const RegisterForm = () => {
   const router = useRouter();
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<number>(1);
 
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => setStep(step - 1);
-
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<registerInputs>({
     name: "",
     lastName: "",
     gender: "",
@@ -26,14 +29,28 @@ const RegisterForm = () => {
     role: "patient",
   });
 
-  /*   const [errors, setErrors] = useState({
-    name: "",
-    lastName: "",
-    gender: "",
-    phone: "",
-    email: "",
-    password: "",
-  }); */
+  const [errors, setErrors] = useState<registerErrors>({});
+
+  // Función para avanzar al siguiente paso
+  const nextStep = () => {
+    let newUserErrors: registerErrors = {};
+
+    if (step === 1) {
+      newUserErrors = validateRegisterStep1(userData);
+    } else if (step === 2) {
+      newUserErrors = validateRegisterStep2(userData);
+    }
+
+    setErrors(newUserErrors);
+
+    if (Object.keys(newUserErrors).length > 0) {
+      return;
+    }
+
+    setStep((prevStep) => prevStep + 1);
+  };
+
+  const prevStep = () => setStep((prevStep) => Math.max(prevStep - 1, 1));
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -43,15 +60,29 @@ const RegisterForm = () => {
     const newUser = { ...userData, [name]: value };
     setUserData(newUser);
 
-    /*   const newUserErrors = validateRegister(newUser);
-    setErrors(newUserErrors); */
+    let newUserErrors: registerErrors = {};
+    if (step === 1) {
+      newUserErrors = validateRegisterStep1(newUser);
+    } else if (step === 2) {
+      newUserErrors = validateRegisterStep2(newUser);
+    } else if (step === 3) {
+      newUserErrors = validateRegisterStep3(newUser);
+    }
+
+    setErrors(newUserErrors);
   };
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event?.preventDefault();
+
+    const newUserErrors = validateRegisterStep1(userData);
+    setErrors(newUserErrors);
     console.log(userData);
 
-    /*    if (Object.keys(errors).length === 0) { */
+    if (Object.keys(newUserErrors).length > 0) {
+      return;
+    }
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/register/api`,
@@ -64,33 +95,35 @@ const RegisterForm = () => {
         }
       );
 
-      if (!response.ok) throw new Error("Datos invalidos");
-
-      Swal.fire({
-        icon: "success",
-        title: "¡Usuario registrado, Inicia sesión!",
-        showConfirmButton: true,
-      }).then(() => {
-        router.push(PATHROUTES.LOGIN);
-      });
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "¡Usuario registrado, Inicia sesión!",
+          showConfirmButton: true,
+        }).then(() => {
+          router.push(PATHROUTES.LOGIN);
+        });
+      } else if (response.status === 409) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "El correo electrónico ya está registrado. Inicia sesión",
+          confirmButtonColor: "#2b4168",
+        }).then(() => {
+          setStep(1);
+        });
+      } else {
+        throw new Error("Datos invalidos");
+      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error en el inicio de sesión. Verifica tus credenciales.",
+        text: "Problema al intentar registrarte, intenta de nuevo",
         confirmButtonColor: "#2b4168",
       });
     }
-    /*  } else { */
-    /*     Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "Error en el inicio de sesión. Verifica tus credenciales.",
-      confirmButtonColor: "#2b4168",
-    }); */
-
-    /*   } */
 
     setUserData({
       name: "",
@@ -145,6 +178,9 @@ const RegisterForm = () => {
                   name="name"
                   required
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.name}</p>
+                )}
               </div>
               <div>
                 <label
@@ -162,6 +198,9 @@ const RegisterForm = () => {
                   name="lastName"
                   required
                 />
+                {errors.lastName && (
+                  <p className="text-xs text-red-600">{errors.lastName}</p>
+                )}
               </div>
             </div>
 
@@ -185,6 +224,9 @@ const RegisterForm = () => {
                   <option value="male">Masculino</option>
                   <option value="female">Femenino</option>
                 </select>
+                {errors.gender && (
+                  <p className="text-xs text-red-600">{errors.gender}</p>
+                )}
               </div>
 
               <div>
@@ -199,15 +241,18 @@ const RegisterForm = () => {
                   value={userData.phone}
                   onChange={handleChange}
                   className="rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
-                  type="text"
+                  type="string"
                   name="phone"
                   required
                 />
+                {errors.phone && (
+                  <p className="text-xs text-red-600">{errors.phone}</p>
+                )}
               </div>
             </div>
 
             <button
-              className=" md:w-1/2 md:mx-auto  hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+              className=" md:w-1/2 md:mx-auto mt-12 hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
               onClick={nextStep}
             >
               Siguiente
@@ -261,6 +306,9 @@ const RegisterForm = () => {
                   <option value="option6">Osuthgra</option>
                   <option value="option7">Luis Pasteur</option>
                 </select>
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.socialWork}</p>
+                )}
               </div>
               <div>
                 <label
@@ -278,6 +326,9 @@ const RegisterForm = () => {
                   name="idSocialWork"
                   required
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.idSocialWork}</p>
+                )}
               </div>
             </div>
 
@@ -337,6 +388,9 @@ const RegisterForm = () => {
                   name="email"
                   required
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.email}</p>
+                )}
               </div>
               <div>
                 <label
@@ -354,6 +408,9 @@ const RegisterForm = () => {
                   name="password"
                   required
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-600">{errors.password}</p>
+                )}
               </div>
             </div>
 
