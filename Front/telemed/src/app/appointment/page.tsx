@@ -4,25 +4,27 @@ import ButtonCarpet from "@/components/ButtonCarpet";
 /* import WithAuthProtect from "@/helpers/WithAuth"; */
 import { DoctorCard } from "@/components/doctor/DoctorCard";
 import SelectSpeciality from "@/components/doctor/SelectSpeciality";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Medico } from "@/interfaces/interfaces";
 import useGlobalStore from "@/store/globalStore";
+import { useEffect, useState } from "react";
+import { fetchMedicos } from "../api/actions";
 
 const page = () => {
   const { selectedValue } = useGlobalStore();
+  const [medicos, setMedicos] = useState<Medico[]>([]);
 
-  const doctorExample = {
-    name: "Dr. Fernandez",
-    specialty: "Dermatólogo",
-  };
-  const doctorExample2 = {
-    name: "Dr. Jose",
-    specialty: "Odontólogo",
-  };
-  const doctorExample3 = {
-    name: "Dr. Jose",
-    specialty: "Cardiologo",
-  };
+  useEffect(() => {
+    async function handleFetchMedicos() {
+      try {
+        const data = await fetchMedicos(selectedValue);
+        setMedicos(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    handleFetchMedicos();
+  }, [selectedValue]);
 
   return (
     <div>
@@ -32,34 +34,20 @@ const page = () => {
           <div className="pb-10">
             <SelectSpeciality />
           </div>
-          {selectedValue === "Odontólogia" && (
-            <div className="space-y-10">
-              <DoctorCard {...doctorExample} />
-              <DoctorCard {...doctorExample} />
-            </div>
-          )}
           <div className="space-y-10">
-            {selectedValue === "ojologo" && (
-              <div>
-                <DoctorCard {...doctorExample2} />
+            {medicos?.map((item, index) => (
+              <div key={index}>
+                <DoctorCard
+                  turnosDisponibles={item.turnosDisponibles}
+                  medico={item.medico}
+                  especialidad={item.especialidad}
+                />
               </div>
-            )}
-            {selectedValue === "Cardiologo" && (
-              <div>
-                <DoctorCard {...doctorExample3} />
-              </div>
-            )}
+            ))}
           </div>
         </Card>
       </div>
-      <div className="flex float-right p-10 space-x-5">
-        <Button className="rounded-full bg-red-600 hover:bg-red-700">
-          Cancelar
-        </Button>
-        <Button className="rounded-full bg-green-600 hover:bg-green-700">
-          Continuar
-        </Button>
-      </div>
+      
     </div>
   );
 };
