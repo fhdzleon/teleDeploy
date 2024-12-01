@@ -29,5 +29,6 @@ export async function fetchMedicos(especialidad: string): Promise<Medico[]> {
   } catch (error) {
     const e = error as Error;
     console.log(e);
+    return []; 
   }
 }

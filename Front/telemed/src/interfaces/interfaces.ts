@@ -22,7 +22,7 @@ export interface TurnoDisponible {
 
 export interface Medico {
   medico: string;
-  speciality: string;
+  especialidad: string;
   turnosDisponibles: TurnoDisponible[];
 }
 
