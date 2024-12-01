@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
+import useGlobalStore from "@/store/globalStore";
 
 interface Turno {
   fecha: string;
@@ -17,6 +18,8 @@ export function TimeSlotPicker({ turnosDisponibles }: TimeSlotPickerProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
+  const { setSelectedValueDate, setSelectedValueTime } = useGlobalStore();
+
   const uniqueDates = Array.from(
     new Set(turnosDisponibles.map((turno) => turno.fecha))
   );
@@ -24,12 +27,15 @@ export function TimeSlotPicker({ turnosDisponibles }: TimeSlotPickerProps) {
   const handleDateClick = (date: string) => {
     setSelectedDate(date);
     setSelectedTime(null);
+    setSelectedValueDate(date);
   };
 
   const handleTimeClick = (time: string) => {
     setSelectedTime(time);
+    setSelectedValueTime(time);
   };
 
+  
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
