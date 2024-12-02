@@ -12,13 +12,15 @@ interface Turno {
 
 interface TimeSlotPickerProps {
   turnosDisponibles: Turno[];
+  medico: string;
 }
 
-export function TimeSlotPicker({ turnosDisponibles }: TimeSlotPickerProps) {
+export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
-  const { setSelectedValueDate, setSelectedValueTime } = useGlobalStore();
+  const { setSelectedValueDate, setSelectedValueTime, setSelectedValueDoctor } = useGlobalStore();
+  
 
   const uniqueDates = Array.from(
     new Set(turnosDisponibles.map((turno) => turno.fecha))
@@ -28,6 +30,7 @@ export function TimeSlotPicker({ turnosDisponibles }: TimeSlotPickerProps) {
     setSelectedDate(date);
     setSelectedTime(null);
     setSelectedValueDate(date);
+    setSelectedValueDoctor(medico);
   };
 
   const handleTimeClick = (time: string) => {
