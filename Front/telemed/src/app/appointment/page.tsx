@@ -4,25 +4,37 @@ import ButtonCarpet from "@/components/ButtonCarpet";
 /* import WithAuthProtect from "@/helpers/WithAuth"; */
 import { DoctorCard } from "@/components/doctor/DoctorCard";
 import SelectSpeciality from "@/components/doctor/SelectSpeciality";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Medico } from "@/interfaces/interfaces";
 import useGlobalStore from "@/store/globalStore";
+import { useEffect, useState } from "react";
+import { fetchMedicos } from "../api/actions";
+import { Loading } from "@/components/doctor/Loading";
 
 const page = () => {
   const { selectedValue } = useGlobalStore();
+  const [medicos, setMedicos] = useState<Medico[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const doctorExample = {
-    name: "Dr. Fernandez",
-    specialty: "Dermatólogo",
-  };
-  const doctorExample2 = {
-    name: "Dr. Jose",
-    specialty: "Odontólogo",
-  };
-  const doctorExample3 = {
-    name: "Dr. Jose",
-    specialty: "Cardiologo",
-  };
+  useEffect(() => {
+    async function handleFetchMedicos() {
+      setLoading(true);
+      try {
+        const data = await fetchMedicos(selectedValue || "");
+        setMedicos(data);
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (selectedValue) {
+      handleFetchMedicos();
+    } else {
+      setLoading(false);
+    }
+  }, [selectedValue]);
 
   return (
     <div>
@@ -32,33 +44,22 @@ const page = () => {
           <div className="pb-10">
             <SelectSpeciality />
           </div>
-          {selectedValue === "Odontólogia" && (
-            <div className="space-y-10">
-              <DoctorCard {...doctorExample} />
-              <DoctorCard {...doctorExample} />
-            </div>
-          )}
           <div className="space-y-10">
-            {selectedValue === "ojologo" && (
-              <div>
-                <DoctorCard {...doctorExample2} />
-              </div>
-            )}
-            {selectedValue === "Cardiologo" && (
-              <div>
-                <DoctorCard {...doctorExample3} />
-              </div>
+            {loading ? (
+              <Loading />
+            ) : (
+              medicos?.map((item, index) => (
+                <div key={index}>
+                  <DoctorCard
+                    turnosDisponibles={item.turnosDisponibles}
+                    medico={item.medico}
+                    especialidad={item.especialidad}
+                  />
+                </div>
+              ))
             )}
           </div>
         </Card>
-      </div>
-      <div className="flex float-right p-10 space-x-5">
-        <Button className="rounded-full bg-red-600 hover:bg-red-700">
-          Cancelar
-        </Button>
-        <Button className="rounded-full bg-green-600 hover:bg-green-700">
-          Continuar
-        </Button>
       </div>
     </div>
   );

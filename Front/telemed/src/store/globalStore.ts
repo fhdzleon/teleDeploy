@@ -11,9 +11,14 @@ export interface UserState {
   setUser: (user: UserPayload | null) => void;
   sessionStatusStorage: boolean;
   setSessionStatusStorage: (status: boolean) => void;
-  selectedValue: string; // Valor del select
-  setSelectedValue: (value: string) => void; // Función para actualizar el valor
-  
+  selectedValue: string; // Valor del select de especialidades
+  setSelectedValue: (value: string) => void;
+  selectedValueDoctor: string;
+  setSelectedValueDoctor: (value: string) => void;
+  selectedValueDate: string;
+  setSelectedValueDate: (value: string) => void;
+  selectedValueTime: string;
+  setSelectedValueTime: (value: string) => void;
 }
 
 
@@ -23,8 +28,14 @@ const useGlobalStore = create<UserState>((set) => ({
   setUser: (user) => set({ user }),
   sessionStatusStorage: true,
   setSessionStatusStorage: (status) => set({ sessionStatusStorage: status }),
-  selectedValue: '',
+  selectedValue: '', //Select de especialidad
   setSelectedValue: (value) => set({ selectedValue: value }),
+  selectedValueDoctor: '',
+  setSelectedValueDoctor: (value) => set({ selectedValueDoctor: value }),
+  selectedValueDate: '',
+  setSelectedValueDate: (value) => set({ selectedValueDate: value }),
+  selectedValueTime: '',
+  setSelectedValueTime: (value) => set({ selectedValueTime: value }),
 }));
 
 
