@@ -29,6 +29,9 @@ const login = async function(req,res){
       else{
         if(bcrypt.compareSync(req.body.password,result.password) === true) {
           const token = jwt.sign({id:result._id,role:result.role},process.env.JWT_SECRET,{expiresIn:process.env.EXPIRES});
+
+          console.log("Generated JWT:", token);
+          
           const dateLimit = new Date(Date.now()+1000*60*60*24);
           res.cookie("jwt",token,{expires:dateLimit});
 

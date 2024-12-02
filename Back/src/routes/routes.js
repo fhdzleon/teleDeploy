@@ -6,6 +6,7 @@ const { addHealthcareSystem } = require("../controllers/healthcareSystemControll
 const { reserveTurn } = require("../controllers/turnController.js");
 const AdminController = require("../controllers/adminController");
 const { getMedicosPorEspecialidad } = require("../controllers/medicoController");
+const roleAuthorization = require("../middleware/roleAuthorization.js")
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.use("/login/api", checkLogin);
 
 router.post("/register/api", register);
 router.post("/login/api", login);
-router.put("/reserve-turn", reserveTurn);
+router.put("/reserve-turn", roleAuthorization(["patient"]), reserveTurn);
 router.get("/turnos", AdminController.verTurnos);
 router.get("/appointment", getSpecialty);
 router.get("/medicos-por-especialidad", getMedicosPorEspecialidad);
