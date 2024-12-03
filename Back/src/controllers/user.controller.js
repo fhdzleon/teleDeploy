@@ -74,6 +74,7 @@ const login = async function (req, res) {
           res.status(200).json({
             message: "authorized",
             userData,
+            token,
           });
         } else {
           res.status(401).json({ error: "email or password incorrect" });
