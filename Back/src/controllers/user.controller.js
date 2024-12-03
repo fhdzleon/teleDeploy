@@ -47,19 +47,12 @@ const login = async function (req, res) {
   User.findOne({ email: req.body.email })
     .then((result) => {
       if (!result) {
-        res.status(401).json({ error: "email or password incorrect" });
-      } else {
+        res.status(401).json({ error: "email or password incorrect!" });
+      }
+      else {
         if (bcrypt.compareSync(req.body.password, result.password) === true) {
-          const token = jwt.sign(
-            { id: result._id, role: result.role },
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.EXPIRES }
-          );
-          const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
-          res.cookie("tmck", token, { expires: dateLimit });
-
-          // Define userData
           const userData = {
+            id:result.id,
             name: result.name,
             lastName: result.lastName,
             email: result.email,
@@ -67,6 +60,7 @@ const login = async function (req, res) {
             gender: result.gender,
             healthcareSystem: result.healthcareSystem,
           };
+<<<<<<< HEAD
 
           // Cookie with user data
           /*  res.cookie("userData", userData, { expires: dateLimit }); */
@@ -78,6 +72,12 @@ const login = async function (req, res) {
           });
         } else {
           res.status(401).json({ error: "email or password incorrect" });
+=======
+          res.json({ userData, });
+        }
+        else {
+          res.status(401).json({ error: "email or password incorrect!" });
+>>>>>>> 9102eccf32b278530e719e6206e4558bbd63c63f
         }
       }
     })
@@ -133,19 +133,8 @@ const getSpecialty = function (req, res) {
 };
 
 const getPatientShifts = function (req, res) {
-  console.log(req.headers.cookie);
-
-  const cookies = req.headers.cookie.split(";");
-  let token = "";
-  for (let i = 0; i < cookies.length; i++) {
-    if (cookies[i].startsWith("tmck=")) {
-      token = cookies[i].replace("tmck=", "").replace(" ", "");
-    }
-  }
-  const payload = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(payload);
-
-  Shifts.find({ patient: payload.id })
+  const id = req.params.id.replace(':','')
+  Shifts.find({ patient: id })
     .sort({ _id: -1 })
     .limit(3)
     .then((result) => {
@@ -157,6 +146,7 @@ const getPatientShifts = function (req, res) {
     })
     .catch((error) => {
       console.log(error);
+      res.status(503).json({error:'content not aveliable!'});
     });
 };
 
