@@ -32,7 +32,7 @@ const Page = () => {
           }
         );
         const data = await response.json();
-        setAllAppointments(data);
+        setAllAppointments(Array.isArray(data) ? data : []);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         console.error("Error fetching appointments");
