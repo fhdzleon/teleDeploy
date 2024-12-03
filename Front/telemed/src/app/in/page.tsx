@@ -5,6 +5,8 @@ import data from "@/helpers/mockAppointments";
 import Link from "next/link";
 import { PATHROUTES } from "@/helpers/pathroutes";
 import useGlobalStore from "@/store/globalStore";
+import Profile from "@/components/profile/Profile";
+import formatFecha from "@/helpers/formatFecha";
 
 const Page = () => {
   const { user } = useGlobalStore();
@@ -12,19 +14,6 @@ const Page = () => {
   const [section, setSection] = useState<"nextAppoitments" | "profile" | null>(
     "nextAppoitments"
   );
-
-  const formatFecha = (fechaISO: string): string => {
-    const opciones: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-    };
-    const fecha = new Date(fechaISO);
-
-    return fecha
-      .toLocaleDateString("es-ES", opciones)
-      .replace(/^\w/, (c) => c.toUpperCase());
-  };
 
   const getDiasRestantes = (fechaISO: string): string => {
     const fechaCita = new Date(fechaISO);
@@ -47,9 +36,10 @@ const Page = () => {
 
   return (
     <div className="flex flex-col items-center space-y-6 p-8">
+      <p className="font-bold text-2xl">¡Hola, {user?.name}!</p>
       <div className=" w-full max-w-2xl flex justify-end">
         <Link href={PATHROUTES.APPOINTEMNT}>
-          <button className="px-4 py-2 bg-gray-300 text-black rounded-full hover:bg-gray-400 transition">
+          <button className="px-12 py-1 bg-primary text-white rounded-full hover:bg-gray-400 transition">
             Solicitar turno
           </button>
         </Link>
@@ -57,18 +47,29 @@ const Page = () => {
 
       <div className="w-full max-w-2xl">
         <div className="flex justify-start">
-          <div className="relative w-[180px] px-5 py-1 max-w-2xl flex justify-center bg-white text-gray-800 border-t border-gray-400 before:absolute before:top-0 before:left-0 before:h-full before:w-[1px] before:bg-gray-400 before:skew-y-12 after:absolute after:top-0 after:right-0 after:h-full after:w-[1px] after:bg-gray-400 after:-skew-y-12">
+          <div
+            className={`relative w-[180px] px-5 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400 ${
+              section === "nextAppoitments" ? "font-bold" : ""
+            }`}
+          >
             <button onClick={() => setSection("nextAppoitments")}>
               Próximos turnos
             </button>
           </div>
-          <div className="relative w-[180px] px-5 py-1 max-w-2xl flex justify-center bg-white text-gray-800 border-t border-gray-400 before:absolute before:top-0 before:left-0 before:h-full before:w-[1px] before:bg-gray-400 before:skew-y-12 after:absolute after:top-0 after:right-0 after:h-full after:w-[1px] after:bg-gray-400 after:-skew-y-12">
+          <div
+            className={`relative ml-1 w-[180px] px-5 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400 ${
+              section === "profile" ? "font-bold" : ""
+            }`}
+          >
             <button onClick={() => setSection("profile")}>Mis datos</button>
           </div>
         </div>
 
         {/* Contenedor con el borde alrededor de las cards */}
-        <div className="w-full max-w-2xl border border-gray-400  p-6 space-y-4">
+        <div className="w-full max-w-2xl border border-gray-400 p-6 space-y-4 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
+          {section === "nextAppoitments" && data.length === 0 && (
+            <span>No hay citas proximas</span>
+          )}
           {section === "nextAppoitments" &&
             data.map((appointment, index) => (
               <div
@@ -287,13 +288,9 @@ const Page = () => {
             ))}
 
           {section === "profile" && (
-            <div className="text-center space-y-5">
+            <div className=" justify-center items-center ">
               {/* Contenido de la sección de perfil */}
-              <p>Aquí se mostrarán los datos del perfil.</p>
-              <p>
-                {user?.name} {user?.lastName}
-              </p>
-              <p>{user?.email}</p>
+              <Profile />
             </div>
           )}
         </div>

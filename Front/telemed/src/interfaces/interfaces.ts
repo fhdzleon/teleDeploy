@@ -21,14 +21,14 @@ export interface registerInputs {
   phone: string;
   email: string;
   password: string;
-  socialWork: string;
+  healthcareSystem: string;
   idSocialWork: string;
   role: string;
 }
 
 export interface TurnoDisponible {
   fecha: string; // ISO Date String
-  hora: string;  // Time in HH:mm format
+  hora: string; // Time in HH:mm format
   disponible: boolean;
 }
 
@@ -37,6 +37,5 @@ export interface Medico {
   especialidad: string;
   turnosDisponibles: TurnoDisponible[];
 }
-
 
 export type registerErrors = Partial<registerInputs>;

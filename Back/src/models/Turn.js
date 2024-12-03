@@ -14,15 +14,15 @@ const turnSchema = new mongoose.Schema({
     ref: "Medico", // Relación con el modelo User
     required: true,
   },
-  disponible: {
-    type: Boolean,
-    default: true,
-  },
   patient: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", // Relación con el modelo User
     default: null,
   },
+  disponible: {
+    type: Boolean,
+    default: true,
+  },  
 });
 
 module.exports = mongoose.model("Turn", turnSchema);

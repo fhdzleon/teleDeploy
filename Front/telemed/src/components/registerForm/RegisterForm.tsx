@@ -24,7 +24,7 @@ const RegisterForm = () => {
     phone: "",
     email: "",
     password: "",
-    socialWork: "",
+    healthcareSystem: "",
     idSocialWork: "",
     role: "patient",
   });
@@ -133,7 +133,7 @@ const RegisterForm = () => {
       email: "",
       password: "",
       role: "patient",
-      socialWork: "",
+      healthcareSystem: "",
       idSocialWork: "",
     });
   };
@@ -290,24 +290,28 @@ const RegisterForm = () => {
                   Obra social
                 </label>
                 <select
-                  id="socialWork"
-                  value={userData.socialWork}
+                  id="healthcareSystem"
+                  value={userData.healthcareSystem}
                   onChange={handleChange}
                   className="md:w-1/2 mx-auto w-full   flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
-                  name="socialWork"
+                  name="healthcareSystem"
                   required
                 >
                   <option value="" disabled></option>
-                  <option value="option1">Osecac</option>
-                  <option value="option2">Prevencion salud</option>
-                  <option value="option3">Ospe</option>
-                  <option value="option4">Avalian</option>
-                  <option value="option5">Osde</option>
-                  <option value="option6">Osuthgra</option>
-                  <option value="option7">Luis Pasteur</option>
+                  <option value="6744d95a6d87602e47fc2810">Osecac</option>
+                  <option value="6744d9766d87602e47fc2812 ">
+                    Prevencion salud
+                  </option>
+                  <option value="6744d9966d87602e47fc2814">Ospe</option>
+                  <option value="6744d9aa6d87602e47fc2816">Avalian</option>
+                  <option value="6744d9be6d87602e47fc2818">Osde</option>
+                  <option value="6744d9d16d87602e47fc281a">Osuthgra</option>
+                  <option value="6744d9e66d87602e47fc281c">Luis Pasteur</option>
                 </select>
                 {errors.name && (
-                  <p className="text-xs text-red-600">{errors.socialWork}</p>
+                  <p className="text-xs text-red-600">
+                    {errors.healthcareSystem}
+                  </p>
                 )}
               </div>
               <div>

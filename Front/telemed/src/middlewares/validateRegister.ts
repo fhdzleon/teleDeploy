@@ -27,8 +27,8 @@ export const validateRegisterStep1 = (input: registerInputs) => {
 export const validateRegisterStep2 = (input: registerInputs) => {
   const errors: registerErrors = {};
 
-  if (!input.socialWork) {
-    errors.socialWork = "Debes elegir tu obra social";
+  if (!input.healthcareSystem) {
+    errors.healthcareSystem = "Debes elegir tu obra social";
   }
 
   if (!input.idSocialWork) {
