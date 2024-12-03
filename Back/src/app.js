@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors");
+const corsConfig = require("./config/cors");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const session = require("express-session");
@@ -26,7 +26,7 @@ app.use(
     })
   );
 
-app.use(cors());
+app.use(corsConfig);
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(passport.initialize());
