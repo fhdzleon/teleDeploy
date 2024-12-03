@@ -25,10 +25,10 @@ const SelectSpeciality = () => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Especialidades</SelectLabel>
-          <SelectItem value="cardiologia">Cardiologia</SelectItem>
-          <SelectItem value="dermatologia">Dermatologia</SelectItem>
-          <SelectItem value="nutricion">nutricion</SelectItem>
-          <SelectItem value="psicologia">psicologia</SelectItem>
+          <SelectItem value="cardiologia">Cardiología</SelectItem>
+          <SelectItem value="dermatologia">Dermatología</SelectItem>
+          <SelectItem value="nutricion">Nutrición</SelectItem>
+          <SelectItem value="psicologia">Psicología</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

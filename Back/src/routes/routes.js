@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, getSpecialty } = require("../controllers/user.controller");
+const { register, login, getSpecialty, getPatientShifts } = require("../controllers/user.controller");
 const { checkRegister, checkLogin } = require("../middleware/middleware");
 const { getDiagnosis, createDiagnosis } = require("../controllers/doctor.controller");
 const { addHealthcareSystem } = require("../controllers/healthcareSystemController");
@@ -19,13 +19,8 @@ router.post("/register/api", register);
 router.post("/login/api", login);
 router.put("/reserve-turn", roleAuthorization(["patient"]), reserveTurn);
 router.get("/turnos", AdminController.verTurnos);
-router.get("/appointment", getSpecialty);
 router.get("/medicos-por-especialidad", getMedicosPorEspecialidad);
-
-// Rutas para Google
-router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-router.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), googleLogin );
-
+router.get("/appointment/my_shifts",getPatientShifts);
 router.post("/add", addHealthcareSystem);
 router.get("/diagnosis/:id", getDiagnosis);
 router.get("/appointment/specialty", getSpecialty);
