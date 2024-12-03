@@ -7,6 +7,8 @@ const { reserveTurn } = require("../controllers/turnController.js");
 const AdminController = require("../controllers/adminController");
 const { getMedicosPorEspecialidad } = require("../controllers/medicoController");
 const roleAuthorization = require("../middleware/roleAuthorization.js")
+const passport = require("passport");
+const { googleLogin } = require("../controllers/user.controller");
 
 const router = express.Router();
 
@@ -19,6 +21,10 @@ router.put("/reserve-turn", roleAuthorization(["patient"]), reserveTurn);
 router.get("/turnos", AdminController.verTurnos);
 router.get("/appointment", getSpecialty);
 router.get("/medicos-por-especialidad", getMedicosPorEspecialidad);
+
+// Rutas para Google
+router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), googleLogin );
 
 router.post("/add", addHealthcareSystem);
 router.get("/diagnosis/:id", getDiagnosis);

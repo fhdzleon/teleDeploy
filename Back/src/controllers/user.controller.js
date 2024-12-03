@@ -40,6 +40,9 @@ const login = async function(req,res){
             name: result.name,
             lastName: result.lastName,
             email: result.email,
+            phone: result.phone,
+            gender: result.gender,
+            healthcareSystem: result.healthcareSystem
           };
 
           // Cookie with user data
@@ -59,6 +62,36 @@ const login = async function(req,res){
     });
 };
 
+const googleLogin = async function (req, res) {
+  try {
+    const user = req.user; // Usuario recuperado por Passport
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    // Generar JWT
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+      expiresIn: process.env.EXPIRES,
+    });
+
+    // Configurar cookies si es necesario
+    const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
+    res.cookie("jwt", token, { expires: dateLimit });
+
+    res.status(200).json({
+      message: "Authorized with Google",
+      userData: {
+        name: user.name,
+        email: user.email,
+      },
+      token,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 const getSpecialty = function(req,res){
   Specialty.find({},"especialidad")
   .then((result)=>{
@@ -70,4 +103,4 @@ const getSpecialty = function(req,res){
   })
 }
 
-module.exports = { register, login, getSpecialty };
+module.exports = { register, login, googleLogin, getSpecialty };
