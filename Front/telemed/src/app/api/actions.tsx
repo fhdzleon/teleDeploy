@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 export async function fetchMedicos(especialidad: string): Promise<Medico[]> {
   try {
     const res = await fetch(
-      `http://localhost:3001/medicos-por-especialidad?especialidad=${especialidad}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/medicos-por-especialidad?especialidad=${especialidad}`,
       {
         method: "GET",
         headers: {
@@ -29,6 +29,6 @@ export async function fetchMedicos(especialidad: string): Promise<Medico[]> {
   } catch (error) {
     const e = error as Error;
     console.log(e);
-    return []; 
+    return [];
   }
 }

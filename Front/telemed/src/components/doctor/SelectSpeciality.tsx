@@ -11,10 +11,13 @@ import {
 } from "../ui/select";
 import useGlobalStore from "@/store/globalStore";
 const SelectSpeciality = () => {
-  const { setSelectedValue, selectedValue } = useGlobalStore();
+  const { setSelectedValue, selectedValue, setSelectedValueDoctor, setSelectedValueTime, setSelectedValueDate } = useGlobalStore();
 
   const handleValueChange = (value: string) => {
     setSelectedValue(value);
+    setSelectedValueDoctor("");
+    setSelectedValueDate("");
+    setSelectedValueTime("");
   };
 
   return (
