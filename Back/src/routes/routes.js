@@ -26,5 +26,8 @@ router.get("/diagnosis/:id", getDiagnosis);
 router.get("/appointment/specialty", getSpecialty);
 router.post("/create", createDiagnosis);
 router.post("/add", addHealthcareSystem);
+// Rutas para Google
+router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), googleLogin );
 
 module.exports = router;

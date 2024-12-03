@@ -3,52 +3,43 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    minlength: 3,
     required: true,
   },
   lastName: {
     type: String,
-    minlength: 3,
-    required: true,
+    required: false, // Opcional para usuarios de Google
   },
   email: {
     type: String,
-    unique: true,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
-    minlength: 3,
-    required: true,
-    select: false,
+    required: function () {
+      return !this.googleId; // Obligatorio solo si no es usuario de Google
+    },
   },
   googleId: {
-    type: String, 
-    unique: true, 
-    sparse: true 
-  },
-  phone: {
-    type: String,
-    required: true,
+    type: String, // Identificador único para usuarios de Google
+    required: false,
   },
   gender: {
     type: String,
-    enum: ["male", "female"],
-    required: true,
+    required: false,
+  },
+  phone: {
+    type: String,
+    required: false,
   },
   role: {
     type: String,
-    enum: ["admin", "doctor", "patient"],
-    default: "patient",
-    required: true,
+    default: "user",
   },
   healthcareSystem: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "HealthcareSystem", // Referencia al modelo HealthcareSystem
-    default: null, // Inicialmente vacío
+    type: String,
+    required: false,
   },
 });
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+module.exports = mongoose.model("User", userSchema);
