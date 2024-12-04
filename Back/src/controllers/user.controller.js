@@ -16,6 +16,7 @@ const register = async function (req, res) {
     gender,
     phone,
     role,
+    idAfiliado,
     healthcareSystem,
   } = req.body;
   const salt = await bcrypt.genSalt(5);
@@ -28,6 +29,7 @@ const register = async function (req, res) {
     gender,
     phone,
     role,
+    idAfiliado,
     healthcareSystem,
   })
     .then((result) => {
