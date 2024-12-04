@@ -95,8 +95,8 @@ const googleLogin = async function (req, res) {
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
     res.cookie("jwt", token, { expires: dateLimit });
 
-    // Renderizar la vista
-    res.render("dashboard", {
+    // Renderizar vista y pasar datos como contexto
+     res.render("/in", {
       user: JSON.stringify({
         name: user.name,
         email: user.email,
