@@ -57,7 +57,7 @@ const login = async function (req, res) {
             email: result.email,
             phone: result.phone,
             gender: result.gender,
-            healthcareSystem: result.healthcareSystem,
+            healthcareSystem: result.healthcareSystem.socialWork,
           };
           res.json({ userData });
         } else {
@@ -91,13 +91,13 @@ const googleLogin = async function (req, res) {
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
     res.cookie("jwt", token, { expires: dateLimit });
 
-    res.status(200).json({
-      message: "Authorized with Google",
-      userData: {
+    // Renderizar la vista
+    res.render("dashboard", {
+      user: JSON.stringify({
         name: user.name,
         email: user.email,
-      },
-      token,
+        token,
+      }),
     });
   } catch (error) {
     console.error(error);
@@ -117,20 +117,22 @@ const getSpecialty = function (req, res) {
 };
 
 const getPatientShifts = function (req, res) {
-  const id = req.params.id.replace(":", "");
+  const id = req.params.id.replace(":", ""); // Elimina ':' de los parámetros si está presente
   Shifts.find({ patient: id })
     .sort({ _id: -1 })
     .limit(3)
     .then((result) => {
-      if (!result.length) {
-        res.status(404).send("not found shifts!");
+      if (result.length === 0) {
+        // Si no hay resultados
+        res.json([]); // Enviar array vacío
       } else {
-        res.json(result);
+        res.json(result); // Enviar resultados si existen
       }
     })
     .catch((error) => {
+      // Manejo de errores
       console.log(error);
-      res.status(503).json({ error: "content not aveliable!" });
+      res.status(503).json({ error: "content not available!" });
     });
 };
 
