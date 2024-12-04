@@ -95,13 +95,13 @@ const googleLogin = async function (req, res) {
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
     res.cookie("jwt", token, { expires: dateLimit });
 
-    // Renderizar vista y pasar datos como contexto
-     res.redirect("/in", {
-      user: JSON.stringify({
+    res.status(200).json({
+      message: "Authorized with Google",
+      userData: {
         name: user.name,
         email: user.email,
-        token,
-      }),
+      },
+      token,
     });
   } catch (error) {
     console.error(error);
