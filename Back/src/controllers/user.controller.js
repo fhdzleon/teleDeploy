@@ -121,23 +121,28 @@ const getSpecialty = function (req, res) {
 
 const getPatientShifts = function (req, res) {
   const id = req.params.id.replace(":", ""); // Elimina ':' de los parámetros si está presente
+
+  // Validar si el ID es un ObjectId válido
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "ID inválido." });
+  }
+
   Shifts.find({ patient: id })
     .sort({ _id: -1 })
     .limit(3)
     .then((result) => {
       if (result.length === 0) {
-        // Si no hay resultados
-        res.json([]); // Enviar array vacío
+        res.json([]); // Enviar array vacío si no hay resultados
       } else {
         res.json(result); // Enviar resultados si existen
       }
     })
     .catch((error) => {
-      // Manejo de errores
       console.log(error);
-      res.status(503).json({ error: "content not available!" });
+      res.status(503).json({ error: "Error al obtener turnos." });
     });
 };
+
 
 module.exports = {
   register,
