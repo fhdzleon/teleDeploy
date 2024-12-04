@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 const FormH = () => {
   const [formData, setFormData] = useState({
@@ -24,10 +25,24 @@ const FormH = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
-    // Aquí puedes agregar la lógica para enviar los datos del formulario
+    Swal.fire({
+      icon: "success",
+      title: "¡Gracias!",
+      text: "Hemos recibido tus comentarios",
+      showCloseButton: true,
+    }).then(() => {
+      setFormData({
+        nombre: "",
+        apellido: "",
+        email: "",
+        telefono: "",
+        motivo: "",
+        mensaje: "",
+      });
+    });
   };
   return (
-     <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-md w-full max-w-[750px] p-12">
         <form onSubmit={handleSubmit}>
           <div className="-mx-3 flex flex-wrap">
@@ -45,7 +60,6 @@ const FormH = () => {
                   type="text"
                   name="nombre"
                   id="nombre"
-                  
                   className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
                 />
               </div>
@@ -64,7 +78,6 @@ const FormH = () => {
                   type="text"
                   name="apellido"
                   id="apellido"
-                  
                   className="w-full rounded-full border border-[#6A64F1] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#4a41fe] focus:shadow-md"
                 />
               </div>

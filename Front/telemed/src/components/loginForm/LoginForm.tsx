@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
 import useGlobalStore from "@/store/globalStore";
+import GoogleAuth from "../googleAuth/GoogleAuth";
 
 const LoginForm = () => {
   const setUser = useGlobalStore((state) => state.setUser);
@@ -68,6 +69,7 @@ const LoginForm = () => {
 
         const userDataValue = json.userData;
         const encodedValue = encodeURIComponent(JSON.stringify(userDataValue));
+
         document.cookie = `userData=${encodedValue}; path=/; expires=${new Date(
           new Date().getTime() + 24 * 60 * 60 * 1000 // 1 día de duración
         ).toUTCString()}`;
@@ -113,10 +115,10 @@ const LoginForm = () => {
       {/*  <div className="flex justify-center mb-7">
         <button className="border border-acent py-2 px-5 rounded-l-full border-r-0">
           Soy paciente
-        </button>
-        <button className="border border-acent py-2 px-5">Soy médico</button>
+          </button>
+          <button className="border border-acent py-2 px-5">Soy médico</button>
         <button className="border border-acent py-2 px-5 rounded-r-full border-l-0">
-          Soy administrador
+        Soy administrador
         </button>
       </div> */}
 
@@ -170,6 +172,7 @@ const LoginForm = () => {
       >
         Iniciar sesión
       </button>
+      <GoogleAuth />
     </form>
   );
 };

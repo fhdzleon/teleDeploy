@@ -1,10 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import data from "@/helpers/mockAppointments";
+import React, { useEffect, useState } from "react";
+/* import data from "@/helpers/mockAppointments"; */
 import Link from "next/link";
 import { PATHROUTES } from "@/helpers/pathroutes";
 import useGlobalStore from "@/store/globalStore";
+import Profile from "@/components/profile/Profile";
+import formatFecha from "@/helpers/formatFecha";
+import getDiasRestantes from "@/helpers/getDiasRestantes";
+import { Appointments } from "@/interfaces/interfaces";
 
 const Page = () => {
   const { user } = useGlobalStore();
@@ -13,43 +17,37 @@ const Page = () => {
     "nextAppoitments"
   );
 
-  const formatFecha = (fechaISO: string): string => {
-    const opciones: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
+  const [allAppointments, setAllAppointments] = useState<Appointments[]>([]);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/appointment/my_shifts/${user?.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setAllAppointments(Array.isArray(data) ? data : []);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        console.error("Error fetching appointments");
+      }
     };
-    const fecha = new Date(fechaISO);
-
-    return fecha
-      .toLocaleDateString("es-ES", opciones)
-      .replace(/^\w/, (c) => c.toUpperCase());
-  };
-
-  const getDiasRestantes = (fechaISO: string): string => {
-    const fechaCita = new Date(fechaISO);
-    const fechaActual = new Date();
-
-    fechaCita.setHours(0, 0, 0, 0);
-    fechaActual.setHours(0, 0, 0, 0);
-
-    const diferenciaTiempo = fechaCita.getTime() - fechaActual.getTime();
-    const diasRestantes = Math.ceil(diferenciaTiempo / (1000 * 3600 * 24)); // Convertir de milisegundos a días
-
-    if (diasRestantes < 0) {
-      return "La cita ya pasó";
-    } else if (diasRestantes === 0) {
-      return "Hoy";
-    } else {
-      return `Faltan ${diasRestantes} días`;
-    }
-  };
+    fetchAppointments();
+  }, [user?.id]);
 
   return (
     <div className="flex flex-col items-center space-y-6 p-8">
+      <p className="font-bold text-2xl">¡Hola, {user?.name}!</p>
       <div className=" w-full max-w-2xl flex justify-end">
         <Link href={PATHROUTES.APPOINTEMNT}>
-          <button className="px-4 py-2 bg-gray-300 text-black rounded-full hover:bg-gray-400 transition">
+          <button className="px-12 py-1 bg-primary text-white rounded-full hover:bg-gray-400 transition">
             Solicitar turno
           </button>
         </Link>
@@ -57,20 +55,31 @@ const Page = () => {
 
       <div className="w-full max-w-2xl">
         <div className="flex justify-start">
-          <div className="relative w-[180px] px-5 py-1 max-w-2xl flex justify-center bg-white text-gray-800 border-t border-gray-400 before:absolute before:top-0 before:left-0 before:h-full before:w-[1px] before:bg-gray-400 before:skew-y-12 after:absolute after:top-0 after:right-0 after:h-full after:w-[1px] after:bg-gray-400 after:-skew-y-12">
+          <div
+            className={`relative w-[180px] px-5 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400 ${
+              section === "nextAppoitments" ? "font-bold" : ""
+            }`}
+          >
             <button onClick={() => setSection("nextAppoitments")}>
               Próximos turnos
             </button>
           </div>
-          <div className="relative w-[180px] px-5 py-1 max-w-2xl flex justify-center bg-white text-gray-800 border-t border-gray-400 before:absolute before:top-0 before:left-0 before:h-full before:w-[1px] before:bg-gray-400 before:skew-y-12 after:absolute after:top-0 after:right-0 after:h-full after:w-[1px] after:bg-gray-400 after:-skew-y-12">
+          <div
+            className={`relative ml-1 w-[180px] px-5 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400 ${
+              section === "profile" ? "font-bold" : ""
+            }`}
+          >
             <button onClick={() => setSection("profile")}>Mis datos</button>
           </div>
         </div>
 
         {/* Contenedor con el borde alrededor de las cards */}
-        <div className="w-full max-w-2xl border border-gray-400  p-6 space-y-4">
+        <div className="w-full max-w-2xl border border-gray-400 p-6 space-y-4 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
+          {section === "nextAppoitments" && allAppointments.length === 0 && (
+            <span>No hay citas proximas</span>
+          )}
           {section === "nextAppoitments" &&
-            data.map((appointment, index) => (
+            allAppointments.map((appointment, index) => (
               <div
                 key={index}
                 className="flex flex-col items-center bg-white border border-gray-400 rounded-md p-4 w-full"
@@ -287,13 +296,9 @@ const Page = () => {
             ))}
 
           {section === "profile" && (
-            <div className="text-center space-y-5">
+            <div className=" justify-center items-center ">
               {/* Contenido de la sección de perfil */}
-              <p>Aquí se mostrarán los datos del perfil.</p>
-              <p>
-                {user?.name} {user?.lastName}
-              </p>
-              <p>{user?.email}</p>
+              <Profile />
             </div>
           )}
         </div>

@@ -6,7 +6,7 @@ const data = [
     especialidad: "Nutrición",
   },
   {
-    fecha: "2024-12-7",
+    fecha: "2024-12-24",
     hora: "15:30",
     doctor: "Carlos Martínez",
     especialidad: "Cardiología",

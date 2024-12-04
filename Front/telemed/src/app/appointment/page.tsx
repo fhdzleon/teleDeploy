@@ -9,21 +9,31 @@ import { Medico } from "@/interfaces/interfaces";
 import useGlobalStore from "@/store/globalStore";
 import { useEffect, useState } from "react";
 import { fetchMedicos } from "../api/actions";
+import { Loading } from "@/components/doctor/Loading";
 
 const page = () => {
   const { selectedValue } = useGlobalStore();
   const [medicos, setMedicos] = useState<Medico[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function handleFetchMedicos() {
+      setLoading(true);
       try {
-        const data = await fetchMedicos(selectedValue);
+        const data = await fetchMedicos(selectedValue || "");
         setMedicos(data);
       } catch (error) {
         console.error("Error:", error);
+      } finally {
+        setLoading(false);
       }
     }
-    handleFetchMedicos();
+
+    if (selectedValue) {
+      handleFetchMedicos();
+    } else {
+      setLoading(false);
+    }
   }, [selectedValue]);
 
   return (
@@ -35,19 +45,22 @@ const page = () => {
             <SelectSpeciality />
           </div>
           <div className="space-y-10">
-            {medicos?.map((item, index) => (
-              <div key={index}>
-                <DoctorCard
-                  turnosDisponibles={item.turnosDisponibles}
-                  medico={item.medico}
-                  especialidad={item.especialidad}
-                />
-              </div>
-            ))}
+            {loading ? (
+              <Loading />
+            ) : (
+              medicos?.map((item, index) => (
+                <div key={index}>
+                  <DoctorCard
+                    turnosDisponibles={item.turnosDisponibles}
+                    medico={item.medico}
+                    especialidad={item.especialidad}
+                  />
+                </div>
+              ))
+            )}
           </div>
         </Card>
       </div>
-      
     </div>
   );
 };

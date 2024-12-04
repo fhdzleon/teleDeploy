@@ -11,10 +11,13 @@ import {
 } from "../ui/select";
 import useGlobalStore from "@/store/globalStore";
 const SelectSpeciality = () => {
-  const { setSelectedValue, selectedValue } = useGlobalStore();
+  const { setSelectedValue, selectedValue, setSelectedValueDoctor, setSelectedValueTime, setSelectedValueDate } = useGlobalStore();
 
   const handleValueChange = (value: string) => {
     setSelectedValue(value);
+    setSelectedValueDoctor("");
+    setSelectedValueDate("");
+    setSelectedValueTime("");
   };
 
   return (
@@ -25,10 +28,10 @@ const SelectSpeciality = () => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Especialidades</SelectLabel>
-          <SelectItem value="cardiologia">Cardiologia</SelectItem>
-          <SelectItem value="dermatologia">Dermatologia</SelectItem>
-          <SelectItem value="nutricion">nutricion</SelectItem>
-          <SelectItem value="psicologia">psicologia</SelectItem>
+          <SelectItem value="cardiologia">Cardiología</SelectItem>
+          <SelectItem value="dermatologia">Dermatología</SelectItem>
+          <SelectItem value="nutricion">Nutrición</SelectItem>
+          <SelectItem value="psicologia">Psicología</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

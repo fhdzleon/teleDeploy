@@ -46,6 +46,7 @@ const getMedicosPorEspecialidad = async (req, res) => {
         );
 
         return {
+          id: medico._id,
           medico: medico.nombreCompleto,
           especialidad: medico.especialidad,
           turnosDisponibles,
