@@ -75,6 +75,8 @@ const login = async function (req, res) {
     });
 };
 
+
+
 const googleLogin = async function (req, res) {
   try {
     const user = req.user; // Usuario recuperado por Passport
