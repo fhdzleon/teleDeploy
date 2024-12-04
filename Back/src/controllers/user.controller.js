@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.js");
 const Specialty = require("../models/Especialidad.js");
 const Shifts = require("../models/Turn.js");
+const mongoose = require("mongoose");
 
 dotenv.config();
 
