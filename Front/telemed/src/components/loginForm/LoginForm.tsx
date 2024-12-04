@@ -63,17 +63,12 @@ const LoginForm = () => {
         }
 
         const json = await response.json();
-        console.log(json);
 
         const user = json.userData;
         setUser(user);
 
         const userDataValue = json.userData;
         const encodedValue = encodeURIComponent(JSON.stringify(userDataValue));
-        console.log("cookies", document.cookie);
-        document.cookie = `tmck=${json.token}; path=/; expires=${new Date(
-          "2024-12-04T21:52:06.000Z"
-        ).toUTCString()}; Secure; SameSite=Lax`;
 
         document.cookie = `userData=${encodedValue}; path=/; expires=${new Date(
           new Date().getTime() + 24 * 60 * 60 * 1000 // 1 día de duración
@@ -113,12 +108,11 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col space-y-5 w-full max-w-md mx-auto"
-      >
-        {/*  <div className="flex justify-center mb-7">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col space-y-5 w-full max-w-md mx-auto"
+    >
+      {/*  <div className="flex justify-center mb-7">
         <button className="border border-acent py-2 px-5 rounded-l-full border-r-0">
           Soy paciente
           </button>
@@ -128,59 +122,58 @@ const LoginForm = () => {
         </button>
       </div> */}
 
-        <div className="flex flex-col space-y-2">
-          <label
-            htmlFor="email"
-            className="w-4/5 mx-auto   block text-start text-base font-medium text-[#07074D]"
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            className="w-4/5 mx-auto rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
-            value={userData.email}
-            onChange={handleChange}
-            name="email"
-            required
-          />
-          {errors.email && (
-            <p className="text-xs w-4/5 mx-auto text-red-600">{errors.email}</p>
-          )}
-        </div>
-
-        <div className="flex flex-col space-y-2 ">
-          <label
-            htmlFor="password"
-            className="w-4/5 mx-auto block text-start text-base font-medium text-[#07074D]"
-          >
-            Contraseña
-          </label>
-          <input
-            id="password"
-            className=" w-4/5 mx-auto  rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
-            type="password"
-            value={userData.password}
-            onChange={handleChange}
-            name="password"
-            required
-          />
-
-          {errors.password && (
-            <p className="text-xs w-4/5 mx-auto text-red-600">
-              {errors.password}
-            </p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          className=" w-4/5 mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+      <div className="flex flex-col space-y-2">
+        <label
+          htmlFor="email"
+          className="w-4/5 mx-auto   block text-start text-base font-medium text-[#07074D]"
         >
-          Iniciar sesión
-        </button>
-      </form>
+          Email
+        </label>
+        <input
+          id="email"
+          className="w-4/5 mx-auto rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+          value={userData.email}
+          onChange={handleChange}
+          name="email"
+          required
+        />
+        {errors.email && (
+          <p className="text-xs w-4/5 mx-auto text-red-600">{errors.email}</p>
+        )}
+      </div>
+
+      <div className="flex flex-col space-y-2 ">
+        <label
+          htmlFor="password"
+          className="w-4/5 mx-auto block text-start text-base font-medium text-[#07074D]"
+        >
+          Contraseña
+        </label>
+        <input
+          id="password"
+          className=" w-4/5 mx-auto  rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+          type="password"
+          value={userData.password}
+          onChange={handleChange}
+          name="password"
+          required
+        />
+
+        {errors.password && (
+          <p className="text-xs w-4/5 mx-auto text-red-600">
+            {errors.password}
+          </p>
+        )}
+      </div>
+
+      <button
+        type="submit"
+        className=" w-4/5 mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+      >
+        Iniciar sesión
+      </button>
       <GoogleAuth />
-    </>
+    </form>
   );
 };
 
