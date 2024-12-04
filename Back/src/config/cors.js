@@ -5,6 +5,7 @@ const corsOptions = {
     const allowedOrigins = [
       "http://localhost:3000", // Tu frontend en local
       "https://c22-20-t-webapp-5y9j.onrender.com", // Tu dominio en producción
+      "https://telemed-beta-nine.vercel.app",
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true); // Permitir acceso
