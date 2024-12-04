@@ -51,7 +51,7 @@ const Profile = () => {
           <input
             onChange={handleChange}
             value={userData.name}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
         </div>
@@ -66,7 +66,7 @@ const Profile = () => {
           <input
             onChange={handleChange}
             value={userData.lastName}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
         </div>
@@ -82,7 +82,8 @@ const Profile = () => {
           </label>
           <input
             onChange={handleChange}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+            value={userData.gender}
+            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
         </div>
@@ -90,13 +91,14 @@ const Profile = () => {
         <div className="flex flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
-            htmlFor="name"
+            htmlFor="phone"
           >
             Telefono
           </label>
           <input
             onChange={handleChange}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+            value={userData.phone}
+            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
         </div>
@@ -106,13 +108,13 @@ const Profile = () => {
         <div className="flex flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
-            htmlFor="name"
+            htmlFor="age"
           >
             Edad
           </label>
           <input
             onChange={handleChange}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
         </div>
@@ -120,14 +122,14 @@ const Profile = () => {
         <div className="flex flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
-            htmlFor="name"
+            htmlFor="email"
           >
             Email
           </label>
           <input
             onChange={handleChange}
             value={userData?.email}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
         </div>
@@ -137,13 +139,14 @@ const Profile = () => {
         <div className="flex flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
-            htmlFor="name"
+            htmlFor="workSocial"
           >
             Obra social
           </label>
           <input
             onChange={handleChange}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+            value={userData.workSocial}
+            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
         </div>
@@ -157,7 +160,7 @@ const Profile = () => {
           </label>
           <input
             onChange={handleChange}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
         </div>
