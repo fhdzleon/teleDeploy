@@ -96,7 +96,7 @@ const googleLogin = async function (req, res) {
     res.cookie("jwt", token, { expires: dateLimit });
 
     // Renderizar vista y pasar datos como contexto
-     res.render("/in", {
+     res.redirect("/in", {
       user: JSON.stringify({
         name: user.name,
         email: user.email,
