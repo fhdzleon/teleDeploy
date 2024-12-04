@@ -24,7 +24,7 @@ export async function fetchMedicos(especialidad: string): Promise<Medico[]> {
     console.log(data);
 
     revalidatePath("/appointment");
-
+    
     return data;
   } catch (error) {
     const e = error as Error;
