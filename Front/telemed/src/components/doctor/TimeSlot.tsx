@@ -21,29 +21,39 @@ interface TimeSlotPickerProps {
 export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
-  const [startDate, setStartDate] = useState<Date | null>(null)
+  const [startIndex, setStartIndex] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
   const { setSelectedValueDate, setSelectedValueTime, setSelectedValueDoctor } = useGlobalStore()
 
   const availableDates = useMemo(() => {
     return Array.from(new Set(turnosDisponibles.map(turno => turno.fecha)))
-      .map(fecha => startOfDay(new Date(fecha))) // Usar startOfDay para normalizar la fecha
+      .map(fecha => startOfDay(new Date(fecha)))
       .sort((a, b) => a.getTime() - b.getTime())
-      .filter(date => isAfter(date, startOfDay(new Date()))) // Solo fechas futuras
+      .filter(date => isAfter(date, startOfDay(new Date())))
   }, [turnosDisponibles])
 
   useEffect(() => {
-    // Reiniciar selecciones cuando cambian los turnos disponibles
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 640) // 640px es el breakpoint de sm en Tailwind
+    }
+
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
+
+  useEffect(() => {
     setSelectedDate(null)
     setSelectedTime(null)
-    setStartDate(availableDates[0] || null)
+    setStartIndex(0)
   }, [turnosDisponibles, availableDates])
 
-  const dateRange = useMemo(() => {
-    if (!startDate) return []
-    const startIndex = availableDates.findIndex(date => isSameDay(date, startDate))
-    return availableDates.slice(startIndex, startIndex + 4)
-  }, [availableDates, startDate])
+  const visibleDates = useMemo(() => {
+    const count = isMobile ? 2 : 4
+    return availableDates.slice(startIndex, startIndex + count)
+  }, [availableDates, startIndex, isMobile])
 
   const handleDateClick = (date: Date) => {
     const dateString = date.toISOString()
@@ -59,17 +69,11 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
   }
 
   const handlePrevious = () => {
-    const currentIndex = availableDates.findIndex(date => isSameDay(date, startDate!))
-    if (currentIndex > 0) {
-      setStartDate(availableDates[currentIndex - 1])
-    }
+    setStartIndex(prev => Math.max(0, prev - (isMobile ? 2 : 4)))
   }
 
   const handleNext = () => {
-    const currentIndex = availableDates.findIndex(date => isSameDay(date, startDate!))
-    if (currentIndex < availableDates.length - 4) {
-      setStartDate(availableDates[currentIndex + 1])
-    }
+    setStartIndex(prev => Math.min(availableDates.length - (isMobile ? 2 : 4), prev + (isMobile ? 2 : 4)))
   }
 
   if (availableDates.length === 0) {
@@ -77,22 +81,26 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
   }
 
   return (
-    <div className="w-full mx-auto p-4">
+    <div className="w-full max-w-3xl mx-auto p-4">
       <div className="relative">
-        <div className="flex items-center mb-6">
+        <div className="flex items-center justify-between mb-6">
           <Button
             variant="ghost"
             size="icon"
             onClick={handlePrevious}
-            disabled={!startDate || isSameDay(startDate, availableDates[0])}
-            className="absolute left-0 top-3 -translate-y-1/2"
+            disabled={startIndex === 0}
+            className="absolute left-0 top-3 -translate-y-1/2 z-10"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-2 text-center px-8 overflow-x-auto">
-            {dateRange.map((date) => (
-              <div key={date.toISOString()} className="font-medium text-sm">
-               {format(date, "EEE dd/MM", { locale: es })}
+            {visibleDates.map((date) => (
+              <div
+                key={date.toISOString()}
+                className="font-medium text-xs sm:text-sm whitespace-nowrap"
+                onClick={() => handleDateClick(date)}
+              >
+                {format(date, "EEE dd/MM", { locale: es })}
               </div>
             ))}
           </div>
@@ -100,14 +108,14 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
             variant="ghost"
             size="icon"
             onClick={handleNext}
-            disabled={!startDate || isSameDay(startDate, availableDates[availableDates.length - 4])}
-            className="absolute right-0 top-3 -translate-y-1/2"
+            disabled={startIndex >= availableDates.length - (isMobile ? 2 : 4)}
+            className="absolute right-0 top-3 -translate-y-1/2 z-10"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
-        <div className="grid grid-cols-4 gap-4">
-          {dateRange.map((date) => (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {visibleDates.map((date) => (
             <div key={date.toISOString()} className="space-y-2">
               {turnosDisponibles
                 .filter(turno => isSameDay(parseISO(turno.fecha), date) && turno.disponible)
@@ -115,20 +123,18 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
                 .map((turno) => (
                   <Button
                     key={`${date}-${turno.hora}`}
-                    variant="outline"
-                    className={`w-full bg-[#E6E6FA] hover:bg-purple-100 ${
+                    variant={selectedDate === turno.fecha && selectedTime === turno.hora ? "default" : "outline"}
+                    className={`w-full text-xs sm:text-sm focus:outline-none focus:ring focus:ring-violet-300 ${
                       selectedDate === turno.fecha && selectedTime === turno.hora
-                        ? "bg-[#D8BFD8] border-primary"
-                        : "focus:outline-none focus:ring focus:ring-violet-300"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-[#E6E6FA] hover:bg-violet-300"
                     }`}
                     onClick={() => {
                       handleDateClick(date)
                       handleTimeClick(turno.hora)
                     }}
                   >
-                    <span className="text-sm ">
                     {turno.hora}
-                    </span>
                   </Button>
                 ))}
             </div>
@@ -145,3 +151,4 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
     </div>
   )
 }
+

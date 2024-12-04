@@ -29,7 +29,7 @@ const page = () => {
       try {
         const data = await fetchMedicos(selectedValue || "");
         setMedicos(data);
-        console.log(data)
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       } finally {
@@ -47,7 +47,6 @@ const page = () => {
   const handleSendInformation = () => {
     console.log(selectedValueDate, selectedValueTime, selectedValueDoctor);
   };
-
 
   const handleCancel = () => {
     setSelectedValueDoctor("");
@@ -80,20 +79,20 @@ const page = () => {
           </div>
         </Card>
         <div className="flex justify-center md:justify-end items-end p-4 md:p-6 space-x-3 md:space-x-5 transition-all">
-        <Button
-          onClick={handleCancel}
-          className="rounded-full bg-red-600 hover:bg-red-700 hover:scale-105"
-        >
-          Cancelar
-        </Button>
-        <Button
-          disabled={handleDisabled}
-          onClick={handleSendInformation}
-          className="rounded-full bg-green-600 hover:bg-green-700 hover:scale-105"
-        >
-          Continuar
-        </Button>
-      </div>
+          <Button
+            onClick={handleCancel}
+            className="rounded-full bg-primary hover:bg-purple-600"
+          >
+            Cancelar
+          </Button>
+          <Button
+            disabled={handleDisabled}
+            onClick={handleSendInformation}
+            className="rounded-full bg-primary hover:bg-purple-600 "
+          >
+            Continuar
+          </Button>
+        </div>
       </div>
     </div>
   );
