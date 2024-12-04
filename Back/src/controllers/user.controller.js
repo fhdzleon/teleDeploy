@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.js");
 const Specialty = require("../models/Especialidad.js");
 const Shifts = require("../models/Turn.js");
+const mongoose = require("mongoose");
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ const register = async function (req, res) {
     gender,
     phone,
     role,
+    idAfiliado,
     healthcareSystem,
   } = req.body;
   const salt = await bcrypt.genSalt(5);
@@ -28,6 +30,7 @@ const register = async function (req, res) {
     gender,
     phone,
     role,
+    idAfiliado,
     healthcareSystem,
   })
     .then((result) => {
@@ -57,7 +60,8 @@ const login = async function (req, res) {
             email: result.email,
             phone: result.phone,
             gender: result.gender,
-            healthcareSystem: result.healthcareSystem.socialWork,
+            idAfiliado: result.idAfiliado,
+            healthcareSystem: result.healthcareSystem,
           };
           res.json({ userData });
         } else {
@@ -75,35 +79,31 @@ const googleLogin = async function (req, res) {
   try {
     const user = req.user; // Usuario recuperado por Passport
     if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).redirect('/login'); // Redirigir al login si no hay usuario
     }
 
     // Generar JWT
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      {
-        expiresIn: process.env.EXPIRES,
-      }
+      { expiresIn: process.env.EXPIRES }
     );
 
     // Configurar cookies si es necesario
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
-    res.cookie("jwt", token, { expires: dateLimit });
+    res.cookie('jwt', token, { expires: dateLimit, httpOnly: true });
 
-    // Renderizar la vista
-    res.render("dashboard", {
-      user: JSON.stringify({
-        name: user.name,
-        email: user.email,
-        token,
-      }),
-    });
+    // Redirigir al frontend
+    const frontendURL = process.env.FRONTEND_URL || 'http://localhost:3000/in';
+    const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`;
+
+    res.redirect(redirectURL); // Redirigir al frontend con los datos del usuario
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).redirect('/error'); // Redirigir a una página de error en caso de fallo
   }
 };
+
 
 const getSpecialty = function (req, res) {
   Specialty.find({}, "especialidad")
@@ -118,23 +118,28 @@ const getSpecialty = function (req, res) {
 
 const getPatientShifts = function (req, res) {
   const id = req.params.id.replace(":", ""); // Elimina ':' de los parámetros si está presente
+
+  // Validar si el ID es un ObjectId válido
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "ID inválido." });
+  }
+
   Shifts.find({ patient: id })
     .sort({ _id: -1 })
     .limit(3)
     .then((result) => {
       if (result.length === 0) {
-        // Si no hay resultados
-        res.json([]); // Enviar array vacío
+        res.json([]); // Enviar array vacío si no hay resultados
       } else {
         res.json(result); // Enviar resultados si existen
       }
     })
     .catch((error) => {
-      // Manejo de errores
       console.log(error);
-      res.status(503).json({ error: "content not available!" });
+      res.status(503).json({ error: "Error al obtener turnos." });
     });
 };
+
 
 module.exports = {
   register,
