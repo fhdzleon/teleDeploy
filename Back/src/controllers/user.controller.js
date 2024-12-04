@@ -60,6 +60,7 @@ const login = async function (req, res) {
             email: result.email,
             phone: result.phone,
             gender: result.gender,
+            idAfiliado: result.idAfiliado,
             healthcareSystem: result.healthcareSystem,
           };
           res.json({ userData, });
