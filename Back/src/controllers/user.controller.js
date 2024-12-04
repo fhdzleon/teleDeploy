@@ -79,35 +79,31 @@ const googleLogin = async function (req, res) {
   try {
     const user = req.user; // Usuario recuperado por Passport
     if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).redirect('/login'); // Redirigir al login si no hay usuario
     }
 
     // Generar JWT
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      {
-        expiresIn: process.env.EXPIRES,
-      }
+      { expiresIn: process.env.EXPIRES }
     );
 
     // Configurar cookies si es necesario
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
-    res.cookie("jwt", token, { expires: dateLimit });
+    res.cookie('jwt', token, { expires: dateLimit, httpOnly: true });
 
-    res.status(200).json({
-      message: "Authorized with Google",
-      userData: {
-        name: user.name,
-        email: user.email,
-      },
-      token,
-    });
+    // Redirigir al frontend
+    const frontendURL = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`;
+
+    res.redirect(redirectURL); // Redirigir al frontend con los datos del usuario
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).redirect('/error'); // Redirigir a una página de error en caso de fallo
   }
 };
+
 
 const getSpecialty = function (req, res) {
   Specialty.find({}, "especialidad")
