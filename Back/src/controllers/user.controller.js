@@ -48,11 +48,10 @@ const login = async function (req, res) {
     .then((result) => {
       if (!result) {
         res.status(401).json({ error: "email or password incorrect!" });
-      }
-      else {
+      } else {
         if (bcrypt.compareSync(req.body.password, result.password) === true) {
           const userData = {
-            id:result.id,
+            id: result.id,
             name: result.name,
             lastName: result.lastName,
             email: result.email,
@@ -60,9 +59,8 @@ const login = async function (req, res) {
             gender: result.gender,
             healthcareSystem: result.healthcareSystem.socialWork,
           };
-          res.json({ userData, });
-        }
-        else {
+          res.json({ userData });
+        } else {
           res.status(401).json({ error: "email or password incorrect!" });
         }
       }
@@ -119,23 +117,24 @@ const getSpecialty = function (req, res) {
 };
 
 const getPatientShifts = function (req, res) {
-  const id = req.params.id.replace(':', ''); // Elimina ':' de los parámetros si está presente
+  const id = req.params.id.replace(":", ""); // Elimina ':' de los parámetros si está presente
   Shifts.find({ patient: id })
     .sort({ _id: -1 })
     .limit(3)
     .then((result) => {
-      if (result.length === 0) { // Si no hay resultados
+      if (result.length === 0) {
+        // Si no hay resultados
         res.json([]); // Enviar array vacío
       } else {
         res.json(result); // Enviar resultados si existen
       }
     })
-    .catch((error) => { // Manejo de errores
+    .catch((error) => {
+      // Manejo de errores
       console.log(error);
-      res.status(503).json({ error: 'content not available!' });
+      res.status(503).json({ error: "content not available!" });
     });
 };
-
 
 module.exports = {
   register,

@@ -39,3 +39,10 @@ export interface Medico {
 }
 
 export type registerErrors = Partial<registerInputs>;
+
+export interface Appointments {
+  fecha: string;
+  hora: string;
+  doctor: string;
+  especialidad: string;
+}
