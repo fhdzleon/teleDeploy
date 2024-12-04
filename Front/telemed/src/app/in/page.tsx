@@ -8,6 +8,7 @@ import useGlobalStore from "@/store/globalStore";
 import Profile from "@/components/profile/Profile";
 import formatFecha from "@/helpers/formatFecha";
 import getDiasRestantes from "@/helpers/getDiasRestantes";
+import { Appointments } from "@/interfaces/interfaces";
 
 const Page = () => {
   const { user } = useGlobalStore();
@@ -16,13 +17,13 @@ const Page = () => {
     "nextAppoitments"
   );
 
-  const [allAppointments, setAllAppointments] = useState([]);
+  const [allAppointments, setAllAppointments] = useState<Appointments[]>([]);
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/appointment/my_shifts`,
+          `${process.env.NEXT_PUBLIC_API_URL}/appointment/my_shifts/${user?.id}`,
           {
             method: "GET",
             headers: {
@@ -39,7 +40,7 @@ const Page = () => {
       }
     };
     fetchAppointments();
-  }, []);
+  }, [user?.id]);
 
   return (
     <div className="flex flex-col items-center space-y-6 p-8">
