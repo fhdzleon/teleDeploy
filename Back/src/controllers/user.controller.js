@@ -48,11 +48,10 @@ const login = async function (req, res) {
     .then((result) => {
       if (!result) {
         res.status(401).json({ error: "email or password incorrect!" });
-      }
-      else {
+      } else {
         if (bcrypt.compareSync(req.body.password, result.password) === true) {
           const userData = {
-            id:result.id,
+            id: result.id,
             name: result.name,
             lastName: result.lastName,
             email: result.email,
@@ -60,24 +59,9 @@ const login = async function (req, res) {
             gender: result.gender,
             healthcareSystem: result.healthcareSystem,
           };
-<<<<<<< HEAD
-
-          // Cookie with user data
-          /*  res.cookie("userData", userData, { expires: dateLimit }); */
-
-          res.status(200).json({
-            message: "authorized",
-            userData,
-            token,
-          });
+          res.json({ userData });
         } else {
-          res.status(401).json({ error: "email or password incorrect" });
-=======
-          res.json({ userData, });
-        }
-        else {
           res.status(401).json({ error: "email or password incorrect!" });
->>>>>>> 9102eccf32b278530e719e6206e4558bbd63c63f
         }
       }
     })
@@ -133,7 +117,7 @@ const getSpecialty = function (req, res) {
 };
 
 const getPatientShifts = function (req, res) {
-  const id = req.params.id.replace(':','')
+  const id = req.params.id.replace(":", "");
   Shifts.find({ patient: id })
     .sort({ _id: -1 })
     .limit(3)
@@ -146,7 +130,7 @@ const getPatientShifts = function (req, res) {
     })
     .catch((error) => {
       console.log(error);
-      res.status(503).json({error:'content not aveliable!'});
+      res.status(503).json({ error: "content not aveliable!" });
     });
 };
 
