@@ -20,7 +20,7 @@ router.post("/login/api", login);
 router.put("/reserve-turn", roleAuthorization(["patient"]), reserveTurn);
 router.get("/turnos", AdminController.verTurnos);
 router.get("/medicos-por-especialidad", getMedicosPorEspecialidad);
-router.get("/appointment/my_shifts",getPatientShifts);
+router.get("/appointment/my_shifts/:id",getPatientShifts);
 router.post("/add", addHealthcareSystem);
 router.get("/diagnosis/:id", getDiagnosis);
 router.get("/appointment/specialty", getSpecialty);

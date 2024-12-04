@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import data from "@/helpers/mockAppointments";
+import React, { useEffect, useState } from "react";
+/* import data from "@/helpers/mockAppointments"; */
 import Link from "next/link";
 import { PATHROUTES } from "@/helpers/pathroutes";
 import useGlobalStore from "@/store/globalStore";
 import Profile from "@/components/profile/Profile";
 import formatFecha from "@/helpers/formatFecha";
+import getDiasRestantes from "@/helpers/getDiasRestantes";
+import { Appointments } from "@/interfaces/interfaces";
 
 const Page = () => {
   const { user } = useGlobalStore();
@@ -15,24 +17,30 @@ const Page = () => {
     "nextAppoitments"
   );
 
-  const getDiasRestantes = (fechaISO: string): string => {
-    const fechaCita = new Date(fechaISO);
-    const fechaActual = new Date();
+  const [allAppointments, setAllAppointments] = useState<Appointments[]>([]);
 
-    fechaCita.setHours(0, 0, 0, 0);
-    fechaActual.setHours(0, 0, 0, 0);
-
-    const diferenciaTiempo = fechaCita.getTime() - fechaActual.getTime();
-    const diasRestantes = Math.ceil(diferenciaTiempo / (1000 * 3600 * 24)); // Convertir de milisegundos a días
-
-    if (diasRestantes < 0) {
-      return "La cita ya pasó";
-    } else if (diasRestantes === 0) {
-      return "Hoy";
-    } else {
-      return `Faltan ${diasRestantes} días`;
-    }
-  };
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/appointment/my_shifts/${user?.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setAllAppointments(Array.isArray(data) ? data : []);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        console.error("Error fetching appointments");
+      }
+    };
+    fetchAppointments();
+  }, [user?.id]);
 
   return (
     <div className="flex flex-col items-center space-y-6 p-8">
@@ -67,11 +75,11 @@ const Page = () => {
 
         {/* Contenedor con el borde alrededor de las cards */}
         <div className="w-full max-w-2xl border border-gray-400 p-6 space-y-4 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
-          {section === "nextAppoitments" && data.length === 0 && (
+          {section === "nextAppoitments" && allAppointments.length === 0 && (
             <span>No hay citas proximas</span>
           )}
           {section === "nextAppoitments" &&
-            data.map((appointment, index) => (
+            allAppointments.map((appointment, index) => (
               <div
                 key={index}
                 className="flex flex-col items-center bg-white border border-gray-400 rounded-md p-4 w-full"

@@ -1,9 +1,13 @@
 import { create } from "zustand";
 
 export interface UserPayload {
+  id: string;
   name: string;
   lastName: string;
   email: string;
+  phone: string;
+  gender: string;
+  healthcareSystem: string;
 }
 
 export interface UserState {
@@ -21,23 +25,19 @@ export interface UserState {
   setSelectedValueTime: (value: string) => void;
 }
 
-
-
 const useGlobalStore = create<UserState>((set) => ({
   user: null,
   setUser: (user) => set({ user }),
   sessionStatusStorage: true,
   setSessionStatusStorage: (status) => set({ sessionStatusStorage: status }),
-  selectedValue: '', //Select de especialidad
+  selectedValue: "", //Select de especialidad
   setSelectedValue: (value) => set({ selectedValue: value }),
-  selectedValueDoctor: '',
+  selectedValueDoctor: "",
   setSelectedValueDoctor: (value) => set({ selectedValueDoctor: value }),
-  selectedValueDate: '',
+  selectedValueDate: "",
   setSelectedValueDate: (value) => set({ selectedValueDate: value }),
-  selectedValueTime: '',
+  selectedValueTime: "",
   setSelectedValueTime: (value) => set({ selectedValueTime: value }),
 }));
-
-
 
 export default useGlobalStore;
