@@ -9,11 +9,11 @@ const Profile = () => {
   const [userData, setUserData] = useState({
     name: user?.name,
     lastName: user?.lastName,
-    gender: "",
-    phone: "",
+    gender: user?.gender,
+    phone: user?.phone,
     age: "",
     email: user?.email,
-    workSocial: "",
+    workSocial: user?.healthcareSystem,
     idWorkSocial: "",
   });
 
