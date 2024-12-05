@@ -23,8 +23,9 @@ export interface registerInputs {
   email: string;
   password: string;
   healthcareSystem: string;
-  idSocialWork: string;
+  idAfiliado: string;
   role: string;
+  age: string;
 }
 
 export interface TurnoDisponible {

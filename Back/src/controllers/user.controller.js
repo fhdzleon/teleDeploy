@@ -15,6 +15,7 @@ const register = async function (req, res) {
     email,
     password,
     gender,
+    age,
     phone,
     role,
     idAfiliado,
@@ -28,6 +29,7 @@ const register = async function (req, res) {
     email,
     password: hash,
     gender,
+    age,
     phone,
     role,
     idAfiliado,
@@ -63,6 +65,7 @@ const login = async function (req, res) {
         email: result.email,
         phone: result.phone,
         gender: result.gender,
+        age: result.age,
         idAfiliado: result.idAfiliado,
         healthcareSystem: result.healthcareSystem ? result.healthcareSystem.socialWork : null,
       };
@@ -81,7 +84,7 @@ const googleLogin = async function (req, res) {
   try {
     const user = req.user; // Usuario recuperado por Passport
     if (!user) {
-      return res.status(401).redirect('/login'); // Redirigir al login si no hay usuario
+      return res.status(401).redirect("/login"); // Redirigir al login si no hay usuario
     }
 
     // Generar JWT
@@ -93,19 +96,20 @@ const googleLogin = async function (req, res) {
 
     // Configurar cookies si es necesario
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
-    res.cookie('jwt', token, { expires: dateLimit, httpOnly: true });
+    res.cookie("jwt", token, { expires: dateLimit, httpOnly: true });
 
     // Redirigir al frontend
-    const frontendURL = process.env.FRONTEND_URL || 'http://localhost:3000/in';
-    const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`;
+    const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000/in";
+    const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(
+      user.name
+    )}&email=${encodeURIComponent(user.email)}`;
 
     res.redirect(redirectURL); // Redirigir al frontend con los datos del usuario
   } catch (error) {
     console.error(error);
-    res.status(500).redirect('/error'); // Redirigir a una página de error en caso de fallo
+    res.status(500).redirect("/error"); // Redirigir a una página de error en caso de fallo
   }
 };
-
 
 const getSpecialty = function (req, res) {
   Specialty.find({}, "especialidad")
@@ -141,7 +145,6 @@ const getPatientShifts = function (req, res) {
       res.status(503).json({ error: "Error al obtener turnos." });
     });
 };
-
 
 module.exports = {
   register,

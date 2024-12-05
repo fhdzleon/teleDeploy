@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  age: {
+    type: String,
+    required: false,
+  },
   phone: {
     type: String,
     required: false,
