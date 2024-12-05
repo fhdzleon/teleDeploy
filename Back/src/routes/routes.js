@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, getSpecialty, getPatientShifts } = require("../controllers/user.controller");
+const { register, login, getSpecialty, getPatientShifts, updateUser } = require("../controllers/user.controller");
 const { checkRegister, checkLogin } = require("../middleware/middleware");
 const { getDiagnosis, createDiagnosis } = require("../controllers/doctor.controller");
 const { addHealthcareSystem } = require("../controllers/healthcareSystemController");
@@ -17,6 +17,7 @@ router.use("/login/api", checkLogin);
 router.post("/register/api", register);
 router.post("/login/api", login);
 router.put("/turns/reserve/:id", reserveTurn);
+router.put("/update/:id", updateUser);
 router.get("/turnos", AdminController.verTurnos);
 router.get("/medicos-por-especialidad", getMedicosPorEspecialidad);
 router.get("/appointment/my_shifts/:id",getPatientShifts);
