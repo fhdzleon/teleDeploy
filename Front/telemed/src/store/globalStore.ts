@@ -9,6 +9,7 @@ export interface UserPayload {
   gender: string;
   healthcareSystem: string;
   idAfiliado: string;
+  age: string;
 }
 
 export interface UserState {

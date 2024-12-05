@@ -2,38 +2,98 @@
 
 import { ChangeEvent, useState } from "react";
 import useGlobalStore from "@/store/globalStore";
+import { registerErrors } from "@/interfaces/interfaces";
+import { validateEditionInputs } from "@/middlewares/validateEditionInputs";
 
 const Profile = () => {
-  const { user } = useGlobalStore();
+  const { user, setUser } = useGlobalStore();
 
-  const [userData, setUserData] = useState({
-    name: user?.name,
-    lastName: user?.lastName,
-    gender: user?.gender,
-    phone: user?.phone,
-    age: "",
-    email: user?.email,
-    workSocial: user?.healthcareSystem,
-    idWorkSocial: user?.idAfiliado,
+  const [userData, setUserData] = useState<registerErrors>({
+    name: user?.name || "",
+    lastName: user?.lastName || "",
+    gender: user?.gender || "",
+    phone: user?.phone || "",
+    age: user?.age || "",
+    email: user?.email || "",
+    healthcareSystem: user?.healthcareSystem || "",
+    idAfiliado: user?.idAfiliado || "",
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const [errors, setErrors] = useState<registerErrors>({
+    name: "",
+    lastName: "",
+    gender: "",
+    phone: "",
+    age: "",
+    healthcareSystem: "",
+    idAfiliado: "",
+  });
+
+  const [changedFields, setChangedFields] = useState<registerErrors>({});
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
 
-    const newUserData = { ...userData, [name]: value };
-    setUserData(newUserData);
+    setUserData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setChangedFields((prev) => ({
+      ...prev,
+      [name]: value !== userData[name],
+    }));
+
+    const updatedErrors = validateEditionInputs({ ...userData, [name]: value });
+
+    setErrors(updatedErrors);
   };
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
-    event?.preventDefault();
+    event.preventDefault();
+
+    const updatedFields = Object.keys(changedFields)
+      .filter((key) => changedFields[key])
+      .reduce((acc, key) => {
+        acc[key] = userData[key];
+        return acc;
+      }, {});
+
+    if (Object.keys(updatedFields).length === 0) {
+      alert("No hay cambios para guardar");
+      return;
+    }
 
     try {
-      alert("Cambio simulado");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/update/${user?.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedFields),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al actualizar los datos");
+      }
+      const updateUser = await response.json();
+      setUser(updateUser);
+
+      alert("Datos actualizados correctamente");
     } catch (error) {
-      console.log("Error");
+      console.error(error);
+      alert("Ocurrió un error al intentar guardar los cambios");
     }
   };
+
+  const isSaveDisabled =
+    Object.values(changedFields).every((val) => !val) ||
+    Object.values(errors).some((error) => error !== "");
 
   return (
     <form
@@ -49,26 +109,38 @@ const Profile = () => {
             Nombre
           </label>
           <input
+            name="name"
             onChange={handleChange}
             value={userData.name}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
+            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md ${
+              userData.name !== user?.name
+                ? "text-opacity-100"
+                : "text-opacity-70"
+            }`}
             type="text"
           />
+          <p className="text-xs text-red-600">{errors.name}</p>
         </div>
 
         <div className="flex flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
-            htmlFor="name"
+            htmlFor="lastName"
           >
             Apellido
           </label>
           <input
+            name="lastName"
             onChange={handleChange}
             value={userData.lastName}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
+            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+              userData.lastName !== user?.lastName
+                ? "text-opacity-100"
+                : "text-opacity-70"
+            }`}
             type="text"
           />
+          <p className="text-xs text-red-600">{errors.lastName}</p>
         </div>
       </div>
 
@@ -76,16 +148,26 @@ const Profile = () => {
         <div className="flex flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
-            htmlFor="name"
+            htmlFor="gender"
           >
             Sexo
           </label>
-          <input
-            onChange={handleChange}
+          <select
+            id="gender"
             value={userData.gender}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
-            type="text"
-          />
+            onChange={handleChange}
+            className={`w-full md:w-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none ${
+              userData.gender !== user?.gender
+                ? "text-opacity-100"
+                : "text-opacity-70"
+            }`}
+            name="gender"
+            required
+          >
+            <option value="male">Masculino</option>
+            <option value="female">Femenino</option>
+          </select>
+          <p className="text-xs text-red-600">{errors.gender}</p>
         </div>
 
         <div className="flex flex-col">
@@ -96,11 +178,16 @@ const Profile = () => {
             Telefono
           </label>
           <input
+            name="phone"
             onChange={handleChange}
             value={userData.phone}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
-            type="text"
+            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+              userData.phone !== user?.phone
+                ? "text-opacity-100"
+                : "text-opacity-70"
+            }`}
           />
+          <p className="text-xs text-red-600">{errors.phone}</p>
         </div>
       </div>
 
@@ -113,10 +200,17 @@ const Profile = () => {
             Edad
           </label>
           <input
+            name="age"
             onChange={handleChange}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
+            value={userData?.age}
+            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+              userData.age !== user?.age
+                ? "text-opacity-100"
+                : "text-opacity-70"
+            }`}
             type="text"
           />
+          <p className="text-xs text-red-600">{errors.age}</p>
         </div>
 
         <div className="flex flex-col">
@@ -127,9 +221,15 @@ const Profile = () => {
             Email
           </label>
           <input
+            name="email"
+            disabled
             onChange={handleChange}
             value={userData?.email}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
+            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+              userData.email !== user?.email
+                ? "text-opacity-100"
+                : "text-opacity-70"
+            }`}
             type="text"
           />
         </div>
@@ -139,37 +239,66 @@ const Profile = () => {
         <div className="flex flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
-            htmlFor="workSocial"
+            htmlFor="healthcareSystem"
           >
             Obra social
           </label>
-          <input
+          <select
+            id="healthcareSystem"
+            value={userData.healthcareSystem}
             onChange={handleChange}
-            value={userData.workSocial}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
-            type="text"
-          />
+            className={`w-full md:w-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none ${
+              userData.healthcareSystem !== user?.healthcareSystem
+                ? "text-opacity-100"
+                : "text-opacity-70"
+            }`}
+            name="healthcareSystem"
+            required
+          >
+            <option value="6744d95a6d87602e47fc2810">Osecac</option>
+            <option value="6744d9766d87602e47fc2812 ">Prevencion salud</option>
+            <option value="6744d9966d87602e47fc2814">Ospe</option>
+            <option value="6744d9aa6d87602e47fc2816">Avalian</option>
+            <option value="6744d9be6d87602e47fc2818">Osde</option>
+            <option value="6744d9d16d87602e47fc281a">Osuthgra</option>
+            <option value="6744d9e66d87602e47fc281c">Luis Pasteur</option>
+          </select>
+          <p className="text-xs text-red-600">{errors.healthcareSystem}</p>
         </div>
 
         <div className="flex flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
-            htmlFor="name"
+            htmlFor="idAfiliado"
           >
             Numero de Afiliación
           </label>
           <input
+            name="idAfiliado"
             onChange={handleChange}
-            value={userData.idWorkSocial}
-            className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
+            value={userData.idAfiliado}
+            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+              userData.idAfiliado !== user?.idAfiliado
+                ? "text-opacity-100"
+                : "text-opacity-70"
+            }`}
             type="text"
           />
+          <p className="text-xs text-red-600">{errors.idAfiliado}</p>
         </div>
       </div>
 
       <div className="flex justify-end  space-x-12">
         <div className="flex flex-col mt-6">
-          <button className="px-12 py-2 bg-secundary text-primary font-semibold rounded-full hover:bg-gray-400 transition">
+          <button
+            type="submit"
+            disabled={isSaveDisabled}
+            className={`px-12 py-2 font-semibold rounded-full transition ${
+              isSaveDisabled
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-secundary text-primary hover:bg-gray-400"
+            }`}
+          >
             Guardar Cambios
           </button>
         </div>
