@@ -25,7 +25,8 @@ const RegisterForm = () => {
     email: "",
     password: "",
     healthcareSystem: "",
-    idSocialWork: "",
+    idAfiliado: "",
+    age: "",
     role: "patient",
   });
 
@@ -134,7 +135,8 @@ const RegisterForm = () => {
       password: "",
       role: "patient",
       healthcareSystem: "",
-      idSocialWork: "",
+      idAfiliado: "",
+      age: "",
     });
   };
 
@@ -251,6 +253,29 @@ const RegisterForm = () => {
               </div>
             </div>
 
+            <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0">
+              <div>
+                <label
+                  className="block text-start text-base font-medium text-[#07074D]"
+                  htmlFor="age"
+                >
+                  Edad
+                </label>
+                <input
+                  id="age"
+                  value={userData.age}
+                  onChange={handleChange}
+                  className="rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  type="string"
+                  name="age"
+                  required
+                />
+                {errors.phone && (
+                  <p className="text-xs text-red-600">{errors.age}</p>
+                )}
+              </div>
+            </div>
+
             <button
               className=" md:w-1/2 md:mx-auto mt-12 hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
               onClick={nextStep}
@@ -317,21 +342,21 @@ const RegisterForm = () => {
               <div>
                 <label
                   className="md:w-1/2 mx-auto block text-start text-base font-medium text-[#07074D]"
-                  htmlFor="password"
+                  htmlFor="idAfiliado"
                 >
                   Numero de afiliado
                 </label>
                 <input
-                  id="idSocialWork"
-                  value={userData.idSocialWork}
+                  id="idAfiliado"
+                  value={userData.idAfiliado}
                   onChange={handleChange}
                   className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="number"
-                  name="idSocialWork"
+                  name="idAfiliado"
                   required
                 />
                 {errors.name && (
-                  <p className="text-xs text-red-600">{errors.idSocialWork}</p>
+                  <p className="text-xs text-red-600">{errors.idAfiliado}</p>
                 )}
               </div>
             </div>

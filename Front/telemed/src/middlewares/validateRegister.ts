@@ -21,6 +21,16 @@ export const validateRegisterStep1 = (input: registerInputs) => {
     errors.phone = "El teléfono debe ser un número de 10 dígitos";
   }
 
+  if (!input.age) {
+    errors.age = "La edad es requerida";
+  } else if (!/^\d+$/.test(input.age)) {
+    errors.age = "La edad debe ser un número válido";
+  } else if (Number(input.age) < 18) {
+    errors.age = "Debes ser mayor de edad para ingresar a la aplicación";
+  } else if (Number(input.age) > 99) {
+    errors.age = "La edad no puede ser mayor de 99 años";
+  }
+
   return errors;
 };
 
@@ -31,10 +41,10 @@ export const validateRegisterStep2 = (input: registerInputs) => {
     errors.healthcareSystem = "Debes elegir tu obra social";
   }
 
-  if (!input.idSocialWork) {
-    errors.idSocialWork = "El número de afiliado es requerido";
-  } else if (isNaN(Number(input.idSocialWork))) {
-    errors.idSocialWork = "El número de afiliado debe ser numérico";
+  if (!input.idAfiliado) {
+    errors.idAfiliado = "El número de afiliado es requerido";
+  } else if (isNaN(Number(input.idAfiliado))) {
+    errors.idAfiliado = "El número de afiliado debe ser numérico";
   }
 
   return errors;

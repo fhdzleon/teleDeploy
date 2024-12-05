@@ -14,7 +14,7 @@ const Profile = () => {
     age: "",
     email: user?.email,
     workSocial: user?.healthcareSystem,
-    idWorkSocial: "",
+    idWorkSocial: user?.idAfiliado,
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -160,6 +160,7 @@ const Profile = () => {
           </label>
           <input
             onChange={handleChange}
+            value={userData.idWorkSocial}
             className="mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor text-opacity-70 outline-none focus:border-[#4a41fe] focus:shadow-md"
             type="text"
           />
