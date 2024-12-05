@@ -11,9 +11,12 @@ const medicoSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ["cardiologia", "dermatologia", "nutricion", "psicologia"] // Valida especialidades válidas
-    }
-}); // Cerrar el esquema correctamente
-
+    },
+    imagenPerfilUrl: {
+        type: String, 
+        required: false, 
+      },
+}); 
 const Medico = mongoose.model("Medico", medicoSchema);
 
 module.exports = Medico;

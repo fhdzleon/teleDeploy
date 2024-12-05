@@ -37,7 +37,8 @@ const userSchema = new mongoose.Schema({
     default: "user",
   },
   healthcareSystem: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId, // Cambiar a ObjectId
+    ref: "HealthcareSystem", // Referencia al modelo HealthcareSystem
     required: false,
   },
   idAfiliado: {

@@ -47,33 +47,35 @@ const register = async function (req, res) {
 };
 
 const login = async function (req, res) {
-  User.findOne({ email: req.body.email })
-    .then((result) => {
-      if (!result) {
-        res.status(401).json({ error: "email or password incorrect!" });
-      } else {
-        if (bcrypt.compareSync(req.body.password, result.password) === true) {
-          const userData = {
-            id: result.id,
-            name: result.name,
-            lastName: result.lastName,
-            email: result.email,
-            phone: result.phone,
-            gender: result.gender,
-            idAfiliado: result.idAfiliado,
-            healthcareSystem: result.healthcareSystem,
-          };
-          res.json({ userData });
-        } else {
-          res.status(401).json({ error: "email or password incorrect!" });
-        }
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(503).json({ error: "content not aveliable!" });
-    });
+  try {
+    // Buscamos el usuario y populamos el campo healthcareSystem
+    const result = await User.findOne({ email: req.body.email }).populate("healthcareSystem");
+    
+    if (!result) {
+      return res.status(401).json({ error: "email or password incorrect!" });
+    }
+
+    if (bcrypt.compareSync(req.body.password, result.password)) {
+      const userData = {
+        id: result.id,
+        name: result.name,
+        lastName: result.lastName,
+        email: result.email,
+        phone: result.phone,
+        gender: result.gender,
+        idAfiliado: result.idAfiliado,
+        healthcareSystem: result.healthcareSystem ? result.healthcareSystem.socialWork : null,
+      };
+      return res.json({ userData });
+    } else {
+      return res.status(401).json({ error: "email or password incorrect!" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(503).json({ error: "content not available!" });
+  }
 };
+
 
 const googleLogin = async function (req, res) {
   try {
