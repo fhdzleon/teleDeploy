@@ -1,7 +1,7 @@
 const HealthcareSystem = require("../models/HealthcareSystem");
 
 const validateFieldsAndRole = async (req, res, next) => {
-  const requiredFields = ["name", "lastName", "email", "password", "gender", "phone", "idAfiliado", "healthcareSystem"];
+  const requiredFields = ["name", "lastName", "email", "password", "gender", "age", "phone", "idAfiliado", "healthcareSystem"];
   const allowedRoles = ["admin", "doctor", "patient"];
 
   // Verificar campos obligatorios

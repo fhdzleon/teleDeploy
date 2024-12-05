@@ -15,6 +15,7 @@ const register = async function (req, res) {
     email,
     password,
     gender,
+    age,
     phone,
     role,
     idAfiliado,
@@ -28,6 +29,7 @@ const register = async function (req, res) {
     email,
     password: hash,
     gender,
+    age,
     phone,
     role,
     idAfiliado,
@@ -63,6 +65,7 @@ const login = async function (req, res) {
         email: result.email,
         phone: result.phone,
         gender: result.gender,
+        age: result.age,
         idAfiliado: result.idAfiliado,
         healthcareSystem: result.healthcareSystem ? result.healthcareSystem.socialWork : null,
       };
