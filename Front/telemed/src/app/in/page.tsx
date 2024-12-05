@@ -29,6 +29,7 @@ const Page = () => {
             headers: {
               "Content-Type": "application/json",
             },
+
             credentials: "include",
           }
         );
