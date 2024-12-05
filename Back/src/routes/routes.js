@@ -6,7 +6,6 @@ const { addHealthcareSystem } = require("../controllers/healthcareSystemControll
 const { reserveTurn } = require("../controllers/turnController.js");
 const AdminController = require("../controllers/adminController");
 const { getMedicosPorEspecialidad } = require("../controllers/medicoController");
-const roleAuthorization = require("../middleware/roleAuthorization.js")
 const passport = require("passport");
 const { googleLogin } = require("../controllers/user.controller");
 
@@ -17,7 +16,7 @@ router.use("/login/api", checkLogin);
 
 router.post("/register/api", register);
 router.post("/login/api", login);
-router.put("/reserve-turn", roleAuthorization(["patient"]), reserveTurn);
+router.put("/turns/reserve/:id", reserveTurn);
 router.get("/turnos", AdminController.verTurnos);
 router.get("/medicos-por-especialidad", getMedicosPorEspecialidad);
 router.get("/appointment/my_shifts/:id",getPatientShifts);
