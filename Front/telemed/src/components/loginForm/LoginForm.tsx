@@ -74,9 +74,6 @@ const LoginForm = () => {
           new Date().getTime() + 24 * 60 * 60 * 1000 // 1 día de duración
         ).toUTCString()}`;
 
-        // Almacenar el mismo valor en localStorage
-        sessionStorage.setItem("userData", JSON.stringify(userDataValue));
-
         Swal.fire({
           icon: "success",
           title: "¡Inicio de sesión exitoso!",
