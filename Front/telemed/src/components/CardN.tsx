@@ -9,7 +9,7 @@ const CardN = ({ title, text, url }: { title: string; text: string; url: string 
           <Image className="h-auto w-auto" src={url} alt={`${url}icon`} width={50} height={50} />
         </div>
         <div className="p-10 flex flex-col space-y-5">
-          <h3 className="font-bold text-center">{title}</h3>
+          <h3 className="font-extrabold text-lg text-center">{title}</h3>
           <p className="text-center font-normal">{text}</p>
         </div>
       </div>
