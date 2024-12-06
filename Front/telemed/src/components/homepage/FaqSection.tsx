@@ -44,7 +44,7 @@ export default function FaqSection() {
     <div className="max-w-7xl mx-auto px-4 py-16">
       <h2
         id="faqs"
-        className="text-4xl text-center mb-12 font-medium text-gray-800 leading-tight"
+        className="text-4xl font-semibold text-center mb-12  text-gray-800 leading-tight"
       >
         Preguntas frecuentes
       </h2>
@@ -78,11 +78,11 @@ export default function FaqSection() {
                   setOpenItem(openItem === item.id ? null : item.id);
                   setClick(true);
                 }}
-                className="w-full flex items-center justify-between p-12 text-left hover:bg-violet-700 hover:text-white transition-colors"
+                className="w-full flex items-center justify-between py-12 px-6 text-left hover:bg-violet-700 hover:text-white transition-colors"
               >
                 <span
-                  className={`font-medium ${
-                    openItem === item.id ? "text-white" : ""
+                  className={` ${
+                    openItem === item.id ? "text-white font-extrabold " : "font-medium"
                   }`}
                 >
                   {item.question}
@@ -129,7 +129,7 @@ export default function FaqSection() {
                     click ? "bg-violet-700 text-white" : ""
                   }  px-6 pb-6 `}
                 >
-                  <p>{item.answer}</p>
+                  <p className="text-[16px]">{item.answer}</p>
                 </div>
               )}
             </div>

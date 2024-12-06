@@ -12,6 +12,7 @@ export interface ModalTurnosProps {
 
 export interface buttonInformationProps {
   text: string;
+  estilos: string;
 }
 
 export interface registerInputs {
@@ -22,8 +23,9 @@ export interface registerInputs {
   email: string;
   password: string;
   healthcareSystem: string;
-  idSocialWork: string;
+  idAfiliado: string;
   role: string;
+  age: string;
 }
 
 export interface TurnoDisponible {

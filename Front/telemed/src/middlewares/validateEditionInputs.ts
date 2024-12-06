@@ -1,8 +1,8 @@
-// Aqui iran las validaciones del register por pasos
 import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 
-export const validateRegisterStep1 = (input: registerInputs) => {
+export const validateEditionInputs = (input: registerInputs) => {
   const errors: registerErrors = {};
+
   if (!input.name) {
     errors.name = "El nombre es requerido";
   }
@@ -31,12 +31,6 @@ export const validateRegisterStep1 = (input: registerInputs) => {
     errors.age = "La edad no puede ser mayor de 99 años";
   }
 
-  return errors;
-};
-
-export const validateRegisterStep2 = (input: registerInputs) => {
-  const errors: registerErrors = {};
-
   if (!input.healthcareSystem) {
     errors.healthcareSystem = "Debes elegir tu obra social";
   }
@@ -45,24 +39,6 @@ export const validateRegisterStep2 = (input: registerInputs) => {
     errors.idAfiliado = "El número de afiliado es requerido";
   } else if (isNaN(Number(input.idAfiliado))) {
     errors.idAfiliado = "El número de afiliado debe ser numérico";
-  }
-
-  return errors;
-};
-
-export const validateRegisterStep3 = (input: registerInputs) => {
-  const errors: registerErrors = {};
-
-  if (!input.email) {
-    errors.email = "El email es requerido";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email)) {
-    errors.email = "El email no es válido";
-  }
-
-  if (!input.password) {
-    errors.password = "La contraseña es requerida";
-  } else if (input.password.length < 8) {
-    errors.password = "La contraseña debe tener al menos 8 caracteres";
   }
 
   return errors;

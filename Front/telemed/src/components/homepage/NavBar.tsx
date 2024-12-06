@@ -27,14 +27,14 @@ export default function NavBar() {
   ];
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="bg-white shadow-md sticky top-0 z-50 ">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-24">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="text-3xl md:text-4xl font-bold text-black"
+              className="text-3xl md:text-5xl font-semibold text-black"
             >
               Telemed
             </Link>
@@ -61,7 +61,7 @@ export default function NavBar() {
           <div className="hidden md:block">
             {!user ? (
               <Link href={"/auth"}>
-                <button className="rounded-full text-white purple px-4 py-2">
+                <button className="rounded-full text-white purple px-8 py-2 text-lg font-medium">
                   Ingresar
                 </button>
               </Link>

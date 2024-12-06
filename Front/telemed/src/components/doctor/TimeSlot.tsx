@@ -35,7 +35,7 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
 
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 640) // 640px es el breakpoint de sm en Tailwind
+      setIsMobile(window.innerWidth < 640) 
     }
 
     checkIsMobile()
@@ -120,9 +120,9 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
               {turnosDisponibles
                 .filter(turno => isSameDay(parseISO(turno.fecha), date) && turno.disponible)
                 .sort((a, b) => a.hora.localeCompare(b.hora))
-                .map((turno) => (
+                .map((turno, index) => (
                   <Button
-                    key={`${date}-${turno.hora}`}
+                    key={`${date}-${turno.hora} - ${index}`}
                     variant={selectedDate === turno.fecha && selectedTime === turno.hora ? "default" : "outline"}
                     className={`w-full text-xs sm:text-sm focus:outline-none focus:ring focus:ring-violet-300 ${
                       selectedDate === turno.fecha && selectedTime === turno.hora

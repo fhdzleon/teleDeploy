@@ -11,11 +11,11 @@ export default function Home() {
       <div>
         <h2
           id="nosotros"
-          className="text-center text-4xl font-medium text-gray-800 mb-5 leading-tight mt-5"
+          className="text-center text-4xl font-semibold text-gray-800 mb-5 leading-tight mt-5"
         >
           Nosotros
         </h2>
-        <p className="text-xl text-gray-600 leading-relaxed text-center">
+        <p className="text-xl text-[#050315] leading-relaxed text-center">
           En Telemed estamos comprometidos con hacer la atención médica
           accesible para todos
         </p>
@@ -40,7 +40,7 @@ export default function Home() {
         <section className="hidden md:block">
           <h2
             id="obras-sociales"
-            className="text-center text-3xl mb-8 font-medium text-gray-800 leading-tight"
+            className="text-center text-4xl font-semibold mb-8  text-gray-800 leading-tight"
           >
             Obras sociales
           </h2>
@@ -52,13 +52,13 @@ export default function Home() {
           id="contacto"
           className="text-center flex flex-col space-y-2 purple-light  "
         >
-          <h2 className="text-4xl font-medium my-5 ">Contáctanos</h2>
+          <h2 className="text-4xl font-semibold my-5 ">Contáctanos</h2>
 
-          <p className="">Escribenos y nos conectaremos a la brevedad</p>
+          <p className="text-[21px]">Escribenos y nos conectaremos a la brevedad</p>
 
-          <p>Telemed@telemed.com</p>
+          <p className="text-[18px]">Telemed@telemed.com</p>
 
-          <p>(111)1111111 </p>
+          <p className="text-[18px]">(111)1111111 </p>
           <FormH />
         </section>
       </div>
