@@ -107,8 +107,9 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col space-y-5 w-full max-w-md mx-auto"
+      className="flex mt-9 flex-col space-y-8 w-full max-w-md mx-auto"
     >
+      <GoogleAuth />
       {/*  <div className="flex justify-center mb-7">
         <button className="border border-acent py-2 px-5 rounded-l-full border-r-0">
           Soy paciente
@@ -118,6 +119,9 @@ const LoginForm = () => {
         Soy administrador
         </button>
       </div> */}
+      <p className=" relative text-center text-textColor before:content-[''] after:content-[''] before:absolute md:after:absolute before:w-[150px] md:after:w-[150px] md:before:h-[1px] md:after:h-[1px] before:bg-gray-400 after:bg-gray-400 before:top-1/2 after:top-1/2 before:-left-[10px] after:-right-[10px]">
+        O continuar con email
+      </p>
 
       <div className="flex flex-col space-y-2">
         <label
@@ -128,7 +132,7 @@ const LoginForm = () => {
         </label>
         <input
           id="email"
-          className="w-4/5 mx-auto rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+          className="w-4/5 mx-auto text-center rounded-xl border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
           value={userData.email}
           onChange={handleChange}
           name="email"
@@ -148,7 +152,7 @@ const LoginForm = () => {
         </label>
         <input
           id="password"
-          className=" w-4/5 mx-auto  rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+          className=" w-4/5 mx-auto text-center rounded-xl border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
           type="password"
           value={userData.password}
           onChange={handleChange}
@@ -169,7 +173,6 @@ const LoginForm = () => {
       >
         Iniciar sesión
       </button>
-      <GoogleAuth />
     </form>
   );
 };

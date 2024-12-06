@@ -9,11 +9,9 @@ const Page = () => {
         <h1 className="font-semibold text-[48px] text-center mb-4">Telemed</h1>
       </Link>
 
-      <p className="text-lg text-center mb-8">Ingrese a su cuenta</p>
-
       <LoginForm />
 
-      <p className="mt-4">Olvidé mi contraseña</p>
+      <p className="mt-4 text-start">Olvidé mi contraseña</p>
 
       <p className="text-center mt-8">
         No tengo cuenta.{" "}

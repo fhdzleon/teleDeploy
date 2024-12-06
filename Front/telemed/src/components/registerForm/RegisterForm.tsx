@@ -11,6 +11,7 @@ import {
   validateRegisterStep3,
 } from "@/middlewares/validateRegister";
 import { registerErrors, registerInputs } from "@/interfaces/interfaces";
+import Link from "next/link";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -144,27 +145,27 @@ const RegisterForm = () => {
     <>
       {step === 1 && (
         <>
-          <div className="flex items-center mt-6 mb-16">
-            <div className="border border-primary bg-secundary text-primary rounded-full  h-10 w-10 flex items-center justify-center">
+          <div className="flex items-center justify-center mt-6 mb-16">
+            <div className="border border-acent bg-secundary text-primary rounded-full  h-10 w-10 flex items-center justify-center">
               1
             </div>
 
-            <div className="h-0.5 w-16 bg-primary"></div>
+            <div className="h-0.5 w-16 bg-acent"></div>
             <div className="border bg-secundary rounded-full text-gray-400 h-10 w-10 flex items-center justify-center">
               2
             </div>
-            <div className="h-0.5 w-16 bg-primary"></div>
+            <div className="h-0.5 w-16 bg-acent"></div>
             <div className="border bg-secundary rounded-full text-gray-400 h-10 w-10 flex items-center justify-center">
               3
             </div>
           </div>
           <form
             onSubmit={handleSubmit}
-            className=" flex flex-col space-y-5 max-w-6xl mx-auto"
+            className=" flex flex-col space-y-7 max-w-6xl mx-auto"
             action=""
           >
             <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0">
-              <div>
+              <div className="space-y-2">
                 <label
                   className=" block text-start text-base font-medium text-[#07074D]"
                   htmlFor="name"
@@ -175,7 +176,7 @@ const RegisterForm = () => {
                   id="name"
                   value={userData.name}
                   onChange={handleChange}
-                  className=" rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className=" rounded-xl text-center md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="text"
                   name="name"
                   required
@@ -184,7 +185,7 @@ const RegisterForm = () => {
                   <p className="text-xs text-red-600">{errors.name}</p>
                 )}
               </div>
-              <div>
+              <div className="space-y-2">
                 <label
                   className=" block text-start text-base font-medium text-[#07074D]"
                   htmlFor="lastName"
@@ -195,7 +196,7 @@ const RegisterForm = () => {
                   id="lastName"
                   value={userData.lastName}
                   onChange={handleChange}
-                  className=" rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className=" rounded-xl text-center md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="text"
                   name="lastName"
                   required
@@ -207,7 +208,7 @@ const RegisterForm = () => {
             </div>
 
             <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0">
-              <div>
+              <div className="space-y-2">
                 <label
                   className="block text-start text-base font-medium text-[#07074D]"
                   htmlFor="gender"
@@ -218,7 +219,7 @@ const RegisterForm = () => {
                   id="gender"
                   value={userData.gender}
                   onChange={handleChange}
-                  className="w-full md:w-auto md:min-w-[280px] rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none"
+                  className="w-full md:w-auto md:min-w-[280px] rounded-xl text-center border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none"
                   name="gender"
                   required
                 >
@@ -231,7 +232,7 @@ const RegisterForm = () => {
                 )}
               </div>
 
-              <div>
+              <div className="space-y-2">
                 <label
                   className=" block text-start text-base font-medium text-[#07074D]"
                   htmlFor="phone"
@@ -242,7 +243,7 @@ const RegisterForm = () => {
                   id="phone"
                   value={userData.phone}
                   onChange={handleChange}
-                  className="rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="rounded-xl text-center md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="string"
                   name="phone"
                   required
@@ -254,7 +255,7 @@ const RegisterForm = () => {
             </div>
 
             <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0">
-              <div>
+              <div className="space-y-2">
                 <label
                   className="block text-start text-base font-medium text-[#07074D]"
                   htmlFor="age"
@@ -265,7 +266,7 @@ const RegisterForm = () => {
                   id="age"
                   value={userData.age}
                   onChange={handleChange}
-                  className="rounded-full md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="rounded-xl text-center md:min-w-[280px] border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="string"
                   name="age"
                   required
@@ -276,38 +277,46 @@ const RegisterForm = () => {
               </div>
             </div>
 
-            <button
-              className=" md:w-1/2 md:mx-auto mt-12 hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
-              onClick={nextStep}
-            >
-              Siguiente
-            </button>
+            <div className="flex">
+              <button
+                className="md:w-1/2 mt-8 md:mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+                onClick={nextStep}
+              >
+                Siguiente
+              </button>
+            </div>
           </form>
+          <p className="text-center mt-8">
+            ¿Ya tienes cuenta?
+            <Link href={"/auth/signin"}>
+              <span className="text-acent font-medium"> inicia sesión</span>
+            </Link>
+          </p>
         </>
       )}
 
       {step === 2 && (
-        <>
-          <div className="flex items-center  mt-6 mb-16">
-            <div className="border bg-primary rounded-full text-white h-10 w-10 flex items-center justify-center">
+        <div className="flex flex-col mt-6">
+          <div className="flex justify-center  items-center">
+            <div className="border bg-acent rounded-full text-white h-10 w-10 flex items-center justify-center">
               1
             </div>
-            <div className="h-0.5 w-16 bg-primary"></div>
-            <div className="border border-primary bg-secundary text-primary rounded-full  h-10 w-10 flex items-center justify-center">
+            <div className="h-0.5 w-16 bg-acent"></div>
+            <div className="border border-acent bg-secundary text-acent rounded-full  h-10 w-10 flex items-center justify-center">
               2
             </div>
-            <div className="h-0.5 w-16 bg-primary"></div>
+            <div className="h-0.5 w-16 bg-acent"></div>
             <div className="border bg-secundary rounded-full text-gray-400 h-10 w-10 flex items-center justify-center">
               3
             </div>
           </div>
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col space-y-5 max-w-6xl md:min-w-[50rem] mx-auto"
+            className="flex flex-col mt-20 space-y-5 max-w-6xl md:min-w-[50rem] mx-auto"
             action=""
           >
             <div className="flex flex-col space-y-6">
-              <div>
+              <div className="space-y-2">
                 <label
                   className="md:w-1/2 mx-auto block text-start text-base font-medium text-[#07074D]"
                   htmlFor="email"
@@ -318,7 +327,7 @@ const RegisterForm = () => {
                   id="healthcareSystem"
                   value={userData.healthcareSystem}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto w-full   flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto w-full flex rounded-xl text-center border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   name="healthcareSystem"
                   required
                 >
@@ -339,7 +348,7 @@ const RegisterForm = () => {
                   </p>
                 )}
               </div>
-              <div>
+              <div className="space-y-2">
                 <label
                   className="md:w-1/2 mx-auto block text-start text-base font-medium text-[#07074D]"
                   htmlFor="idAfiliado"
@@ -350,7 +359,7 @@ const RegisterForm = () => {
                   id="idAfiliado"
                   value={userData.idAfiliado}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto mb-6 flex rounded-xl text-center border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="number"
                   name="idAfiliado"
                   required
@@ -361,47 +370,49 @@ const RegisterForm = () => {
               </div>
             </div>
 
-            <div className="flex flex-col md:flex-row  space-y-2 md:space-0 md:space-x-4">
-              <button
-                onClick={prevStep}
-                className=" w-full md:w-4/5 mx-auto hover:shadow-form rounded-full bg-secundary text-primary py-3 px-8 text-center text-base font-semibold  outline-none"
-              >
-                Volver
-              </button>
-              <button
-                onClick={nextStep}
-                className="w-full md:w-4/5 mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
-              >
-                Siguiente
-              </button>
+            <div className="flex  justify-center ">
+              <div className="flex mt-28  flex-col md:flex-row  md:space-0 md:space-x-4">
+                <button
+                  onClick={prevStep}
+                  className=" w-full md:w-[360px] mx-auto hover:shadow-form rounded-full bg-secundary text-primary py-3 px-8 text-center text-base font-semibold  outline-none"
+                >
+                  Volver
+                </button>
+                <button
+                  onClick={nextStep}
+                  className="w-full md:w-[360px] mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+                >
+                  Siguiente
+                </button>
+              </div>
             </div>
           </form>
-        </>
+        </div>
       )}
 
       {step === 3 && (
         <>
-          <div className="flex items-center  mt-6 mb-16">
-            <div className="border bg-primary rounded-full text-white h-10 w-10 flex items-center justify-center">
+          <div className="flex items-center justify-center mt-6">
+            <div className="border bg-acent rounded-full text-white h-10 w-10 flex items-center justify-center">
               1
             </div>
-            <div className="h-0.5 w-16 bg-primary"></div>
-            <div className="border bg-primary rounded-full text-white h-10 w-10 flex items-center justify-center">
+            <div className="h-0.5 w-16 bg-acent"></div>
+            <div className="border bg-acent rounded-full text-white h-10 w-10 flex items-center justify-center">
               2
             </div>
-            <div className="h-0.5 w-16 bg-primary"></div>
-            <div className="border border-primary bg-secundary text-primary rounded-full  h-10 w-10 flex items-center justify-center">
+            <div className="h-0.5 w-16 bg-acent"></div>
+            <div className="border border-acent bg-secundary text-acent rounded-full  h-10 w-10 flex items-center justify-center">
               3
             </div>
           </div>
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col space-y-5 max-w-6xl md:min-w-[50rem] mx-auto"
+            className="flex flex-col mt-20 space-y-5 max-w-6xl md:min-w-[50rem] mx-auto"
             action=""
           >
             <div className="flex flex-col space-y-6">
-              <div>
+              <div className="space-y-2">
                 <label
                   className="md:w-1/2 mx-auto block text-start text-base font-medium text-[#07074D]"
                   htmlFor="email"
@@ -412,7 +423,7 @@ const RegisterForm = () => {
                   id="email"
                   value={userData.email}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto w-full flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto w-full flex rounded-xl text-center border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="email"
                   name="email"
                   required
@@ -421,7 +432,7 @@ const RegisterForm = () => {
                   <p className="text-xs text-red-600">{errors.email}</p>
                 )}
               </div>
-              <div>
+              <div className="space-y-2">
                 <label
                   className="md:w-1/2 mx-auto block text-start text-base font-medium text-[#07074D]"
                   htmlFor="password"
@@ -432,7 +443,7 @@ const RegisterForm = () => {
                   id="password"
                   value={userData.password}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto mb-6 flex rounded-full border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto mb-6 flex rounded-xl text-center border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   type="password"
                   name="password"
                   required
@@ -442,20 +453,21 @@ const RegisterForm = () => {
                 )}
               </div>
             </div>
-
-            <div className="flex flex-col md:flex-row  space-y-2 md:space-0 md:space-x-4">
-              <button
-                onClick={prevStep}
-                className=" w-full md:w-4/5 mx-auto hover:shadow-form rounded-full bg-secundary text-primary py-3 px-8 text-center text-base font-semibold  outline-none"
-              >
-                Volver
-              </button>
-              <button
-                type="submit"
-                className="w-full md:w-4/5 mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
-              >
-                Registrarse
-              </button>
+            <div className="flex justify-center">
+              <div className="flex mt-28  flex-col md:flex-row  md:space-0 md:space-x-4">
+                <button
+                  onClick={prevStep}
+                  className=" w-full md:w-[360px] mx-auto hover:shadow-form rounded-full bg-secundary text-primary py-3 px-8 text-center text-base font-semibold  outline-none"
+                >
+                  Volver
+                </button>
+                <button
+                  type="submit"
+                  className="w-full md:w-[360px] mx-auto hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none"
+                >
+                  Registrarse
+                </button>
+              </div>
             </div>
           </form>
         </>
