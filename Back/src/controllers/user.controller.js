@@ -119,7 +119,7 @@ const getPatientShifts = async function (req, res) {
       {$unwind:"$doctor"},
       {$sort:{_id:-1}},
       {$limit:3},
-      {$project:{fecha:1,disponible:1,url:1,hora:1,"doctor.especialidad":1,"doctor.nombreCompleto":1}}
+      {$project:{fecha:1,disponible:1,url:1,hora:1,"doctor.especialidad":1,"doctor.nombreCompleto":1,"doctor.imagenPerfilUrl":1}}
       ])
       res.json(shifts);
     }
