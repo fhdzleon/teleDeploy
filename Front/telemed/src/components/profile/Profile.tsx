@@ -114,7 +114,7 @@ const Profile = () => {
       className="flex justify-center flex-col space-y-5 w-full  mx-auto"
     >
       <div className="flex mx-auto space-x-12">
-        <div className="flex flex-col">
+        <div className="flex space-y-2 flex-col">
           <label
             className="  block text-start text-base font-medium text-[#07074D]"
             htmlFor="name"
@@ -125,7 +125,7 @@ const Profile = () => {
             name="name"
             onChange={handleChange}
             value={userData.name}
-            className={`mx-auto md:min-w-[250px]  rounded-xl border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md ${
+            className={`mx-auto md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md ${
               userData.name !== user?.name
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -135,7 +135,7 @@ const Profile = () => {
           <p className="text-xs text-red-600">{errors.name}</p>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex space-y-2 flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
             htmlFor="lastName"
@@ -146,7 +146,7 @@ const Profile = () => {
             name="lastName"
             onChange={handleChange}
             value={userData.lastName}
-            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.lastName !== user?.lastName
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -158,7 +158,7 @@ const Profile = () => {
       </div>
 
       <div className="flex mx-auto space-x-12">
-        <div className="flex flex-col">
+        <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
             htmlFor="gender"
@@ -169,7 +169,7 @@ const Profile = () => {
             id="gender"
             value={userData.gender}
             onChange={handleChange}
-            className={`w-full md:w-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none ${
+            className={`w-full  md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none ${
               userData.gender !== user?.gender
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -183,7 +183,7 @@ const Profile = () => {
           <p className="text-xs text-red-600">{errors.gender}</p>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex space-y-2 flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
             htmlFor="phone"
@@ -194,7 +194,7 @@ const Profile = () => {
             name="phone"
             onChange={handleChange}
             value={userData.phone}
-            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.phone !== user?.phone
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -205,7 +205,7 @@ const Profile = () => {
       </div>
 
       <div className="flex mx-auto space-x-12">
-        <div className="flex flex-col">
+        <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
             htmlFor="age"
@@ -216,7 +216,7 @@ const Profile = () => {
             name="age"
             onChange={handleChange}
             value={userData?.age}
-            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.age !== user?.age
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -226,7 +226,7 @@ const Profile = () => {
           <p className="text-xs text-red-600">{errors.age}</p>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex space-y-2 flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
             htmlFor="email"
@@ -238,7 +238,7 @@ const Profile = () => {
             disabled
             onChange={handleChange}
             value={userData?.email}
-            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.email !== user?.email
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -249,7 +249,7 @@ const Profile = () => {
       </div>
 
       <div className="flex mx-auto space-x-12">
-        <div className="flex flex-col">
+        <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
             htmlFor="healthcareSystem"
@@ -260,7 +260,7 @@ const Profile = () => {
             id="healthcareSystem"
             value={userData.healthcareSystem}
             onChange={handleChange}
-            className={`w-full md:w-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none ${
+            className={`w-full md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md appearance-none ${
               userData.healthcareSystem !== user?.healthcareSystem
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -279,7 +279,7 @@ const Profile = () => {
           <p className="text-xs text-red-600">{errors.healthcareSystem}</p>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex space-y-2 flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
             htmlFor="idAfiliado"
@@ -290,7 +290,7 @@ const Profile = () => {
             name="idAfiliado"
             onChange={handleChange}
             value={userData.idAfiliado}
-            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.idAfiliado !== user?.idAfiliado
                 ? "text-opacity-100"
                 : "text-opacity-70"
