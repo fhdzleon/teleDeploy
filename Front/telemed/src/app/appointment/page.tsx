@@ -29,35 +29,7 @@ const page = () => {
   const router = useRouter();
 
   const handleSendInformation = async () => {
-    // e.preventDefault();
-    // const formData = new FormData();
-    // formData.append('name', name);
-    // formData.append('email', email);
-
-    // try {
-    //   const response = await fetch(`/turns/reserve/${user?.id}`, {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //       id: 1,
-    //       turn: {
-    //         fecha: selectedValueDate,
-    //         hora: selectedValueTime,
-    //         medico: selectedValueDoctor,
-    //         disponible: false,
-    //       },
-    //     }),
-    //   });
-
-    //   const data = await response.json();
-    //   if (data.success) {
-    //     console.log("Recurso actualizado:", data.data);
-    //   } else {
-    //     console.error("Error al actualizar:", data.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    
 
     const queryParams = new URLSearchParams({
       date: selectedValueDate,

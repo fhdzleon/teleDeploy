@@ -35,7 +35,7 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
 
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 640) // 640px es el breakpoint de sm en Tailwind
+      setIsMobile(window.innerWidth < 640) 
     }
 
     checkIsMobile()
