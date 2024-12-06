@@ -1,12 +1,15 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import useGlobalStore from "@/store/globalStore";
 import { registerErrors } from "@/interfaces/interfaces";
 import { validateEditionInputs } from "@/middlewares/validateEditionInputs";
+import { useRouter } from "next/navigation";
+import { PATHROUTES } from "@/helpers/pathroutes";
 
 const Profile = () => {
   const { user, setUser } = useGlobalStore();
+  const router = useRouter();
 
   const [userData, setUserData] = useState<registerErrors>({
     name: user?.name || "",
@@ -69,6 +72,7 @@ const Profile = () => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/update/${user?.id}`,
+
         {
           method: "PUT",
           headers: {
@@ -82,9 +86,11 @@ const Profile = () => {
         throw new Error("Error al actualizar los datos");
       }
       const updateUser = await response.json();
+
       setUser(updateUser);
 
       alert("Datos actualizados correctamente");
+      router.push(PATHROUTES.IN);
     } catch (error) {
       console.error(error);
       alert("Ocurrió un error al intentar guardar los cambios");

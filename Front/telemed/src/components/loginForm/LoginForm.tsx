@@ -75,7 +75,7 @@ const LoginForm = () => {
         ).toUTCString()}`;
 
         // Almacenar el mismo valor en localStorage
-        localStorage.setItem("userData", JSON.stringify(userDataValue));
+        sessionStorage.setItem("userData", JSON.stringify(userDataValue));
 
         Swal.fire({
           icon: "success",

@@ -34,6 +34,9 @@ const Page = () => {
           }
         );
         const data = await response.json();
+        console.log(data);
+        console.log(document.cookie);
+
         setAllAppointments(Array.isArray(data) ? data : []);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
