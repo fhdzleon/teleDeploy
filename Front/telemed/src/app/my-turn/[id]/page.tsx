@@ -11,28 +11,30 @@ const Page = () => {
   const time = searchParams.get("time");
   const doctor = searchParams.get("doctor");
 
-  const {
-    user,
-  } = useGlobalStore();
+  const { user } = useGlobalStore();
 
-  const handleSendInformation = async (e: unknown) => {
+  const handleSendInformation = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/turns/reserve/${user?.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-         
-          turn: {
-            idTurn: "6748fc74a0b4cb86daa03d77",
-            fecha: date,
-            hora: time,
-            medico: doctor,
-            disponible: false,
-          },
-        }),
-      });
-  
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/turns/reserve/${user?.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            turn: {
+              idTurn: "6748fc74a0b4cb86daa03d77",
+              fecha: date,
+              hora: time,
+              medico: doctor,
+              disponible: false,
+            },
+          }),
+        }
+      );
+
       const data = await response.json();
       console.log(data);
     } catch (error) {
@@ -63,7 +65,10 @@ const Page = () => {
           Cancelar
         </Button>
 
-        <Button onClick={handleSendInformation} className="rounded-full bg-primary hover:bg-purple-600 ">
+        <Button
+          onClick={handleSendInformation}
+          className="rounded-full bg-primary hover:bg-purple-600 "
+        >
           Continuar
         </Button>
       </div>
