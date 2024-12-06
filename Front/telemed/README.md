@@ -35,8 +35,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## Telemed aplicacion para conectar usuarios con medicos
-
-## Linea para corregir
-
-## Linea para actualizar / actualizacion 2 28/11 / actualizacion 3 29/11 / actualizacion 4 01/12 / actualizacion 03/12 / actualizacion 04/12
+## Telemed aplicacion para conectar usuarios con medicos profesionales y capacitados

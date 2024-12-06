@@ -16,10 +16,6 @@ export async function fetchMedicos(especialidad: string): Promise<Medico[]> {
       }
     );
 
-    if (!res.ok) {
-      throw new Error("Error al obtener los datos de los médicos");
-    }
-
     const data: Medico[] = await res.json();
     console.log(data);
 

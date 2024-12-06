@@ -28,27 +28,20 @@ const getMedicosPorEspecialidad = async (req, res) => {
       return nuevaFecha.toISOString(); // Formato completo para coincidencias precisas.
     });
 
-    console.log("Fechas buscadas:", fechas); // Log para verificar fechas
-
     // Construir la respuesta con los turnos disponibles para cada médico.
     const resultado = await Promise.all(
       medicos.map(async (medico) => {
-        console.log("Buscando turnos para médico:", medico._id); // Log del médico actual
         const turnosDisponibles = await Turn.find({
           medico: medico._id,
           disponible: true,
           fecha: { $gte: fechas[0], $lte: fechas[fechas.length - 1] }, // Rango de fechas
         }).select("fecha hora disponible -_id");
 
-        console.log(
-          `Turnos encontrados para médico ${medico.nombreCompleto}:`,
-          turnosDisponibles
-        );
-
         return {
           id: medico._id,
           medico: medico.nombreCompleto,
           especialidad: medico.especialidad,
+          imagenPerfilUrl: medico.imagenPerfilUrl,
           turnosDisponibles,
         };
       })
