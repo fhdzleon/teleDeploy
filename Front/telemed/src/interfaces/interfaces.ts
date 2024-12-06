@@ -12,6 +12,7 @@ export interface ModalTurnosProps {
 
 export interface buttonInformationProps {
   text: string;
+  estilos: string;
 }
 
 export interface registerInputs {
