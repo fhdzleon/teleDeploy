@@ -1,12 +1,16 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import useGlobalStore from "@/store/globalStore";
-import { registerErrors } from "@/interfaces/interfaces";
+import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 import { validateEditionInputs } from "@/middlewares/validateEditionInputs";
+import { useRouter } from "next/navigation";
+import { PATHROUTES } from "@/helpers/pathroutes";
 
 const Profile = () => {
   const { user, setUser } = useGlobalStore();
+
+  const router = useRouter();
 
   const [userData, setUserData] = useState<registerErrors>({
     name: user?.name || "",
@@ -36,30 +40,36 @@ const Profile = () => {
   ) => {
     const { name, value } = event.target;
 
+    const key = name as keyof registerInputs;
+
     setUserData((prev) => ({
       ...prev,
-      [name]: value,
+      [key]: value,
     }));
 
     setChangedFields((prev) => ({
       ...prev,
-      [name]: value !== userData[name],
+      [key]: value !== (userData[key] ?? ""), // Comparación segura con coalescencia nula
     }));
 
-    const updatedErrors = validateEditionInputs({ ...userData, [name]: value });
+    const updatedErrors = validateEditionInputs({
+      ...userData,
+      [key]: value,
+    } as registerInputs);
 
     setErrors(updatedErrors);
   };
 
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const updatedFields = Object.keys(changedFields)
-      .filter((key) => changedFields[key])
+      .filter((key) => changedFields[key as keyof registerErrors])
       .reduce((acc, key) => {
-        acc[key] = userData[key];
+        const typedKey = key as keyof registerInputs;
+        acc[typedKey] = userData[typedKey];
         return acc;
-      }, {});
+      }, {} as Partial<registerInputs>);
 
     if (Object.keys(updatedFields).length === 0) {
       alert("No hay cambios para guardar");
@@ -69,6 +79,7 @@ const Profile = () => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/update/${user?.id}`,
+
         {
           method: "PUT",
           headers: {
@@ -82,9 +93,11 @@ const Profile = () => {
         throw new Error("Error al actualizar los datos");
       }
       const updateUser = await response.json();
-      setUser(updateUser);
+
+      setUser({ ...user, ...updateUser });
 
       alert("Datos actualizados correctamente");
+      router.push(PATHROUTES.IN);
     } catch (error) {
       console.error(error);
       alert("Ocurrió un error al intentar guardar los cambios");
@@ -112,7 +125,7 @@ const Profile = () => {
             name="name"
             onChange={handleChange}
             value={userData.name}
-            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md ${
+            className={`mx-auto md:min-w-[250px]  rounded-xl border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md ${
               userData.name !== user?.name
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -133,7 +146,7 @@ const Profile = () => {
             name="lastName"
             onChange={handleChange}
             value={userData.lastName}
-            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.lastName !== user?.lastName
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -181,7 +194,7 @@ const Profile = () => {
             name="phone"
             onChange={handleChange}
             value={userData.phone}
-            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.phone !== user?.phone
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -203,7 +216,7 @@ const Profile = () => {
             name="age"
             onChange={handleChange}
             value={userData?.age}
-            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.age !== user?.age
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -225,7 +238,7 @@ const Profile = () => {
             disabled
             onChange={handleChange}
             value={userData?.email}
-            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.email !== user?.email
                 ? "text-opacity-100"
                 : "text-opacity-70"
@@ -277,7 +290,7 @@ const Profile = () => {
             name="idAfiliado"
             onChange={handleChange}
             value={userData.idAfiliado}
-            className={`mx-auto rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
+            className={`mx-auto md:min-w-[250px]  rounded-full border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.idAfiliado !== user?.idAfiliado
                 ? "text-opacity-100"
                 : "text-opacity-70"

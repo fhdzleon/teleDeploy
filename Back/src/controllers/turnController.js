@@ -38,8 +38,6 @@ const reserveTurn = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   reserveTurn,
 };

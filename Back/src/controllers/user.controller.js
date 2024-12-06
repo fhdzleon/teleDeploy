@@ -51,8 +51,10 @@ const register = async function (req, res) {
 const login = async function (req, res) {
   try {
     // Buscamos el usuario y populamos el campo healthcareSystem
-    const result = await User.findOne({ email: req.body.email }).populate("healthcareSystem");
-    
+    const result = await User.findOne({ email: req.body.email }).populate(
+      "healthcareSystem"
+    );
+
     if (!result) {
       return res.status(401).json({ error: "email or password incorrect!" });
     }
@@ -67,7 +69,9 @@ const login = async function (req, res) {
         gender: result.gender,
         age: result.age,
         idAfiliado: result.idAfiliado,
-        healthcareSystem: result.healthcareSystem ? result.healthcareSystem.socialWork : null,
+        healthcareSystem: result.healthcareSystem,
+        /*   ? result.healthcareSystem.socialWork
+          : null, */
       };
       return res.json({ userData });
     } else {
@@ -78,7 +82,6 @@ const login = async function (req, res) {
     res.status(503).json({ error: "content not available!" });
   }
 };
-
 
 const googleLogin = async function (req, res) {
   try {
@@ -151,6 +154,8 @@ const updateUser = async (req, res) => {
     const { id } = req.params;
     const updates = req.body;
 
+    console.log(req.body);
+    console.log(req.params);
     // Evitar la actualización del email
     if (updates.email) {
       return res.status(400).json({ error: "No se puede actualizar el email" });
@@ -159,7 +164,7 @@ const updateUser = async (req, res) => {
     // Buscar y actualizar el usuario
     const updatedUser = await User.findByIdAndUpdate(id, updates, {
       new: true, // Retorna el documento actualizado
-      runValidators: true, // Aplica las validaciones definidas en el esquema
+      runValidators: false, // Aplica las validaciones definidas en el esquema
     });
 
     if (!updatedUser) {
@@ -168,7 +173,8 @@ const updateUser = async (req, res) => {
 
     res.json(updatedUser);
   } catch (error) {
-    console.error("Error al actualizar usuario:", error);
+    /*  console.error("Error al actualizar usuario:", error); */
+    console.error("Error al actualizar usuario:");
     res.status(500).json({ error: "Error al actualizar el usuario" });
   }
 };
