@@ -146,10 +146,38 @@ const getPatientShifts = function (req, res) {
     });
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+
+    // Evitar la actualización del email
+    if (updates.email) {
+      return res.status(400).json({ error: "No se puede actualizar el email" });
+    }
+
+    // Buscar y actualizar el usuario
+    const updatedUser = await User.findByIdAndUpdate(id, updates, {
+      new: true, // Retorna el documento actualizado
+      runValidators: true, // Aplica las validaciones definidas en el esquema
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error("Error al actualizar usuario:", error);
+    res.status(500).json({ error: "Error al actualizar el usuario" });
+  }
+};
+
 module.exports = {
   register,
   login,
   googleLogin,
   getSpecialty,
   getPatientShifts,
+  updateUser,
 };
