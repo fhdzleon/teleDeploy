@@ -8,6 +8,7 @@ export function DoctorCard({
   medico,
   especialidad,
   turnosDisponibles,
+  imagenPerfilUrl
 }: Medico) {
   const {
     selectedValueDoctor,
@@ -39,7 +40,7 @@ export function DoctorCard({
           <div className="space-y-2 flex flex-col items-center">
             <div className="w-auto h-auto md:w-42 md:h-42  flex justify-center items-center">
               <Image
-                src={"/images/doctor1.png"}
+                src={imagenPerfilUrl}
                 alt="doctor"
                 height={200}
                 width={200}
