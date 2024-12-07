@@ -164,8 +164,8 @@ const FormH = () => {
             </div>
           </div>
 
-          <div className="-mx-3 flex justify-end">
-            <button className="hover:shadow-form rounded-full purple py-3 px-8 text-center text-base font-semibold text-white outline-none">
+          <div className="-mx-3 flex justify-end ">
+            <button className="hover:shadow-form rounded-full purple px-8 py-2 text-lg font-medium text-white outline-none">
               Enviar
             </button>
           </div>

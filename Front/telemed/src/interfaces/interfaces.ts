@@ -37,6 +37,7 @@ export interface TurnoDisponible {
 export interface Medico {
   medico: string;
   especialidad: string;
+  imagenPerfilUrl: string;
   turnosDisponibles: TurnoDisponible[];
 }
 
