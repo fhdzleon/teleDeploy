@@ -77,7 +77,6 @@ const AdminController = {
   verTurnos: async (req, res) => {
     try {
       const turnos = await Turno.find({ disponible: true }).populate('medico', 'name lastName');
-
       if (!turnos.length) {
         return res.status(404).json({ message: 'No hay turnos disponibles' });
       }

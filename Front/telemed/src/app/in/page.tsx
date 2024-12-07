@@ -34,6 +34,8 @@ const Page = () => {
           }
         );
         const data = await response.json();
+        console.log(data);
+
         setAllAppointments(Array.isArray(data) ? data : []);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
@@ -48,8 +50,8 @@ const Page = () => {
       <p className="font-bold text-2xl">¡Hola, {user?.name}!</p>
       <div className=" w-full max-w-2xl flex justify-end">
         <Link href={PATHROUTES.APPOINTEMNT}>
-          <button className="px-12 py-1 bg-primary text-white rounded-full hover:bg-gray-400 transition">
-            Solicitar turno
+          <button className="px-12 py-1 bg-acent w-[205px] h-[50px] shadow-sm shadow-slate-700 text-white rounded-full hover:bg-gray-400 transition">
+            Reservar turno
           </button>
         </Link>
       </div>

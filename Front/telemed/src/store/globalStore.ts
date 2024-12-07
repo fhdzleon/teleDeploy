@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export interface UserPayload {
   id: string;
@@ -27,19 +28,28 @@ export interface UserState {
   setSelectedValueTime: (value: string) => void;
 }
 
-const useGlobalStore = create<UserState>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  sessionStatusStorage: true,
-  setSessionStatusStorage: (status) => set({ sessionStatusStorage: status }),
-  selectedValue: "", //Select de especialidad
-  setSelectedValue: (value) => set({ selectedValue: value }),
-  selectedValueDoctor: "",
-  setSelectedValueDoctor: (value) => set({ selectedValueDoctor: value }),
-  selectedValueDate: "",
-  setSelectedValueDate: (value) => set({ selectedValueDate: value }),
-  selectedValueTime: "",
-  setSelectedValueTime: (value) => set({ selectedValueTime: value }),
-}));
+const useGlobalStore = create<UserState>()(
+  persist(
+    (set) => ({
+      user: null,
+      setUser: (user) => set({ user }),
+      sessionStatusStorage: true,
+      setSessionStatusStorage: (status) =>
+        set({ sessionStatusStorage: status }),
+      selectedValue: "",
+      setSelectedValue: (value) => set({ selectedValue: value }),
+      selectedValueDoctor: "",
+      setSelectedValueDoctor: (value) => set({ selectedValueDoctor: value }),
+      selectedValueDate: "",
+      setSelectedValueDate: (value) => set({ selectedValueDate: value }),
+      selectedValueTime: "",
+      setSelectedValueTime: (value) => set({ selectedValueTime: value }),
+    }),
+    {
+      name: "global-store",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
 
 export default useGlobalStore;
