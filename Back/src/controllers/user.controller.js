@@ -22,7 +22,7 @@ const register = async function (req, res) {
     } 
     else {
       console.error(error);
-      res.status(503).json({ error: "content not aveliable!" });
+      res.status(503).json({ error: "content not available!" });
     }
   });
 };
@@ -125,7 +125,7 @@ const getPatientShifts = async function (req, res) {
     }
     catch(error){
       console.log(error);
-      res.status(503).json({error:'content not avliable!'});
+      res.status(503).json({error:'content not available!'});
     } 
   }
 };
