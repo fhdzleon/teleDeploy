@@ -157,7 +157,7 @@ const getPatientShifts = async function (req, res) {
       res.json(shifts);
     } catch (error) {
       console.log(error);
-      res.status(503).json({ error: "content not avliable!" });
+      res.status(503).json({ error: "content not available!" });
     }
   }
 };

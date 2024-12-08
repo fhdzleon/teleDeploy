@@ -22,12 +22,15 @@ export default function Hero() {
         className="absolute inset-0"
       ></div>
       {/* Contenido  */}
-      <div className="relative z-10 flex flex-col max-w-3xl">
+      <div className="relative z-10 flex flex-col ">
         <div className="flex-col float-right">
-          <h1 className="text-4xl md:text-5xl text-center md:text-start font-normal text-white mb-6 leading-tight">
-            Tu salud en buenas manos, estés donde estés.
-          </h1>
-          <p className="text-xl md:text-2xl text-center md:text-start text-white leading-relaxed">
+          <div className="flex">
+            <h1 className="text-[45px] text-center md:text-start font-extrabold text-white mb-6 leading-tight">
+              Tu salud en buenas manos, estés donde estés.
+            </h1>
+           
+          </div>
+          <p className="md:text-[30px] text-[25px]  md:text-2xl text-center md:text-end text-white leading-relaxed">
             Conéctate por videollamada con nuestros especialistas.
           </p>
         </div>
