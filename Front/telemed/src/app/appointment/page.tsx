@@ -84,6 +84,7 @@ const page = () => {
             medicos?.map((item, index) => (
               <div key={index}>
                 <DoctorCard
+                  imagenPerfilUrl={item.imagenPerfilUrl}
                   turnosDisponibles={item.turnosDisponibles}
                   medico={item.medico}
                   especialidad={item.especialidad}

@@ -9,54 +9,32 @@ const mongoose = require("mongoose");
 dotenv.config();
 
 const register = async function (req, res) {
-  const {
-    name,
-    lastName,
-    email,
-    password,
-    gender,
-    age,
-    phone,
-    role,
-    idAfiliado,
-    healthcareSystem,
-  } = req.body;
+  const {name,lastName,email,password,gender,age,phone,role,idAfiliado,healthcareSystem}=req.body;
   const salt = await bcrypt.genSalt(5);
   const hash = await bcrypt.hash(password, salt);
-  User.create({
-    name,
-    lastName,
-    email,
-    password: hash,
-    gender,
-    age,
-    phone,
-    role,
-    idAfiliado,
-    healthcareSystem,
+  User.create({name,lastName,email,password: hash,gender,age,phone,role,idAfiliado,healthcareSystem})
+  .then((result) => {
+    res.status(201).json({ message: "success" });
   })
-    .then((result) => {
-      res.status(201).json({ message: "success" });
-    })
-    .catch((error) => {
-      if (error.code === 11000) {
-        res.status(409).json({ error: "this user already exists!" });
-      } else {
-        console.error(error);
-        res.status(503).json({ error: "content not aveliable!" });
-      }
-    });
+  .catch((error) => {
+    if (error.code === 11000) {
+      res.status(409).json({ error: "this user already exists!" });
+    } 
+    else {
+      console.error(error);
+      res.status(503).json({ error: "content not aveliable!" });
+    }
+  });
 };
 
 const login = async function (req, res) {
   try {
-    // Buscamos el usuario y populamos el campo healthcareSystem
-    const result = await User.findOne({ email: req.body.email }).populate("healthcareSystem");
-    
+    const result = await User.findOne({ email: req.body.email }).populate(
+      "healthcareSystem"
+    );
     if (!result) {
       return res.status(401).json({ error: "email or password incorrect!" });
     }
-
     if (bcrypt.compareSync(req.body.password, result.password)) {
       const userData = {
         id: result.id,
@@ -67,7 +45,7 @@ const login = async function (req, res) {
         gender: result.gender,
         age: result.age,
         idAfiliado: result.idAfiliado,
-        healthcareSystem: result.healthcareSystem ? result.healthcareSystem.socialWork : null,
+        healthcareSystem: result.healthcareSystem,
       };
       return res.json({ userData });
     } else {
@@ -78,7 +56,6 @@ const login = async function (req, res) {
     res.status(503).json({ error: "content not available!" });
   }
 };
-
 
 const googleLogin = async function (req, res) {
   try {
@@ -122,62 +99,58 @@ const getSpecialty = function (req, res) {
     });
 };
 
-const getPatientShifts = function (req, res) {
-  const id = req.params.id.replace(":", ""); // Elimina ':' de los parámetros si está presente
-
-  // Validar si el ID es un ObjectId válido
+const getPatientShifts = async function (req, res) {
+  const params = req.params.id.replace(":", "");
+  const id = new mongoose.Types.ObjectId(params);
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "ID inválido." });
+    res.status(400).json({ error: "incorrect format" });
   }
-
-  Shifts.find({ patient: id })
-    .sort({ _id: -1 })
-    .limit(3)
-    .then((result) => {
-      if (result.length === 0) {
-        res.json([]); // Enviar array vacío si no hay resultados
-      } else {
-        res.json(result); // Enviar resultados si existen
-      }
-    })
-    .catch((error) => {
+  else{
+    try{
+      const shifts = await Shifts.aggregate([{
+        $lookup:{
+          from:"medicos",
+          localField:"medico",
+          foreignField:"_id",
+          as:"doctor"
+        }
+      },
+      {$match:{patient:id}},
+      {$unwind:"$doctor"},
+      {$sort:{_id:-1}},
+      {$limit:3},
+      {$project:{fecha:1,disponible:1,url:1,hora:1,"doctor.especialidad":1,"doctor.nombreCompleto":1,"doctor.imagenPerfilUrl":1}}
+      ])
+      res.json(shifts);
+    }
+    catch(error){
       console.log(error);
-      res.status(503).json({ error: "Error al obtener turnos." });
-    });
+      res.status(503).json({error:'content not avliable!'});
+    } 
+  }
 };
 
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const updates = req.body;
-
-    // Evitar la actualización del email
+    console.log(req.body);
+    console.log(req.params);
     if (updates.email) {
       return res.status(400).json({ error: "No se puede actualizar el email" });
     }
-
-    // Buscar y actualizar el usuario
     const updatedUser = await User.findByIdAndUpdate(id, updates, {
-      new: true, // Retorna el documento actualizado
-      runValidators: true, // Aplica las validaciones definidas en el esquema
+      new: true,
+      runValidators: false, 
     });
-
     if (!updatedUser) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-
     res.json(updatedUser);
   } catch (error) {
-    console.error("Error al actualizar usuario:", error);
+    console.error("Error al actualizar usuario:");
     res.status(500).json({ error: "Error al actualizar el usuario" });
   }
 };
 
-module.exports = {
-  register,
-  login,
-  googleLogin,
-  getSpecialty,
-  getPatientShifts,
-  updateUser,
-};
+module.exports = {register,login,googleLogin,getSpecialty,getPatientShifts,updateUser};
