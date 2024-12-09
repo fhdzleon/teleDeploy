@@ -82,10 +82,10 @@ const googleLogin = async function (req, res) {
   try {
     const user = req.user; // Usuario recuperado por Passport
     if (!user) {
-      return res.status(401).redirect("/login"); // Redirigir al login si no hay usuario
+      return res.status(401).json({ error: "Usuario no autorizado" });
     }
 
-    // Crear un objeto con los datos del usuario
+    // Crear un objeto con los datos básicos del usuario
     const userData = {
       name: user.name,
       email: user.email,
@@ -98,22 +98,18 @@ const googleLogin = async function (req, res) {
       { expiresIn: process.env.EXPIRES }
     );
 
-    // Configurar cookies si es necesario
+    // Configurar cookie con el JWT
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
     res.cookie("jwt", token, { expires: dateLimit, httpOnly: true });
 
-    // Redirigir al frontend
-    const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000/in";
-    const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(
-      userData.name
-    )}&email=${encodeURIComponent(userData.email)}`;
-
-    res.redirect(redirectURL); // Redirigir al frontend con los datos del usuario
+    // Retornar la información del usuario en formato JSON
+    return res.status(200).json({ userData });
   } catch (error) {
     console.error("Error en googleLogin:", error);
-    res.status(500).redirect("/error"); // Redirigir a una página de error en caso de fallo
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 };
+
 
 
 const getSpecialty = function (req, res) {
