@@ -104,7 +104,7 @@ const googleLogin = async function (req, res) {
 
     // Redirigir al frontend
     const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000/in";
-    const redirectURL = `${frontendURL}/?name=${encodeURIComponent(
+    const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(
       userData.name
     )}&email=${encodeURIComponent(userData.email)}`;
 
