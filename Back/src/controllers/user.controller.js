@@ -103,8 +103,8 @@ const googleLogin = async function (req, res) {
     res.cookie("jwt", token, { expires: dateLimit, httpOnly: true });
 
     // Redirigir al frontend
-    const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000";
-    const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(
+    const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000/in";
+    const redirectURL = `${frontendURL}/?name=${encodeURIComponent(
       userData.name
     )}&email=${encodeURIComponent(userData.email)}`;
 
