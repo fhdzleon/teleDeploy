@@ -9,22 +9,43 @@ const mongoose = require("mongoose");
 dotenv.config();
 
 const register = async function (req, res) {
-  const {name,lastName,email,password,gender,age,phone,role,idAfiliado,healthcareSystem}=req.body;
+  const {
+    name,
+    lastName,
+    email,
+    password,
+    gender,
+    age,
+    phone,
+    role,
+    idAfiliado,
+    healthcareSystem,
+  } = req.body;
   const salt = await bcrypt.genSalt(5);
   const hash = await bcrypt.hash(password, salt);
-  User.create({name,lastName,email,password: hash,gender,age,phone,role,idAfiliado,healthcareSystem})
-  .then((result) => {
-    res.status(201).json({ message: "success" });
+  User.create({
+    name,
+    lastName,
+    email,
+    password: hash,
+    gender,
+    age,
+    phone,
+    role,
+    idAfiliado,
+    healthcareSystem,
   })
-  .catch((error) => {
-    if (error.code === 11000) {
-      res.status(409).json({ error: "this user already exists!" });
-    } 
-    else {
-      console.error(error);
-      res.status(503).json({ error: "content not aveliable!" });
-    }
-  });
+    .then((result) => {
+      res.status(201).json({ message: "success" });
+    })
+    .catch((error) => {
+      if (error.code === 11000) {
+        res.status(409).json({ error: "this user already exists!" });
+      } else {
+        console.error(error);
+        res.status(503).json({ error: "content not aveliable!" });
+      }
+    });
 };
 
 const login = async function (req, res) {
@@ -102,31 +123,42 @@ const getSpecialty = function (req, res) {
 const getPatientShifts = async function (req, res) {
   const params = req.params.id.replace(":", "");
   const id = new mongoose.Types.ObjectId(params);
+
+  console.log("param", params);
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ error: "incorrect format" });
-  }
-  else{
-    try{
-      const shifts = await Shifts.aggregate([{
-        $lookup:{
-          from:"medicos",
-          localField:"medico",
-          foreignField:"_id",
-          as:"doctor"
-        }
-      },
-      {$match:{patient:id}},
-      {$unwind:"$doctor"},
-      {$sort:{_id:-1}},
-      {$limit:3},
-      {$project:{fecha:1,disponible:1,url:1,hora:1,"doctor.especialidad":1,"doctor.nombreCompleto":1,"doctor.imagenPerfilUrl":1}}
-      ])
+  } else {
+    try {
+      const shifts = await Shifts.aggregate([
+        {
+          $lookup: {
+            from: "medicos",
+            localField: "medico",
+            foreignField: "_id",
+            as: "doctor",
+          },
+        },
+        { $match: { patient: id } },
+        { $unwind: "$doctor" },
+        { $sort: { _id: -1 } },
+        { $limit: 3 },
+        {
+          $project: {
+            fecha: 1,
+            disponible: 1,
+            url: 1,
+            hora: 1,
+            "doctor.especialidad": 1,
+            "doctor.nombreCompleto": 1,
+          },
+        },
+      ]);
       res.json(shifts);
-    }
-    catch(error){
+    } catch (error) {
       console.log(error);
-      res.status(503).json({error:'content not avliable!'});
-    } 
+      res.status(503).json({ error: "content not available!" });
+    }
   }
 };
 
@@ -141,7 +173,7 @@ const updateUser = async (req, res) => {
     }
     const updatedUser = await User.findByIdAndUpdate(id, updates, {
       new: true,
-      runValidators: false, 
+      runValidators: false,
     });
     if (!updatedUser) {
       return res.status(404).json({ error: "Usuario no encontrado" });
@@ -153,4 +185,11 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = {register,login,googleLogin,getSpecialty,getPatientShifts,updateUser};
+module.exports = {
+  register,
+  login,
+  googleLogin,
+  getSpecialty,
+  getPatientShifts,
+  updateUser,
+};
