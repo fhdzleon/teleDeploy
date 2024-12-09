@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import ButtonCarpet from "@/components/ButtonCarpet";
 import { Button } from "@/components/ui/button";
 import useGlobalStore from "@/store/globalStore";
+import Link from "next/link";
 const Page = () => {
   const searchParams = useSearchParams();
   const date = searchParams.get("date");
@@ -62,7 +63,9 @@ const Page = () => {
       </Card>
       <div className="flex justify-center md:justify-end items-end p-4 md:p-6 space-x-3 md:space-x-5 transition-all">
         <Button className="rounded-full bg-primary hover:bg-purple-600">
+          <Link href={"/appointment"} >
           Cancelar
+          </Link>
         </Button>
 
         <Button

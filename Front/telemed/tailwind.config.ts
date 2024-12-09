@@ -19,6 +19,7 @@ export default {
         bg: "#FBFBFE",
         textColor: "#050315",
         borderInput: "#050315",
+        celeste: "#E8F1FE",
       },
       fontFamily: {
         hostGrotesk: ["var(--font-hostGrotesk)"],

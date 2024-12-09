@@ -111,9 +111,9 @@ const Profile = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-center flex-col space-y-5 w-full  mx-auto"
+      className="flex justify-center bg-white py-8 px-10 shadow-xl rounded-xl flex-col space-y-5 w-full  mx-auto"
     >
-      <div className="flex mx-auto space-x-12">
+      <div className="flex flex-col md:flex-row mx-auto space-x-12">
         <div className="flex space-y-2 flex-col">
           <label
             className="  block text-start text-base font-medium text-[#07074D]"
@@ -135,7 +135,7 @@ const Profile = () => {
           <p className="text-xs text-red-600">{errors.name}</p>
         </div>
 
-        <div className="flex space-y-2 flex-col">
+        <div className="flex  space-y-2 flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
             htmlFor="lastName"
@@ -157,7 +157,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="flex mx-auto space-x-12">
+      <div className="flex flex-col md:flex-row mx-auto space-x-12">
         <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
@@ -204,7 +204,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="flex mx-auto space-x-12">
+      <div className="flex flex-col md:flex-row mx-auto space-x-12">
         <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
@@ -248,7 +248,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="flex mx-auto space-x-12">
+      <div className="flex flex-col md:flex-row mx-auto space-x-12">
         <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
