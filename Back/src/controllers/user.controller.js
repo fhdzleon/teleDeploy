@@ -64,6 +64,12 @@ const googleLogin = async function (req, res) {
       return res.status(401).redirect("/login"); // Redirigir al login si no hay usuario
     }
 
+    // Crear un objeto con los datos del usuario
+    const userData = {
+      name: user.name,
+      email: user.email,
+    };
+
     // Generar JWT
     const token = jwt.sign(
       { id: user._id, role: user.role },
@@ -78,15 +84,16 @@ const googleLogin = async function (req, res) {
     // Redirigir al frontend
     const frontendURL = process.env.FRONTEND_URL || "http://localhost:3000/in";
     const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(
-      user.name
-    )}&email=${encodeURIComponent(user.email)}`;
+      userData.name
+    )}&email=${encodeURIComponent(userData.email)}`;
 
     res.redirect(redirectURL); // Redirigir al frontend con los datos del usuario
   } catch (error) {
-    console.error(error);
+    console.error("Error en googleLogin:", error);
     res.status(500).redirect("/error"); // Redirigir a una página de error en caso de fallo
   }
 };
+
 
 const getSpecialty = function (req, res) {
   Specialty.find({}, "especialidad")
