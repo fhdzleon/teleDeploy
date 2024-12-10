@@ -5,8 +5,8 @@ const nodemailer = require("nodemailer");
 
 const reserveTurn = async (req, res) => {
   try {
-    const { idTurno } = req.body; 
-    const { id } = req.params; 
+    const { idTurno } = req.body;
+    const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       console.log("ID de paciente no válido:", id);
@@ -24,7 +24,7 @@ const reserveTurn = async (req, res) => {
 
     const result = await Shift.findOneAndUpdate(
       { _id: idTurno, disponible: true },
-      { disponible: false, patient: id }, 
+      { disponible: false, patient: id },
       { new: true }
     );
 
@@ -36,10 +36,10 @@ const reserveTurn = async (req, res) => {
         console.log("Paciente encontrado:", patient);
 
         const meetLink = `https://meet.google.com/fao-zdhc-frq`;
-        console.log('Enlace de Meet generado:', meetLink);
+        console.log("Enlace de Meet generado:", meetLink);
 
         const transporter = nodemailer.createTransport({
-          service: 'gmail',
+          service: "gmail",
           auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
@@ -67,12 +67,13 @@ const reserveTurn = async (req, res) => {
             <p>Gracias por utilizar nuestro sistema.</p>
           `,
         };
-        
-        await transporter.sendMail(mailOptions)
-          .then(info => {
+
+        await transporter
+          .sendMail(mailOptions)
+          .then((info) => {
             console.log("Correo enviado: ", info.response);
           })
-          .catch(error => {
+          .catch((error) => {
             console.error("Error al enviar el correo:", error.message);
           });
       } else {
@@ -83,7 +84,9 @@ const reserveTurn = async (req, res) => {
       res.status(201).json(result);
     } else {
       console.log("El turno ya está reservado o no disponible.");
-      res.status(409).json({ error: 'El turno ya está reservado o no disponible.' });
+      res
+        .status(409)
+        .json({ error: "El turno ya está reservado o no disponible." });
     }
   } catch (error) {
     console.error("Error en la reserva de turno:", error);

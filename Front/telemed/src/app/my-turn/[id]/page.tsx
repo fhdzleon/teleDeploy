@@ -7,7 +7,11 @@ import Link from "next/link";
 import Image from "next/image";
 import formatFecha from "@/helpers/formatFecha";
 import { Card } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
+import { PATHROUTES } from "@/helpers/pathroutes";
+
 const Page = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const date = searchParams.get("date");
   const time = searchParams.get("time");
@@ -16,13 +20,14 @@ const Page = () => {
 
   const { user, selectedValueId } = useGlobalStore();
 
+  console.log("id", user?.id);
   const handleSendInformation = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/turns/reserve/:${user?.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/turns/reserve/${user?.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -33,6 +38,8 @@ const Page = () => {
       );
 
       const data = await response.json();
+      alert("Tirno reservado");
+      router.push(PATHROUTES.IN);
       console.log(data);
     } catch (error) {
       console.error("Error al realizar la petición:", error);
