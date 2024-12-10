@@ -9,6 +9,7 @@ import formatFecha from "@/helpers/formatFecha";
 import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
+import Swal from "sweetalert2";
 
 const Page = () => {
   const router = useRouter();
@@ -38,8 +39,15 @@ const Page = () => {
       );
 
       const data = await response.json();
-      alert("Tirno reservado");
-      router.push(PATHROUTES.IN);
+
+      Swal.fire({
+        title: "¡Su turno a sido solicitado con éxito!",
+        text: "En breve será redirigido a su agenda",
+        timer: 2500,
+        showConfirmButton: false,
+      }).then(() => {
+        router.push(PATHROUTES.IN);
+      });
       console.log(data);
     } catch (error) {
       console.error("Error al realizar la petición:", error);
