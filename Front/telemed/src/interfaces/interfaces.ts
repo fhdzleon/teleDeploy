@@ -29,6 +29,7 @@ export interface registerInputs {
 }
 
 export interface TurnoDisponible {
+  _id: string;
   fecha: string; // ISO Date String
   hora: string; // Time in HH:mm format
   disponible: boolean;

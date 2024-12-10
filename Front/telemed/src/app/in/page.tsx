@@ -46,7 +46,7 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center  space-y-6 p-8">
+    <div className="flex flex-col items-center space-y-6 p-8">
       <p className="font-bold text-2xl">¡Hola, {user?.name}!</p>
       <div className=" w-full max-w-3xl flex justify-end">
         <Link href={PATHROUTES.APPOINTEMNT}>

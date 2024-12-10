@@ -22,7 +22,7 @@ const SelectSpeciality = () => {
 
   return (
     <Select value={selectedValue} onValueChange={handleValueChange}>
-      <SelectTrigger className="w-[280px]">
+      <SelectTrigger className="w-[280px] font-bold text-[#3C3B3B]">
         <SelectValue placeholder="Seleccione una especialidad" />
       </SelectTrigger>
       <SelectContent>
