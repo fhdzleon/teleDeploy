@@ -12,7 +12,7 @@ const reserveTurn = async (req, res) => {
       res.status(201).json(result);
     }
     else{
-      res.status(400).json({error:'The turn is already reserved!'});
+      res.status(409).json({error:'The turn is already reserved!'});
     }
     res.send();
   } catch (error) {
