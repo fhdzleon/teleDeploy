@@ -6,9 +6,7 @@ const getMedicosPorEspecialidad = async (req, res) => {
     const { especialidad } = req.query; // Recibir la especialidad como parámetro de consulta.
 
     if (!especialidad) {
-      return res
-        .status(400)
-        .json({ message: "La especialidad es requerida." });
+      return res.status(400).json({ message: "La especialidad es requerida." });
     }
 
     // Buscar médicos con la especialidad solicitada.
