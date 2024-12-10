@@ -19,8 +19,9 @@ const Page = () => {
   const doctor = searchParams.get("doctor");
   const especialidad = searchParams.get("especialidad");
 
-  const { user } = useGlobalStore();
+  const { user, selectedValueId } = useGlobalStore();
 
+  console.log("id", user?.id);
   const handleSendInformation = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
