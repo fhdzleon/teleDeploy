@@ -87,6 +87,7 @@ const googleLogin = async function (req, res) {
 
     // Crear un objeto con los datos básicos del usuario
     const userData = {
+      id: user._id,
       name: user.name,
       email: user.email,
     };
@@ -102,8 +103,13 @@ const googleLogin = async function (req, res) {
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
     res.cookie("jwt", token, { expires: dateLimit, httpOnly: true });
 
-    // Retornar la información del usuario en formato JSON
-    return res.status(200).json({ userData });
+    const frontendURL = process.env.REDIRECT_URL;
+    const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(
+      userData.name
+    )}&email=${encodeURIComponent(userData.email)}&id=${userData.id}`;
+
+    res.redirect(redirectURL);
+
   } catch (error) {
     console.error("Error en googleLogin:", error);
     res.status(500).json({ error: "Error interno del servidor" });
