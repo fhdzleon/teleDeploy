@@ -151,7 +151,7 @@ const Page = () => {
                         {formatFecha(appointment.fecha)} {appointment.hora} hrs
                       </p>
                     </div>
-                    <p className="text-sm border text-gray-500 border-gray-400 px-3">
+                    <p className="text-sm border bg-celeste text-textColor border-gray-400 px-3">
                       {getDiasRestantes(appointment.fecha)}
                     </p>
                   </div>
