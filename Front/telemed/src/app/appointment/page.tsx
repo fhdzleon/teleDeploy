@@ -67,8 +67,8 @@ const page = () => {
 
   return (
     <div className="mx-auto p-6 flex flex-col ">
-      <div>
-        <button className="px-4 py-2 my-[-5px] border">Solicite su Turno</button>
+      <div className="relative w-[180px] px-4 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400">
+        <button className="">Solicite su Turno</button>
       </div>
       <Card className="flex flex-col p-10 items-start md:min-w-[500px] md:min-h-[500px]">
         <div className="pb-10">
