@@ -35,7 +35,7 @@ const getMedicosPorEspecialidad = async (req, res) => {
           medico: medico._id,
           disponible: true,
           fecha: { $gte: fechas[0], $lte: fechas[fechas.length - 1] }, // Rango de fechas
-        }).select("fecha hora disponible -_id");
+        }).select("fecha hora disponible");
 
         return {
           id: medico._id,
