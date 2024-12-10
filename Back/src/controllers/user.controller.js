@@ -103,7 +103,7 @@ const googleLogin = async function (req, res) {
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
     res.cookie("jwt", token, { expires: dateLimit, httpOnly: true });
 
-    const frontendURL = process.env.REDIRECT_URL || "http://localhost:3000/in";
+    const frontendURL = process.env.REDIRECT_URL || "http://localhost:3000/auth/callback";
     const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(
       userData.name
     )}&email=${encodeURIComponent(userData.email)}&id=${userData.id}`;
