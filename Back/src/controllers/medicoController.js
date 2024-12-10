@@ -6,9 +6,7 @@ const getMedicosPorEspecialidad = async (req, res) => {
     const { especialidad } = req.query; // Recibir la especialidad como parámetro de consulta.
 
     if (!especialidad) {
-      return res
-        .status(400)
-        .json({ message: "La especialidad es requerida." });
+      return res.status(400).json({ message: "La especialidad es requerida." });
     }
 
     // Buscar médicos con la especialidad solicitada.
@@ -35,7 +33,7 @@ const getMedicosPorEspecialidad = async (req, res) => {
           medico: medico._id,
           disponible: true,
           fecha: { $gte: fechas[0], $lte: fechas[fechas.length - 1] }, // Rango de fechas
-        }).select("fecha hora disponible -_id");
+        }).select("fecha hora disponible");
 
         return {
           id: medico._id,
