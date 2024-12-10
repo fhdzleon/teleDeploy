@@ -1,19 +1,21 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import ButtonCarpet from "@/components/ButtonCarpet";
 import { Button } from "@/components/ui/button";
 import useGlobalStore from "@/store/globalStore";
 import Link from "next/link";
+import Image from "next/image";
+import formatFecha from "@/helpers/formatFecha";
+import { Card } from "@/components/ui/card";
 const Page = () => {
   const searchParams = useSearchParams();
   const date = searchParams.get("date");
   const time = searchParams.get("time");
   const doctor = searchParams.get("doctor");
+  const especialidad = searchParams.get("especialidad");
 
-  const { user } = useGlobalStore();
-  const obraSocial = (user?.healthcareSystem as { socialWork?: string })?.socialWork;
+  const { user, selectedValueId } = useGlobalStore();
+
   const handleSendInformation = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -25,13 +27,7 @@ const Page = () => {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            turn: {
-              idTurn: 11111,
-              fecha: date,
-              hora: time,
-              medico: doctor,
-              disponible: false,
-            },
+            idTurno: selectedValueId,
           }),
         }
       );
@@ -43,34 +39,82 @@ const Page = () => {
     }
   };
   return (
-    <div className="container mx-auto mt-12 flex flex-col p-4 md:p-0">
-      <div className="relative">
-        <div className="relative mb-[-15px] z-20 ">
-          <ButtonCarpet estilos="left-8 top-2" text="Confirme su turno" />
+    <div className="mx-auto w-full max-w-5xl p-4 sm:p-6 flex flex-col">
+      <div className="flex justify-start items-end">
+        <div className="relative w-[180px] px-4 py-2 flex justify-center rounded-t-lg border-b-0 text-gray-800 border border-celeste font-bold bg-celeste border-b-celeste z-20">
+          <button className="text-sm sm:text-base">Confirme su turno</button>
         </div>
       </div>
-      <Card className="py-24 px-16 w-full ">
-        <CardContent className="font-medium ">
-          <p>Medico: {doctor}</p>
-          <p>Fecha: {date}</p>
-          <p>Hora: {time}</p>
-          <p>Obra Social: {obraSocial}</p>
-          <h2 className="mt-12">
-            Recibirás un email con la confirmación del turno y el enlace para la
-            consulta.
-          </h2>
-        </CardContent>
-      </Card>
-      <div className="flex justify-center md:justify-end items-end p-4 md:p-6 space-x-3 md:space-x-5 transition-all">
-        <Button className="rounded-full bg-primary hover:bg-purple-600">
-          <Link href={"/appointment"} >
-          Cancelar
-          </Link>
-        </Button>
+      <div className="flex flex-col w-full p-4 sm:p-6 md:p-10 items-start border border-celeste bg-celeste z-0 space-y-5 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
+        <div className="w-full bg-white p-5 md:p-10 rounded-lg shadow-lg space-y-6">
+          <div className="flex justify-between">
+            <div className="flex">
+              <Image
+                className="mx-2"
+                src={"/calendario.svg"}
+                alt="calendario"
+                height={20}
+                width={20}
+              />
+              <p>
+                {formatFecha(date ?? "no time")} {time} hrs
+              </p>
+            </div>
 
+            <Card className="inline-flex px-3 py-1 bg-[#F0F7FF] border-gray-300 shadow-sm m-2 md:m-0">
+              <span className="text-sm font-sm text-gray-800">
+                Faltan 5 días
+              </span>
+            </Card>
+          </div>
+          <div className="flex">
+            <Image
+              className="mx-2"
+              src={"/doctorIcon.svg"}
+              alt="doctorIcon"
+              height={20}
+              width={20}
+            />
+            <p>{doctor}</p>
+          </div>
+          <div className="flex">
+            <Image
+              className="mx-2"
+              src={"/nutricionista.svg"}
+              alt="nutricionista"
+              height={20}
+              width={20}
+            />
+            <p className="capitalize">{especialidad}</p>
+          </div>
+
+          <div className="flex">
+            <Image
+              className="mx-2"
+              src={"/laptop.svg"}
+              alt="laptop"
+              height={20}
+              width={20}
+            />
+            <p>
+              24 horas antes del turno agendado, recibirá por mail el enlace a
+              Meet
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-end items-end p-4 md:p-6 space-x-3 md:space-x-5 transition-all">
+        <Button
+          variant="default"
+          className="bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-full px-8 py-2"
+        >
+          <Link href={"/appointment"}>Cancelar</Link>
+        </Button>
         <Button
           onClick={handleSendInformation}
-          className="rounded-full bg-primary hover:bg-purple-600 "
+          variant="outline"
+          className="bg-[#EDE9FE] hover:bg-[#DDD6FE] text-[#6D28D9] border-0 rounded-full px-8 py-2"
         >
           Continuar
         </Button>

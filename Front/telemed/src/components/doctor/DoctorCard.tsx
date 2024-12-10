@@ -8,12 +8,9 @@ export function DoctorCard({
   medico,
   especialidad,
   turnosDisponibles,
-  imagenPerfilUrl
+  imagenPerfilUrl,
 }: Medico) {
-  const {
-    selectedValueDoctor,
-    setSelectedValueDoctor,
-  } = useGlobalStore();
+  const { selectedValueDoctor, setSelectedValueDoctor } = useGlobalStore();
 
   const isSelected = selectedValueDoctor === medico;
 
@@ -27,10 +24,9 @@ export function DoctorCard({
     }
   };
 
-
   return (
     <Card
-      className={`w-full max-w-[90vw] md:max-w-6xl flex flex-col md:flex-row transition-all  ${
+      className={`w-full max-w-[90vw] md:max-w-6xl flex flex-col md:flex-row transition-all ${
         isSelected ? "" : "cursor-pointer hover:bg-blue-50"
       } `}
       onClick={handleCardClick}
@@ -44,7 +40,7 @@ export function DoctorCard({
                 alt="doctor"
                 height={200}
                 width={200}
-                className="object-cover"
+                className="object-center object-contain max-w-[200px] max-h-[180px]"
               />
             </div>
             <div className="flex flex-col items-center">

@@ -29,18 +29,12 @@ export function Loading() {
           <div className="flex space-x-2">
             <Skeleton className="h-12 w-40"></Skeleton>
             <Skeleton className="h-12 w-40"></Skeleton>
-            <Skeleton className="h-12 w-40"></Skeleton>
-            <Skeleton className="h-12 w-40"></Skeleton>
           </div>
           <div className="flex space-x-2">
             <Skeleton className="h-12 w-40"></Skeleton>
             <Skeleton className="h-12 w-40"></Skeleton>
-            <Skeleton className="h-12 w-40"></Skeleton>
-            <Skeleton className="h-12 w-40"></Skeleton>
           </div>
           <div className="flex space-x-2">
-            <Skeleton className="h-12 w-40"></Skeleton>
-            <Skeleton className="h-12 w-40"></Skeleton>
             <Skeleton className="h-12 w-40"></Skeleton>
             <Skeleton className="h-12 w-40"></Skeleton>
           </div>
