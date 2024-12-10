@@ -1,4 +1,5 @@
-# TELEMED: es el resultado de un esfuerzo colaborativo de un equipo multidisciplinario compuesto por 4 desarrolladores, 2 diseñadores y 2 testers. Esta simulación fue creada específicamente para "NO CONTRY Simulacion Laboral Tech.
+![nocountry](https://github.com/user-attachments/assets/1944147c-7df8-4ca4-8299-0dce040c1218)
+# TELEMED: es el resultado de un esfuerzo colaborativo de un equipo multidisciplinario compuesto por 4 desarrolladores, 2 diseñadores y 2 testers. Esta simulación fue creada específicamente para "NO CONTRY Simulacion Laboral Tech. 
 
 ## <p>Presentacion del equipo de trabajo <br>
 ### FRONTEND: [Felipe Hernández Díaz de León ](https://github.com/fhdzleon) & [José Angel Garces Higuera](https://github.com/Chech3) 
