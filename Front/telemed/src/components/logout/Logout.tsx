@@ -8,14 +8,14 @@ const Logout = () => {
   const router = useRouter();
   const { setUser } = useGlobalStore();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     document.cookie =
       "userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 
-    localStorage.removeItem("userData");
-
     setUser(null);
+    useGlobalStore.persist.clearStorage();
+    localStorage.removeItem("globalStore");
 
     Swal.fire({
       icon: "success",
