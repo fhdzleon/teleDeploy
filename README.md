@@ -1,10 +1,10 @@
 # TELEMED: es el resultado de un esfuerzo colaborativo de un equipo multidisciplinario compuesto por 4 desarrolladores, 2 diseñadores y 2 testers. Esta simulación fue creada específicamente para "NO CONTRY Simulacion Laboral Tech.
 
 ## <p>Presentacion del equipo de trabajo <br>
-### FRONTEND: 
-### BACKEND: 
-### DISEÑO UX/UI
-### QA MANUAL: 
+### FRONTEND: [Felipe Hernández Díaz de León ](https://github.com/fhdzleon) [Magalí Silva](https://github.com/MagaliS-UXUI) 
+### BACKEND: [Agustín Ibarra](https://github.com/Agustin-Ibarra) [Dmitri Jrapach](https://github.com/DmitriJrapach) 
+### DISEÑO UX/UI: [Magalí Silva](https://github.com/MagaliS-UXUI) [Magalí Silva](https://github.com/MagaliS-UXUI)
+### QA MANUAL:   [Cynthia Garrido](https://github.com/MagaliS-UXUI) [Erika Escalante](https://github.com/Kaeri1708)
 
 ## ¿Qué es TELEMED? 
 ### TELEMED es una plataforma innovadora que conecta a pacientes con profesionales de la salud de manera rápida y segura. 
