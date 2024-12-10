@@ -453,6 +453,7 @@ const RegisterForm = () => {
                 )}
               </div>
             </div>
+
             <div className="flex justify-center">
               <div className="flex mt-28  flex-col md:flex-row  md:space-0 md:space-x-4">
                 <button

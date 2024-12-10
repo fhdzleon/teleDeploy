@@ -1,83 +1,100 @@
-"use client"
+"use client";
 
-import { useState, useMemo, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { format, parseISO, isSameDay, isAfter, startOfDay } from "date-fns"
-import { es } from "date-fns/locale"
-import useGlobalStore from "@/store/globalStore"
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState, useMemo, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { format, parseISO, isSameDay, isAfter, startOfDay } from "date-fns";
+import { es } from "date-fns/locale";
+import useGlobalStore from "@/store/globalStore";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Turno {
-  fecha: string
-  hora: string
-  disponible: boolean
+  _id: string;
+  fecha: string;
+  hora: string;
+  disponible: boolean;
 }
 
 interface TimeSlotPickerProps {
-  turnosDisponibles: Turno[]
-  medico: string
+  turnosDisponibles: Turno[];
+  medico: string;
 }
 
-export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProps) {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null)
-  const [selectedTime, setSelectedTime] = useState<string | null>(null)
-  const [startIndex, setStartIndex] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
+export function TimeSlotPicker({
+  turnosDisponibles,
+  medico,
+}: TimeSlotPickerProps) {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [startIndex, setStartIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const { setSelectedValueDate, setSelectedValueTime, setSelectedValueDoctor } = useGlobalStore()
+  const { setSelectedValueDate, setSelectedValueTime, setSelectedValueDoctor,setSelectedValueId } =
+    useGlobalStore();
 
   const availableDates = useMemo(() => {
-    return Array.from(new Set(turnosDisponibles.map(turno => turno.fecha)))
-      .map(fecha => startOfDay(new Date(fecha)))
+    return Array.from(new Set(turnosDisponibles.map((turno) => turno.fecha)))
+      .map((fecha) => startOfDay(new Date(fecha)))
       .sort((a, b) => a.getTime() - b.getTime())
-      .filter(date => isAfter(date, startOfDay(new Date())))
-  }, [turnosDisponibles])
+      .filter((date) => isAfter(date, startOfDay(new Date())));
+  }, [turnosDisponibles]);
 
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 640) 
-    }
+      setIsMobile(window.innerWidth < 640);
+    };
 
-    checkIsMobile()
-    window.addEventListener('resize', checkIsMobile)
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
 
-    return () => window.removeEventListener('resize', checkIsMobile)
-  }, [])
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
 
   useEffect(() => {
-    setSelectedDate(null)
-    setSelectedTime(null)
-    setStartIndex(0)
-  }, [turnosDisponibles, availableDates])
+    setSelectedDate(null);
+    setSelectedTime(null);
+    setStartIndex(0);
+  }, [turnosDisponibles, availableDates]);
 
   const visibleDates = useMemo(() => {
-    const count = isMobile ? 2 : 4
-    return availableDates.slice(startIndex, startIndex + count)
-  }, [availableDates, startIndex, isMobile])
+    const count = isMobile ? 2 : 4;
+    return availableDates.slice(startIndex, startIndex + count);
+  }, [availableDates, startIndex, isMobile]);
 
   const handleDateClick = (date: Date) => {
-    const dateString = date.toISOString()
-    setSelectedDate(dateString)
-    setSelectedTime(null)
-    setSelectedValueDate(dateString)
-    setSelectedValueDoctor(medico)
-  }
+    const dateString = date.toISOString();
+    setSelectedDate(dateString);
+    setSelectedTime(null);
+    setSelectedValueDate(dateString);
+    setSelectedValueDoctor(medico);
+  };
 
   const handleTimeClick = (time: string) => {
-    setSelectedTime(time)
-    setSelectedValueTime(time)
+    setSelectedTime(time);
+    setSelectedValueTime(time);
+  };
+  const sendId = (id:string) => {
+    setSelectedValueId(id)
   }
 
   const handlePrevious = () => {
-    setStartIndex(prev => Math.max(0, prev - (isMobile ? 2 : 4)))
-  }
+    setStartIndex((prev) => Math.max(0, prev - (isMobile ? 2 : 4)));
+  };
 
   const handleNext = () => {
-    setStartIndex(prev => Math.min(availableDates.length - (isMobile ? 2 : 4), prev + (isMobile ? 2 : 4)))
-  }
+    setStartIndex((prev) =>
+      Math.min(
+        availableDates.length - (isMobile ? 2 : 4),
+        prev + (isMobile ? 2 : 4)
+      )
+    );
+  };
 
   if (availableDates.length === 0) {
-    return <p className="text-sm text-muted-foreground">No hay turnos disponibles para este médico.</p>
+    return (
+      <p className="text-sm text-muted-foreground">
+        No hay turnos disponibles para este médico.
+      </p>
+    );
   }
 
   return (
@@ -115,23 +132,33 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
           </Button>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {visibleDates.map((date) => (
-            <div key={date.toISOString()} className="space-y-2">
+          {visibleDates.map((date, index) => (
+            <div key={index} className="space-y-2">
               {turnosDisponibles
-                .filter(turno => isSameDay(parseISO(turno.fecha), date) && turno.disponible)
+                .filter(
+                  (turno) =>
+                    isSameDay(parseISO(turno.fecha), date) && turno.disponible
+                )
                 .sort((a, b) => a.hora.localeCompare(b.hora))
-                .map((turno, index) => (
+                .map((turno) => (
                   <Button
-                    key={`${date}-${turno.hora} - ${index}`}
-                    variant={selectedDate === turno.fecha && selectedTime === turno.hora ? "default" : "outline"}
+                    key={`${turno._id}`}
+                    variant={
+                      selectedDate === turno.fecha &&
+                      selectedTime === turno.hora
+                        ? "default"
+                        : "outline"
+                    }
                     className={`w-full text-xs sm:text-sm focus:outline-none focus:ring focus:ring-violet-300 ${
-                      selectedDate === turno.fecha && selectedTime === turno.hora
+                      selectedDate === turno.fecha &&
+                      selectedTime === turno.hora
                         ? "bg-primary text-primary-foreground"
                         : "bg-[#E6E6FA] hover:bg-violet-300"
                     }`}
                     onClick={() => {
-                      handleDateClick(date)
-                      handleTimeClick(turno.hora)
+                      handleDateClick(date);
+                      handleTimeClick(turno.hora);
+                      sendId(turno._id)
                     }}
                   >
                     {turno.hora}
@@ -144,11 +171,12 @@ export function TimeSlotPicker({ turnosDisponibles, medico }: TimeSlotPickerProp
       {selectedDate && selectedTime && (
         <p className="text-sm font-medium mt-4">
           Turno seleccionado:
-          {format(parseISO(selectedDate), " d 'de' MMMM, yyyy", { locale: es })}{" "}
+          {format(parseISO(selectedDate), " d 'de' MMMM, yyyy", {
+            locale: es,
+          })}{" "}
           a las {selectedTime}
         </p>
       )}
     </div>
-  )
+  );
 }
-

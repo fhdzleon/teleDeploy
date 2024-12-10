@@ -28,7 +28,7 @@ const createDiagnosis = async (req, res) => {
 
 const getDiagnosis = function(req,res){
   const idUSer = req.params.id.replace(':','');
-  Diagnosis.where('patient').equals(idUSer) // obtiene la historia clinica del usuario
+  Diagnosis.where('patient').equals(idUSer)
   .then((result)=>{
     if(!result.length){
       res.status(404).send({error:'not found!'});

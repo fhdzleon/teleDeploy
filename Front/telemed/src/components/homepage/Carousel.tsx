@@ -14,7 +14,7 @@ export default function ObrasCarousel() {
   ];
 
   return (
-    <div className="w-full bg-gradient-to-b from-gray-100 to-gray-200 py-8 overflow-hidden">
+    <div className="w-full bg-[#F3F2FF] py-8 overflow-hidden">
       <div className="animate-carousel flex whitespace-nowrap">
         {[...items, ...items].map((item, index) => (
           <div

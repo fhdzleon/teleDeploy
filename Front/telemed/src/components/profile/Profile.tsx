@@ -6,6 +6,7 @@ import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 import { validateEditionInputs } from "@/middlewares/validateEditionInputs";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
+import Swal from "sweetalert2";
 
 const Profile = () => {
   const { user, setUser } = useGlobalStore();
@@ -96,8 +97,15 @@ const Profile = () => {
 
       setUser({ ...user, ...updateUser });
 
-      alert("Datos actualizados correctamente");
-      router.push(PATHROUTES.IN);
+      Swal.fire({
+        title: "¡Datos actualizados con éxito!",
+        text: "Su información personal ha sido guardada correctamente",
+        icon: "success",
+        timer: 2500,
+        showConfirmButton: false,
+      }).then(() => {
+        router.push(PATHROUTES.IN);
+      });
     } catch (error) {
       console.error(error);
       alert("Ocurrió un error al intentar guardar los cambios");
@@ -111,9 +119,9 @@ const Profile = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-center flex-col space-y-5 w-full  mx-auto"
+      className="flex justify-center bg-white py-8 px-10 shadow-xl rounded-xl flex-col space-y-5 w-full  mx-auto"
     >
-      <div className="flex mx-auto space-x-12">
+      <div className="flex flex-col md:flex-row mx-auto space-x-12">
         <div className="flex space-y-2 flex-col">
           <label
             className="  block text-start text-base font-medium text-[#07074D]"
@@ -135,7 +143,7 @@ const Profile = () => {
           <p className="text-xs text-red-600">{errors.name}</p>
         </div>
 
-        <div className="flex space-y-2 flex-col">
+        <div className="flex  space-y-2 flex-col">
           <label
             className="block text-start text-base font-medium text-[#07074D]"
             htmlFor="lastName"
@@ -157,7 +165,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="flex mx-auto space-x-12">
+      <div className="flex flex-col md:flex-row mx-auto space-x-12">
         <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
@@ -204,7 +212,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="flex mx-auto space-x-12">
+      <div className="flex flex-col md:flex-row mx-auto space-x-12">
         <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"
@@ -235,8 +243,15 @@ const Profile = () => {
           </label>
           <input
             name="email"
-            disabled
-            onChange={handleChange}
+            readOnly
+            onClick={() => {
+              Swal.fire({
+                title: "Esta acción requiere autorización",
+                text: "Por razones de seguridad, los cambios en el correo electrónico asociado a su cuenta deben gestionarse directamente con nuestro equipo Por favor, comuníquese con nosotros escribiendo a contacto@telemed.com para realizar esta solicitud..",
+                icon: "warning",
+                confirmButtonText: "Entendido",
+              });
+            }}
             value={userData?.email}
             className={`mx-auto md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.email !== user?.email
@@ -248,7 +263,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="flex mx-auto space-x-12">
+      <div className="flex flex-col md:flex-row mx-auto space-x-12">
         <div className="flex space-y-2 flex-col">
           <label
             className=" block text-start text-base font-medium text-[#07074D]"

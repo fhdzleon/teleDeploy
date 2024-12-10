@@ -48,7 +48,7 @@ const Page = () => {
   return (
     <div className="flex flex-col items-center space-y-6 p-8">
       <p className="font-bold text-2xl">¡Hola, {user?.name}!</p>
-      <div className=" w-full max-w-2xl flex justify-end">
+      <div className=" w-full max-w-3xl flex justify-end">
         <Link href={PATHROUTES.APPOINTEMNT}>
           <button className="px-12 py-1 bg-acent w-[205px] h-[50px] shadow-sm shadow-slate-700 text-white rounded-full hover:bg-gray-400 transition">
             Reservar turno
@@ -56,11 +56,13 @@ const Page = () => {
         </Link>
       </div>
 
-      <div className="w-full max-w-2xl">
-        <div className="flex justify-start">
+      <div className="w-full  max-w-3xl">
+        <div className="flex  justify-start items-end">
           <div
-            className={`relative w-[180px] px-5 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400 ${
-              section === "nextAppoitments" ? "font-bold" : ""
+            className={`relative w-[180px] px-5  max-w-2xl flex justify-center rounded-t-lg border-b-0   text-gray-800 border border-celeste ${
+              section === "nextAppoitments"
+                ? "font-bold bg-celeste border-b-celeste z-20 py-2"
+                : "bg-slate-200 py-1"
             }`}
           >
             <button onClick={() => setSection("nextAppoitments")}>
@@ -68,8 +70,10 @@ const Page = () => {
             </button>
           </div>
           <div
-            className={`relative ml-1 w-[180px] px-5 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400 ${
-              section === "profile" ? "font-bold" : ""
+            className={`relative ml-1 w-[180px] px-5  max-w-2xl flex justify-center rounded-t-lg   border-b-0 text-gray-800 border border-celeste ${
+              section === "profile"
+                ? "font-bold bg-celeste border-b-celeste z-20 py-2 "
+                : "bg-slate-200 py-1"
             }`}
           >
             <button onClick={() => setSection("profile")}>Mis datos</button>
@@ -77,7 +81,7 @@ const Page = () => {
         </div>
 
         {/* Contenedor con el borde alrededor de las cards */}
-        <div className="w-full max-w-2xl border border-gray-400 p-6 space-y-4 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
+        <div className="relative w-full max-w-3xl border border-celeste bg-celeste z-0 px-12 py-6 space-y-5 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
           {section === "nextAppoitments" && allAppointments.length === 0 && (
             <span>No hay citas proximas</span>
           )}
@@ -85,7 +89,7 @@ const Page = () => {
             allAppointments.map((appointment, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center bg-white border border-gray-400 rounded-md p-4 w-full"
+                className="flex flex-col items-center bg-white border shadow-xl rounded-md p-6 w-full"
               >
                 <div className="text-start space-y-3">
                   <div className="flex flex-col md:flex-row justify-between">
@@ -147,7 +151,7 @@ const Page = () => {
                         {formatFecha(appointment.fecha)} {appointment.hora} hrs
                       </p>
                     </div>
-                    <p className="text-sm border text-gray-500 border-gray-400 px-3">
+                    <p className="text-sm border bg-celeste text-textColor border-gray-400 px-3">
                       {getDiasRestantes(appointment.fecha)}
                     </p>
                   </div>
@@ -173,7 +177,9 @@ const Page = () => {
                         fill="black"
                       />
                     </svg>
-                    <p className="text-sm ml-2">{appointment.doctor}</p>
+                    <p className="text-sm ml-2">
+                      {appointment.doctor.nombreCompleto}
+                    </p>
                   </div>
 
                   <div className="flex">
@@ -270,7 +276,9 @@ const Page = () => {
                       />
                     </svg>
 
-                    <p className="text-sm ml-2">{appointment.especialidad}</p>
+                    <p className="text-sm ml-2">
+                      {appointment.doctor.especialidad}
+                    </p>
                   </div>
 
                   <div className="flex">
@@ -295,6 +303,7 @@ const Page = () => {
                     </p>
                   </div>
                 </div>
+                {/* <TermsAndConditions /> */}
               </div>
             ))}
 

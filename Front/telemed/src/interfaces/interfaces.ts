@@ -29,6 +29,7 @@ export interface registerInputs {
 }
 
 export interface TurnoDisponible {
+  _id: string;
   fecha: string; // ISO Date String
   hora: string; // Time in HH:mm format
   disponible: boolean;
@@ -37,14 +38,19 @@ export interface TurnoDisponible {
 export interface Medico {
   medico: string;
   especialidad: string;
+  imagenPerfilUrl: string;
   turnosDisponibles: TurnoDisponible[];
 }
 
 export type registerErrors = Partial<registerInputs>;
 
+export interface DatosDoctor {
+  nombreCompleto: string;
+  especialidad: string;
+}
+
 export interface Appointments {
   fecha: string;
   hora: string;
-  doctor: string;
-  especialidad: string;
+  doctor: DatosDoctor;
 }

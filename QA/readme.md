@@ -40,3 +40,14 @@ Las pruebas realizadas en este ciclo han permitido identificar y reportar los er
 ###  <p> Recomendaciones
 Ampliar la cobertura de pruebas: Considerar la inclusión de pruebas de rendimiento y seguridad en futuros ciclos.
 
+## <p> Resumen del informe del Tercer Ciclo </p>
+## <p> Resultados </br> 
+### Se ejecutaron 10 casos de prueba, de los cuales:
+#### "2" casos presentaron errores: ambos fueron fueron errores de componente, de criticidad y urgencia media.
+#### "8" casos se ejecutaron con éxito: Las funcionalidades evaluadas funcionaron según lo especificado en los requisitos.
+###  <p> Análisis de Resultados </br> 
+##### Durante este sprint se ha refinado la redacción del contenido en la página principal mejorando la experiencia del usuario al proporcionar información relevante y accesible; Se han ajustado varios detalles del diseño para mejorar la estética y la usabilidad de la webapp, con un enfoque en la experiencia del usuario; Se ha trabajado en el módulo de registro y perfil de usuario; Se ha avanzado en la funcionalidad de reserva de turnos, permitiendo a los usuarios seleccionar especialidades médicas y horarios.
+ </p>
+
+ ###  <p> Conclusiones
+ El equipo ha logrado avances notables en la mejora de la redacción, el diseño y la funcionalidad del dashboard del paciente. A pesar de los errores encontrados, el progreso general es positivo, y continuaremos trabajando para garantizar la calidad y eficiencia de la WebApp de Telemedicina

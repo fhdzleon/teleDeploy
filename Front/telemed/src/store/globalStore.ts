@@ -26,6 +26,8 @@ export interface UserState {
   setSelectedValueDate: (value: string) => void;
   selectedValueTime: string;
   setSelectedValueTime: (value: string) => void;
+  selectedValueId: string;
+  setSelectedValueId: (value: string) => void;
 }
 
 const useGlobalStore = create<UserState>()(
@@ -44,9 +46,11 @@ const useGlobalStore = create<UserState>()(
       setSelectedValueDate: (value) => set({ selectedValueDate: value }),
       selectedValueTime: "",
       setSelectedValueTime: (value) => set({ selectedValueTime: value }),
+      selectedValueId: "",
+      setSelectedValueId: (value) => set({ selectedValueId: value }),
     }),
     {
-      name: "global-store",
+      name: "globalStore",
       storage: createJSONStorage(() => localStorage),
     }
   )
