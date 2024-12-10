@@ -46,7 +46,7 @@ const useGlobalStore = create<UserState>()(
       setSelectedValueTime: (value) => set({ selectedValueTime: value }),
     }),
     {
-      name: "global-store",
+      name: "globalStore",
       storage: createJSONStorage(() => localStorage),
     }
   )

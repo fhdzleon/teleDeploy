@@ -1,8 +1,32 @@
 import React from "react";
+import useGlobalStore from "@/store/globalStore";
 
 const GoogleAuth = () => {
-  const handleClick = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+  const { setUser } = useGlobalStore();
+
+  const handleClick = async () => {
+    const popup = window.open(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
+      "GoogleAuth",
+      "width=500,height=600"
+    );
+
+    if (!popup) {
+      console.error("No se pudo abrir la ventana emergente");
+      return;
+    }
+
+    const interval = setInterval(() => {
+      if (popup.closed) {
+        clearInterval(interval);
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const userData = (window as any).userData;
+        if (userData) {
+          setUser(userData);
+        }
+      }
+    }, 500);
   };
 
   return (
