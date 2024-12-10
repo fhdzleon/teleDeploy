@@ -57,10 +57,12 @@ const Page = () => {
       </div>
 
       <div className="w-full  max-w-3xl">
-        <div className="flex  justify-start">
+        <div className="flex  justify-start items-end">
           <div
-            className={`relative w-[180px] px-5 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400 ${
-              section === "nextAppoitments" ? "font-bold bg-celeste" : ""
+            className={`relative w-[180px] px-5  max-w-2xl flex justify-center rounded-t-lg border-b-0   text-gray-800 border border-celeste ${
+              section === "nextAppoitments"
+                ? "font-bold bg-celeste border-b-celeste z-20 py-2"
+                : "bg-slate-200 py-1"
             }`}
           >
             <button onClick={() => setSection("nextAppoitments")}>
@@ -68,8 +70,10 @@ const Page = () => {
             </button>
           </div>
           <div
-            className={`relative ml-1 w-[180px] px-5 py-1 max-w-2xl flex justify-center rounded-t-lg bg-white border-b-0 text-gray-800 border border-gray-400 ${
-              section === "profile" ? "font-bold bg-celeste " : ""
+            className={`relative ml-1 w-[180px] px-5  max-w-2xl flex justify-center rounded-t-lg   border-b-0 text-gray-800 border border-celeste ${
+              section === "profile"
+                ? "font-bold bg-celeste border-b-celeste z-20 py-2 "
+                : "bg-slate-200 py-1"
             }`}
           >
             <button onClick={() => setSection("profile")}>Mis datos</button>
@@ -77,7 +81,7 @@ const Page = () => {
         </div>
 
         {/* Contenedor con el borde alrededor de las cards */}
-        <div className="w-full max-w-3xl border border-gray-400 bg-celeste px-12 py-6 space-y-5 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
+        <div className="relative w-full max-w-3xl border border-celeste bg-celeste z-0 px-12 py-6 space-y-5 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
           {section === "nextAppoitments" && allAppointments.length === 0 && (
             <span>No hay citas proximas</span>
           )}
