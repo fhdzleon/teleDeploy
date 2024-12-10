@@ -44,7 +44,7 @@ export function DoctorCard({
                 alt="doctor"
                 height={200}
                 width={200}
-                className="object-cover"
+                className=" object-center object-contain max-w-[200px] max-h-[180px]"
               />
             </div>
             <div className="flex flex-col items-center">

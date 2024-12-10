@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import ButtonCarpet from "@/components/ButtonCarpet";
 /* import WithAuthProtect from "@/helpers/WithAuth"; */
 import { DoctorCard } from "@/components/doctor/DoctorCard";
 import SelectSpeciality from "@/components/doctor/SelectSpeciality";
@@ -29,8 +28,6 @@ const page = () => {
   const router = useRouter();
 
   const handleSendInformation = async () => {
-    
-
     const queryParams = new URLSearchParams({
       date: selectedValueDate,
       time: selectedValueTime,
@@ -70,8 +67,8 @@ const page = () => {
 
   return (
     <div className="mx-auto p-6 flex flex-col ">
-      <div className="relative mb-[-15px] z-20 ">
-        <ButtonCarpet estilos="left-10 top-2" text="Solicite su Turno" />
+      <div>
+        <button className="px-4 py-2 my-[-5px] border">Solicite su Turno</button>
       </div>
       <Card className="flex flex-col p-10 items-start md:min-w-[500px] md:min-h-[500px]">
         <div className="pb-10">
