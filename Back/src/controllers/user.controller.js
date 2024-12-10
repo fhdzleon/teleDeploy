@@ -101,7 +101,7 @@ const googleLogin = async function (req, res) {
 
     // Configurar cookie con el JWT
     const dateLimit = new Date(Date.now() + 1000 * 60 * 60 * 24);
-    res.cookie("jwt", token, { expires: dateLimit, httpOnly: true });
+    res.cookie("jwt", token, { expires: dateLimit});
 
     const frontendURL = process.env.REDIRECT_URL;
     const redirectURL = `${frontendURL}/in?name=${encodeURIComponent(
