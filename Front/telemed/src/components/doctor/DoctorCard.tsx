@@ -26,7 +26,7 @@ export function DoctorCard({
 
   return (
     <Card
-      className={`w-full max-w-[90vw] md:max-w-6xl flex flex-col md:flex-row transition-all  ${
+      className={`w-full max-w-[90vw] md:max-w-6xl flex flex-col md:flex-row transition-all ${
         isSelected ? "" : "cursor-pointer hover:bg-blue-50"
       } `}
       onClick={handleCardClick}
