@@ -4,6 +4,7 @@ import ObrasCarousel from "@/components/homepage/Carousel";
 import FaqSection from "../components/homepage/FaqSection";
 import FormH from "@/components/homepage/FormH";
 import FaqSection2 from "@/components/homepage/FaqSection2";
+import OurTeam from "@/components/ourTeam/OurTeam";
 
 export default function Home() {
   return (
@@ -55,7 +56,6 @@ export default function Home() {
         </h2>
         <FaqSection2 />
 
-
         <section
           id="contacto"
           className="text-center flex flex-col space-y-2 purple-light  "
@@ -71,6 +71,7 @@ export default function Home() {
           <p className="text-[18px]">(111)1111111 </p>
           <FormH />
         </section>
+        <OurTeam />
       </div>
     </>
   );
