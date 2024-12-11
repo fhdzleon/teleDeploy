@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
 import Swal from "sweetalert2";
+import getDiasRestantes from "@/helpers/getDiasRestantes";
 
 const Page = () => {
   const router = useRouter();
@@ -18,10 +19,9 @@ const Page = () => {
   const time = searchParams.get("time");
   const doctor = searchParams.get("doctor");
   const especialidad = searchParams.get("especialidad");
-
+console.log(especialidad);
   const { user, selectedValueId } = useGlobalStore();
 
-  console.log("id", user?.id);
   const handleSendInformation = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -78,7 +78,7 @@ const Page = () => {
 
             <Card className="inline-flex px-3 py-1 bg-[#F0F7FF] border-gray-300 shadow-sm m-2 md:m-0">
               <span className="text-sm font-sm text-gray-800">
-                Faltan 5 días
+              {getDiasRestantes(date || "")}
               </span>
             </Card>
           </div>
@@ -95,8 +95,8 @@ const Page = () => {
           <div className="flex">
             <Image
               className="mx-2"
-              src={"/nutricionista.svg"}
-              alt="nutricionista"
+              src={`/${especialidad}.svg`}
+              alt="EspecialidadIcon"
               height={20}
               width={20}
             />
@@ -122,14 +122,14 @@ const Page = () => {
       <div className="flex justify-end items-end p-4 md:p-6 space-x-3 md:space-x-5 transition-all">
         <Button
           variant="default"
-          className="bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-full px-8 py-2"
+          className="bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-full px-8 py-2 shadow-md"
         >
           <Link href={"/appointment"}>Cancelar</Link>
         </Button>
         <Button
           onClick={handleSendInformation}
           variant="outline"
-          className="bg-[#EDE9FE] hover:bg-[#DDD6FE] text-[#6D28D9] border-0 rounded-full px-8 py-2"
+          className="bg-[#EDE9FE] hover:bg-[#DDD6FE] text-[#6D28D9] border-0 rounded-full px-8 py-2 shadow-md"
         >
           Continuar
         </Button>

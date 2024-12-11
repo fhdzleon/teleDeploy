@@ -91,7 +91,7 @@ export function TimeSlotPicker({
 
   if (availableDates.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-md">
         No hay turnos disponibles para este médico.
       </p>
     );

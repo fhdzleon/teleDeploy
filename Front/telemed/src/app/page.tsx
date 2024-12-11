@@ -3,6 +3,7 @@ import CardN from "../components/CardN";
 import ObrasCarousel from "@/components/homepage/Carousel";
 import FaqSection from "../components/homepage/FaqSection";
 import FormH from "@/components/homepage/FormH";
+import FaqSection2 from "@/components/homepage/FaqSection2";
 
 export default function Home() {
   return (
@@ -48,13 +49,22 @@ export default function Home() {
         </section>
 
         <FaqSection />
+
+        <h2 className="text-center font-semibold mb-10 text-4xl ">
+          ¿Cuándo es adecuado una consulta por videollamada?
+        </h2>
+        <FaqSection2 />
+
+
         <section
           id="contacto"
           className="text-center flex flex-col space-y-2 purple-light  "
         >
           <h2 className="text-4xl font-semibold my-5 ">Contáctanos</h2>
 
-          <p className="text-[21px]">Escribenos y nos conectaremos a la brevedad</p>
+          <p className="text-[21px]">
+            Escribenos y nos conectaremos a la brevedad
+          </p>
 
           <p className="text-[18px]">Telemed@telemed.com</p>
 
