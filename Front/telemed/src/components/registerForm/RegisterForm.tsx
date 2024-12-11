@@ -12,9 +12,12 @@ import {
 } from "@/middlewares/validateRegister";
 import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 import Link from "next/link";
+import TermsAndConditions from "../termsAndConditions/TermsAndConditions";
 
 const RegisterForm = () => {
   const router = useRouter();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const [step, setStep] = useState<number>(1);
 
@@ -401,7 +404,7 @@ const RegisterForm = () => {
               2
             </div>
             <div className="h-0.5 w-16 bg-acent"></div>
-            <div className="border border-acent bg-secundary text-acent rounded-full  h-10 w-10 flex items-center justify-center">
+            <div className="border border-acent bg-secundary text-acent rounded-full h-10 w-10 flex items-center justify-center">
               3
             </div>
           </div>
@@ -409,7 +412,6 @@ const RegisterForm = () => {
           <form
             onSubmit={handleSubmit}
             className="flex flex-col mt-20 space-y-5 max-w-6xl md:min-w-[50rem] mx-auto"
-            action=""
           >
             <div className="flex flex-col space-y-6">
               <div className="space-y-2">
@@ -454,11 +456,50 @@ const RegisterForm = () => {
               </div>
             </div>
 
+            {/* Checkbox de términos y condiciones */}
+            <div className="flex items-center justify-center mt-4">
+              <input id="terms" type="checkbox" className="mr-2" required />
+              <label htmlFor="terms" className="text-base text-textColor">
+                Acepto los{" "}
+                <span
+                  className="text-acent cursor-pointer underline"
+                  onClick={() => setIsOpen(true)}
+                >
+                  términos y condiciones
+                </span>{" "}
+                y las {"\n"} politicas de privacidad
+              </label>
+            </div>
+
+            {/* Modal de términos y condiciones */}
+            {isOpen && (
+              <div
+                className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                  <div
+                    className="bg-white py-6 px-10 rounded-lg shadow-lg max-w-3xl w-full relative"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      onClick={() => setIsOpen(false)}
+                      className="absolute top-12 left-10 text-black text-2xl font-bold hover:text-gray-700"
+                    >
+                      &lt;
+                    </button>
+
+                    <TermsAndConditions />
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="flex justify-center">
-              <div className="flex mt-28  flex-col md:flex-row  md:space-0 md:space-x-4">
+              <div className="flex mt-28 flex-col md:flex-row md:space-0 md:space-x-4">
                 <button
                   onClick={prevStep}
-                  className=" w-full md:w-[360px] mx-auto hover:shadow-form rounded-full bg-secundary text-primary py-3 px-8 text-center text-base font-semibold  outline-none"
+                  className="w-full md:w-[360px] mx-auto hover:shadow-form rounded-full bg-secundary text-primary py-3 px-8 text-center text-base font-semibold outline-none"
                 >
                   Volver
                 </button>
