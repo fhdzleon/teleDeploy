@@ -15,7 +15,7 @@ const People = ({ rol, name, name2, photo, photo2 }: Informacion) => {
       <h4 className="text-2xl text-white font-medium mb-8 text-center whitespace-nowrap">
         {rol}
       </h4>
-      <div className="h-20 w-20 hover:bg-gray-300  bg-white rounded-full flex justify-center items-center overflow-hidden relative transition-all">
+      <div className="h-20 w-20   bg-white rounded-full flex justify-center items-center overflow-hidden relative transition-all">
         <Image
           className="object-cover"
           src={`/nosotros/${photo}.png`}
@@ -25,7 +25,7 @@ const People = ({ rol, name, name2, photo, photo2 }: Informacion) => {
       </div>
       <p className="text-white text-lg text-center whitespace-nowrap">{name}</p>
 
-      <div className="h-20 w-20 hover:bg-gray-300  bg-white rounded-full flex justify-center items-center mt-8 overflow-hidden relative">
+      <div className="h-20 w-20   bg-white rounded-full flex justify-center items-center mt-8 overflow-hidden relative">
         <Image
           className="object-cover"
           src={`/nosotros/${photo2}.png`}

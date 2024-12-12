@@ -43,6 +43,7 @@ export default function FaqSection() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
       <h2
+        style={{ scrollMargin: "80px" }}
         id="faqs"
         className="text-4xl font-semibold text-center mb-12  text-gray-800 leading-tight"
       >
@@ -82,7 +83,9 @@ export default function FaqSection() {
               >
                 <span
                   className={` ${
-                    openItem === item.id ? "text-white font-extrabold " : "font-medium"
+                    openItem === item.id
+                      ? "text-white font-extrabold "
+                      : "font-medium"
                   }`}
                 >
                   {item.question}

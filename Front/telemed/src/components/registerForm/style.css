@@ -1,12 +1,7 @@
-
 .select-custom {
-  /* -webkit-appearance: none; 
-  -moz-appearance: none;  */
-  /* appearance: none; Estilo universal */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   background-color: white;
   /* background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path fill="%234a41fe" d="M0 0l5 6 5-6H0z"/></svg>'); */
-  background-repeat: no-repeat;
-  background-position: calc(100% - 2rem) center; /* Ajusta el espacio desde la derecha */
-  padding-right: 2.5rem; /* Da espacio suficiente para la flecha */
 }
-
