@@ -28,7 +28,7 @@ const Page = () => {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
       setDisabledButton(!disabledButton);
       const response = await fetch(
@@ -44,7 +44,7 @@ const Page = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setLoading(true)
+        setLoading(true);
         Swal.fire({
           title: "¡Su turno ha sido solicitado con éxito!",
           text: "En breve será redirigido a su agenda",
@@ -121,8 +121,8 @@ const Page = () => {
               width={20}
             />
             <p>
-              24 horas antes del turno agendado, recibirá por mail el enlace a
-              Meet
+              El enlace para su videollamada será enviado a su correo
+              electrónico.
             </p>
           </div>
         </div>

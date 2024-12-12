@@ -123,7 +123,12 @@ const Page = () => {
                   </div>
 
                   <div className="flex">
-                    <Image src={`${appointment.doctor.especialidad}.svg`} alt={`${appointment.doctor.especialidad}`} width={20} height={20} />
+                    <Image
+                      src={`${appointment.doctor.especialidad}.svg`}
+                      alt={`${appointment.doctor.especialidad}`}
+                      width={20}
+                      height={20}
+                    />
                     <p className="text-sm ml-2 capitalize">
                       {appointment.doctor.especialidad}
                     </p>
@@ -138,8 +143,8 @@ const Page = () => {
                     />
 
                     <p className="text-sm ml-2">
-                      24 horas antes del turno agendado, recibirás por email el
-                      enlace a Meet.
+                      Revise su correo, el enlace para su videollamada ha sido
+                      enviado.
                     </p>
                   </div>
                 </div>
