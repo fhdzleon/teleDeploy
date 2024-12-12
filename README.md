@@ -26,4 +26,4 @@ Contribuir a TELEMED:
 
 Si estás interesado en colaborar en el desarrollo de TELEMED, te invitamos a explorar nuestro código fuente y enviar tus propuestas de mejora.
 
-## Faqs /Actualizado
+## Faqs
