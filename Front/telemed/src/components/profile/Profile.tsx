@@ -247,7 +247,7 @@ const Profile = () => {
             onClick={() => {
               Swal.fire({
                 title: "Esta acción requiere autorización",
-                text: "Por razones de seguridad, los cambios en el correo electrónico asociado a su cuenta deben gestionarse directamente con nuestro equipo Por favor, comuníquese con nosotros escribiendo a contacto@telemed.com para realizar esta solicitud..",
+                text: "Por razones de seguridad, los cambios en el correo electrónico asociado a su cuenta deben gestionarse directamente con nuestro equipo Por favor, comuníquese con nosotros escribiendo a contacto@telemed.com para realizar esta solicitud.",
                 icon: "warning",
                 confirmButtonText: "Entendido",
               });
