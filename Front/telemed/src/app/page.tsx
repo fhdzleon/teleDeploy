@@ -12,6 +12,7 @@ export default function Home() {
       <Hero />
       <div>
         <h2
+        style={{scrollMargin: "80px"}}
           id="nosotros"
           className="text-center text-4xl font-semibold text-gray-800 mb-5 leading-tight mt-5"
         >
@@ -41,6 +42,7 @@ export default function Home() {
         {/* obras sociales */}
         <section className="hidden md:block">
           <h2
+            style={{scrollMargin: "80px"}}
             id="obras-sociales"
             className="text-center text-4xl font-semibold mb-8  text-gray-800 leading-tight"
           >
@@ -58,6 +60,7 @@ export default function Home() {
 
         <section
           id="contacto"
+          style={{scrollMargin: "80px"}}
           className="text-center flex flex-col space-y-2 purple-light pb-10 "
         >
           <h2 className="text-4xl font-semibold my-5 ">Contáctanos</h2>

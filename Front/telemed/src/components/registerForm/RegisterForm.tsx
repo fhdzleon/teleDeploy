@@ -13,7 +13,7 @@ import {
 import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 import Link from "next/link";
 import TermsAndConditions from "../termsAndConditions/TermsAndConditions";
-
+import "./style.css"
 const RegisterForm = () => {
   const router = useRouter();
 
@@ -330,7 +330,7 @@ const RegisterForm = () => {
                   id="healthcareSystem"
                   value={userData.healthcareSystem}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto w-full flex rounded-xl text-center border border-borderInput/50 bg-white py-3 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto select-custom w-full flex rounded-xl text-center border border-borderInput/50 bg-white py-3 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   name="healthcareSystem"
                   required
                 >
