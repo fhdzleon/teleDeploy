@@ -13,7 +13,7 @@ import {
 import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 import Link from "next/link";
 import TermsAndConditions from "../termsAndConditions/TermsAndConditions";
-import "./style.css"
+import "./style.css";
 const RegisterForm = () => {
   const router = useRouter();
 
@@ -466,8 +466,7 @@ const RegisterForm = () => {
                   onClick={() => setIsOpen(true)}
                 >
                   términos y condiciones
-                </span>{" "}
-                y las {"\n"} politicas de privacidad
+                </span>
               </label>
             </div>
 
