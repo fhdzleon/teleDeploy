@@ -17,7 +17,7 @@ const OurTeam = () => {
             <People rol="Frontend" name="Felipe Hernández" name2="José Garces" photo="felipe" photo2="jose" />
           </div>
           <div className="flex flex-col items-center">
-            <People rol="QA Tester Manual" name="Cynthia Mariel" name2="Erika Escalante" photo="cynthia" photo2="cynthia" />
+            <People rol="QA Tester Manual" name="Cynthia Mariel" name2="Erika Escalante" photo="cynthia" photo2="erika" />
           </div>
         </div>
       </div>
@@ -26,32 +26,3 @@ const OurTeam = () => {
 };
 
 export default OurTeam;
-
-// <div className="flex justify-center min-w-screen w-full">
-//   <div className="bg-primary grid grid-cols-4 gap-4 w-full p-4">
-//     <div className="h-20 w-20 bg-white  rounded-full">
-//       <h3></h3>
-//     </div>
-//     <div className="h-20 w-20 bg-white  rounded-full">
-//       <h3>2</h3>
-//     </div>
-//     <div className="h-20 w-20 bg-white  rounded-full">
-//       <h3>3</h3>
-//     </div>
-//     <div>
-//       <h3>4</h3>
-//     </div>
-//     <div>
-//       <h3>5</h3>
-//     </div>
-//     <div>
-//       <h3>6</h3>
-//     </div>
-//     <div>
-//       <h3>7</h3>
-//     </div>
-//     <div>
-//       <h3>8</h3>
-//     </div>
-//   </div>
-// </div>
