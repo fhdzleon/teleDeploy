@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import useGlobalStore from "@/store/globalStore";
 import Link from "next/link";
@@ -11,22 +11,26 @@ import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
 import Swal from "sweetalert2";
 import getDiasRestantes from "@/helpers/getDiasRestantes";
-
+import Loader from "@/components/Loader";
 const Page = () => {
   const router = useRouter();
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const date = searchParams.get("date");
   const time = searchParams.get("time");
   const doctor = searchParams.get("doctor");
   const especialidad = searchParams.get("especialidad");
-console.log(especialidad);
+
   const { user, selectedValueId } = useGlobalStore();
 
   const handleSendInformation = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
+    setLoading(true);
     try {
+      setDisabledButton(!disabledButton);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/turns/reserve/${user?.id}`,
         {
@@ -39,15 +43,17 @@ console.log(especialidad);
       );
 
       const data = await response.json();
-
-      Swal.fire({
-        title: "¡Su turno a sido solicitado con éxito!",
-        text: "En breve será redirigido a su agenda",
-        timer: 2500,
-        showConfirmButton: false,
-      }).then(() => {
-        router.push(PATHROUTES.IN);
-      });
+      if (response.ok) {
+        setLoading(true);
+        Swal.fire({
+          title: "¡Su turno ha sido solicitado con éxito!",
+          text: "En breve será redirigido a su agenda",
+          timer: 2500,
+          showConfirmButton: false,
+        }).then(() => {
+          router.push(PATHROUTES.IN);
+        });
+      }
       console.log(data);
     } catch (error) {
       console.error("Error al realizar la petición:", error);
@@ -55,9 +61,12 @@ console.log(especialidad);
   };
   return (
     <div className="mx-auto w-full max-w-5xl p-4 sm:p-6 flex flex-col">
+      {loading && <Loader />}
       <div className="flex justify-start items-end">
         <div className="relative w-[180px] px-4 py-2 flex justify-center rounded-t-lg border-b-0 text-gray-800 border border-celeste font-bold bg-celeste border-b-celeste z-20">
-          <button className="text-sm sm:text-base">Confirme su turno</button>
+          <button disabled={disabledButton} className="text-sm sm:text-base">
+            Confirme su turno
+          </button>
         </div>
       </div>
       <div className="flex flex-col w-full p-4 sm:p-6 md:p-10 items-start border border-celeste bg-celeste z-0 space-y-5 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
@@ -78,7 +87,7 @@ console.log(especialidad);
 
             <Card className="inline-flex px-3 py-1 bg-[#F0F7FF] border-gray-300 shadow-sm m-2 md:m-0">
               <span className="text-sm font-sm text-gray-800">
-              {getDiasRestantes(date || "")}
+                {getDiasRestantes(date || "")}
               </span>
             </Card>
           </div>
@@ -112,8 +121,8 @@ console.log(especialidad);
               width={20}
             />
             <p>
-              24 horas antes del turno agendado, recibirá por mail el enlace a
-              Meet
+              El enlace para su videollamada será enviado a su correo
+              electrónico.
             </p>
           </div>
         </div>

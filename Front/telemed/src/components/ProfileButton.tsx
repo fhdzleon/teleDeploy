@@ -30,10 +30,10 @@ export default function ProfileDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center hover:bg-gray-100 text-gray-800 font-semibold border border-gray-400 rounded-full shadow transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+        className="flex items-center hover:bg-gray-100 text-gray-800 font-semibold border border-gray-400 rounded-full shadow transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
       >
         <Image
-          src="/images/Perfilpurple.png"
+          src="/purpleprofile.svg"
           alt="Foto de perfil"
           width={32}
           height={32}

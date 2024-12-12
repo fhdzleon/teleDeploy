@@ -13,7 +13,7 @@ import {
 import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 import Link from "next/link";
 import TermsAndConditions from "../termsAndConditions/TermsAndConditions";
-
+import "./style.css";
 const RegisterForm = () => {
   const router = useRouter();
 
@@ -289,7 +289,7 @@ const RegisterForm = () => {
               </button>
             </div>
           </form>
-          <p className="text-center mt-8">
+          <p className="text-center m-6">
             ¿Ya tienes cuenta?
             <Link href={"/auth/signin"}>
               <span className="text-acent font-medium"> inicia sesión</span>
@@ -322,7 +322,7 @@ const RegisterForm = () => {
               <div className="space-y-2">
                 <label
                   className="md:w-1/2 mx-auto block text-start text-base font-medium text-[#07074D]"
-                  htmlFor="email"
+                  htmlFor="healthcareSystem"
                 >
                   Obra social
                 </label>
@@ -330,7 +330,7 @@ const RegisterForm = () => {
                   id="healthcareSystem"
                   value={userData.healthcareSystem}
                   onChange={handleChange}
-                  className="md:w-1/2 mx-auto w-full flex rounded-xl text-center border border-borderInput/50 bg-white py-3 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
+                  className="md:w-1/2 mx-auto select-custom w-full flex rounded-xl text-center border border-borderInput/50 bg-white py-3 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md"
                   name="healthcareSystem"
                   required
                 >
@@ -466,8 +466,7 @@ const RegisterForm = () => {
                   onClick={() => setIsOpen(true)}
                 >
                   términos y condiciones
-                </span>{" "}
-                y las {"\n"} politicas de privacidad
+                </span>
               </label>
             </div>
 

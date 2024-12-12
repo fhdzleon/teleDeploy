@@ -22,7 +22,7 @@ export default function NavBar() {
   const navItems = [
     { name: "Nosotros", href: "#nosotros" },
     { name: "Obras Sociales", href: "#obras-sociales" },
-    { name: "Faqs", href: "#faqs" },
+    { name: "Preguntas Frecuentes", href: "#faqs" },
     { name: "Contacto", href: "#contacto" },
   ];
 
@@ -48,7 +48,7 @@ export default function NavBar() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-black hover:bg-gray-100 hover:text-gray-700 px-3 py-2 rounded-md text-md font-medium transition-colors"
+                    className="text-black hover:bg-gray-100 hover:text-gray-800 px-3 py-2 rounded-md text-md font-medium transition-colors "
                   >
                     {item.name}
                   </Link>

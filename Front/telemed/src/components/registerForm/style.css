@@ -1,0 +1,7 @@
+.select-custom {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  /* background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path fill="%234a41fe" d="M0 0l5 6 5-6H0z"/></svg>'); */
+}
