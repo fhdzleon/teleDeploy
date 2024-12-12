@@ -96,14 +96,14 @@ const page = () => {
       <div className="flex items-end justify-end mt-4 space-y-3 space-x-3 md:space-x-5 transition-all">
         <Button
           onClick={handleCancel}
-          className="sm:w-auto rounded-full bg-primary hover:bg-purple-600"
-        >
+          className="bg-primary hover:bg-[#5B21B6] text-white shadow-md rounded-full px-8 py-2"
+          >
           Cancelar
         </Button>
         <Button
           disabled={handleDisabled}
           onClick={handleSendInformation}
-          className="sm:w-auto rounded-full bg-primary hover:bg-purple-600"
+          className="bg-[#EDE9FE] hover:bg-[#DDD6FE] text-[#6D28D9] border-0 rounded-full px-8 py-2 shadow-md"
         >
           Continuar
         </Button>
@@ -114,3 +114,18 @@ const page = () => {
 
 /* export default WithAuthProtect(page); */
 export default page;
+{/* <div className="flex justify-end items-end p-4 md:p-6 space-x-3 md:space-x-5 transition-all">
+<Button
+  variant="default"
+  className="bg-[#6D28D9] hover:bg-[#5B21B6] text-white rounded-full px-8 py-2"
+>
+  <Link href={"/appointment"}>Cancelar</Link>
+</Button>
+<Button
+  onClick={handleSendInformation}
+  variant="outline"
+  className="bg-[#EDE9FE] hover:bg-[#DDD6FE] text-[#6D28D9] border-0 rounded-full px-8 py-2"
+>
+  Continuar
+</Button>
+</div> */}

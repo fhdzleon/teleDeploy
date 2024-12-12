@@ -6,6 +6,7 @@ import { registerErrors, registerInputs } from "@/interfaces/interfaces";
 import { validateEditionInputs } from "@/middlewares/validateEditionInputs";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
+import Swal from "sweetalert2";
 
 const Profile = () => {
   const { user, setUser } = useGlobalStore();
@@ -96,8 +97,15 @@ const Profile = () => {
 
       setUser({ ...user, ...updateUser });
 
-      alert("Datos actualizados correctamente");
-      router.push(PATHROUTES.IN);
+      Swal.fire({
+        title: "¡Datos actualizados con éxito!",
+        text: "Su información personal ha sido guardada correctamente",
+        icon: "success",
+        timer: 2500,
+        showConfirmButton: false,
+      }).then(() => {
+        router.push(PATHROUTES.IN);
+      });
     } catch (error) {
       console.error(error);
       alert("Ocurrió un error al intentar guardar los cambios");
@@ -235,8 +243,15 @@ const Profile = () => {
           </label>
           <input
             name="email"
-            disabled
-            onChange={handleChange}
+            readOnly
+            onClick={() => {
+              Swal.fire({
+                title: "Esta acción requiere autorización",
+                text: "Por razones de seguridad, los cambios en el correo electrónico asociado a su cuenta deben gestionarse directamente con nuestro equipo Por favor, comuníquese con nosotros escribiendo a contacto@telemed.com para realizar esta solicitud.",
+                icon: "warning",
+                confirmButtonText: "Entendido",
+              });
+            }}
             value={userData?.email}
             className={`mx-auto md:w-[260px]  rounded-xl text-center border border-borderInput/50 bg-white py-2 px-6 text-base font-medium text-textColor outline-none focus:border-[#4a41fe] focus:shadow-md  ${
               userData.email !== user?.email

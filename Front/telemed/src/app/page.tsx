@@ -3,6 +3,8 @@ import CardN from "../components/CardN";
 import ObrasCarousel from "@/components/homepage/Carousel";
 import FaqSection from "../components/homepage/FaqSection";
 import FormH from "@/components/homepage/FormH";
+import FaqSection2 from "@/components/homepage/FaqSection2";
+import OurTeam from "@/components/ourTeam/OurTeam";
 
 export default function Home() {
   return (
@@ -10,6 +12,7 @@ export default function Home() {
       <Hero />
       <div>
         <h2
+        style={{scrollMargin: "80px"}}
           id="nosotros"
           className="text-center text-4xl font-semibold text-gray-800 mb-5 leading-tight mt-5"
         >
@@ -39,6 +42,7 @@ export default function Home() {
         {/* obras sociales */}
         <section className="hidden md:block">
           <h2
+            style={{scrollMargin: "80px"}}
             id="obras-sociales"
             className="text-center text-4xl font-semibold mb-8  text-gray-800 leading-tight"
           >
@@ -48,19 +52,29 @@ export default function Home() {
         </section>
 
         <FaqSection />
+
+        <h2 className="text-center font-semibold mb-10 text-4xl ">
+          ¿Cuándo es adecuado una consulta por videollamada?
+        </h2>
+        <FaqSection2 />
+
         <section
           id="contacto"
-          className="text-center flex flex-col space-y-2 purple-light  "
+          style={{scrollMargin: "80px"}}
+          className="text-center flex flex-col space-y-2 purple-light pb-10 "
         >
           <h2 className="text-4xl font-semibold my-5 ">Contáctanos</h2>
 
-          <p className="text-[21px]">Escribenos y nos conectaremos a la brevedad</p>
+          <p className="text-[21px]">
+            Escribenos y nos conectaremos a la brevedad
+          </p>
 
           <p className="text-[18px]">Telemed@telemed.com</p>
 
           <p className="text-[18px]">(111)1111111 </p>
           <FormH />
         </section>
+        <OurTeam />
       </div>
     </>
   );
