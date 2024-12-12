@@ -58,7 +58,7 @@ export default function Home() {
 
         <section
           id="contacto"
-          className="text-center flex flex-col space-y-2 purple-light  "
+          className="text-center flex flex-col space-y-2 purple-light pb-10 "
         >
           <h2 className="text-4xl font-semibold my-5 ">Contáctanos</h2>
 
