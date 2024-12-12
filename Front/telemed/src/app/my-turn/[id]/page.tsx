@@ -22,7 +22,7 @@ const Page = () => {
   const doctor = searchParams.get("doctor");
   const especialidad = searchParams.get("especialidad");
 
-  const { user, selectedValueId } = useGlobalStore();
+  const { user, selectedValueId, setSelectedValue } = useGlobalStore();
 
   const handleSendInformation = async (
     e: React.MouseEvent<HTMLButtonElement>
@@ -51,6 +51,7 @@ const Page = () => {
           timer: 2500,
           showConfirmButton: false,
         }).then(() => {
+          setSelectedValue("");
           router.push(PATHROUTES.IN);
         });
       }
