@@ -8,20 +8,6 @@ const reserveTurn = async (req, res) => {
     const { idTurno } = req.body;
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      console.log("ID de paciente no válido:", id);
-      return res.status(400).json({ error: "ID de paciente no válido." });
-    } else {
-      console.log("ID de paciente válido:", id);
-    }
-
-    if (!mongoose.Types.ObjectId.isValid(idTurno)) {
-      console.log("ID de turno no válido:", idTurno);
-      return res.status(400).json({ error: "ID de turno no válido." });
-    } else {
-      console.log("ID de turno válido:", idTurno);
-    }
-
     const result = await Shift.findOneAndUpdate(
       { _id: idTurno, disponible: true },
       { disponible: false, patient: id },
