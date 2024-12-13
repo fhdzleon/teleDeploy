@@ -44,7 +44,7 @@ const Page = () => {
       }
     };
     fetchAppointments();
-  }, [user?.id]);
+  }, []);
 
   return (
     <div className="flex flex-col items-center space-y-6 p-8">
