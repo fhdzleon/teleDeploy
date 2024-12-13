@@ -82,9 +82,11 @@ const Page = () => {
         </div>
 
         {/* Contenedor con el borde alrededor de las cards */}
-        <div className="relative w-full max-w-3xl border border-celeste bg-celeste z-0 px-12 py-6 space-y-5 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
+        <div className="relative w-full min-h-[422px] max-w-3xl border border-celeste bg-celeste z-0 px-12 py-6 space-y-5 shadow-xl rounded-t-none rounded-tr-xl rounded-br-xl rounded-bl-xl">
           {section === "nextAppoitments" && allAppointments.length === 0 && (
-            <span>No hay citas proximas</span>
+            <span className="flex flex-col items-center bg-white border shadow-xl rounded-md px-6 py-8 w-full">
+              Solicite su turno para poder acceder a su agenda
+            </span>
           )}
           {section === "nextAppoitments" &&
             allAppointments.map((appointment, index) => (
