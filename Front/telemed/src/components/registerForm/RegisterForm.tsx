@@ -336,9 +336,13 @@ const RegisterForm = () => {
                 >
                   <option value="" disabled></option>
                   <option value="6744d95a6d87602e47fc2810">Osecac</option>
+<<<<<<< HEAD
                   <option value="6744d9766d87602e47fc2812">
                     Prevención Salud
                   </option>
+=======
+                  <option value="6744d9766d87602e47fc2812">Prevencion salud</option>
+>>>>>>> 8f8b0da07b57b11ece8dd8edafdede9212e86684
                   <option value="6744d9966d87602e47fc2814">Ospe</option>
                   <option value="6744d9aa6d87602e47fc2816">Avalian</option>
                   <option value="6744d9be6d87602e47fc2818">Osde</option>
