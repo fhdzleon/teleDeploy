@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
 import useGlobalStore from "@/store/globalStore";
+import { signOut } from "next-auth/react";
 
 const Logout = () => {
   const router = useRouter();
@@ -16,6 +17,8 @@ const Logout = () => {
     setUser(null);
     useGlobalStore.persist.clearStorage();
     localStorage.removeItem("globalStore");
+
+    await signOut({ redirect: false });
 
     Swal.fire({
       icon: "success",

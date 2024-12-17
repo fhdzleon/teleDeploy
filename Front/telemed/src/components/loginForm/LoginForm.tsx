@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { PATHROUTES } from "@/helpers/pathroutes";
 import useGlobalStore from "@/store/globalStore";
-/* import GoogleAuth from "../googleAuth/GoogleAuth"; */
+import GoogleAuth from "../googleAuth/GoogleAuth";
 
 const LoginForm = () => {
   const setUser = useGlobalStore((state) => state.setUser);
@@ -109,7 +109,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
       className="flex mt-9 flex-col space-y-8 w-full max-w-md mx-auto"
     >
-      {/*  <GoogleAuth /> */}
+      <GoogleAuth />
       {/*  <div className="flex justify-center mb-7">
         <button className="border border-acent py-2 px-5 rounded-l-full border-r-0">
           Soy paciente
@@ -119,8 +119,8 @@ const LoginForm = () => {
         Soy administrador
         </button>
       </div> */}
-      <p className=" relative text-center text-textColor text-xl font-semibold before:content-[''] after:content-[''] before:absolute md:after:absolute before:w-[150px] md:after:w-[150px] md:before:h-[1px] md:after:h-[1px] before:bg-gray-400 after:bg-gray-400 before:top-1/2 after:top-1/2 before:-left-[1px] after:-right-[1px]">
-        Iniciar sesión
+      <p className=" relative text-center text-textColor text-xl font-semibold before:content-[''] after:content-[''] before:absolute md:after:absolute before:w-[100px] md:after:w-[100px] md:before:h-[1px] md:after:h-[1px] before:bg-gray-400 after:bg-gray-400 before:top-1/2 after:top-1/2 before:-left-[1px] after:-right-[1px]">
+        O inicia sesión con email
       </p>
 
       <div className="flex flex-col space-y-2">

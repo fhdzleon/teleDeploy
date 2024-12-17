@@ -1,39 +1,66 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
+
+import React, { useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { PATHROUTES } from "@/helpers/pathroutes";
 import useGlobalStore from "@/store/globalStore";
 
 const GoogleAuth = () => {
+  const { data: session } = useSession();
   const { setUser } = useGlobalStore();
+  console.log(session);
 
-  const handleClick = async () => {
-    const popup = window.open(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
-      "GoogleAuth",
-      "width=500,height=600"
-    );
+  const router = useRouter();
 
-    if (!popup) {
-      console.error("No se pudo abrir la ventana emergente");
-      return;
-    }
-
-    const interval = setInterval(() => {
-      if (popup.closed) {
-        clearInterval(interval);
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const userData = (window as any).userData;
-        if (userData) {
-          setUser(userData);
+  const loginWhitGoogle = async (email: string | null | undefined) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/googleLogin`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
         }
+      );
+
+      const json = await response.json();
+      console.log("JSON", json.data);
+
+      if (json) {
+        const user = json.data;
+        setUser(user);
+
+        const userDataValue = json.data;
+        const encodedValue = encodeURIComponent(JSON.stringify(userDataValue));
+
+        document.cookie = `userData=${encodedValue}; path=/; expires=${new Date(
+          new Date().getTime() + 24 * 60 * 60 * 1000 // 1 día de duración
+        ).toUTCString()}`;
+        document.cookie = `userData=${encodedValue}; path=/; expires=${new Date(
+          new Date().getTime() + 24 * 60 * 60 * 1000 // 1 día de duración
+        ).toUTCString()}`;
+        router.push(PATHROUTES.IN);
       }
-    }, 500);
+    } catch (error) {
+      console.error("error al iniciar sesion", error);
+    }
   };
+
+  useEffect(() => {
+    if (session && session.user) {
+      const email = session.user.email;
+
+      loginWhitGoogle(email);
+    }
+  }, [session]);
 
   return (
     <>
       <button
         className="w-4/5 mx-auto flex items-center justify-center gap-x-2 hover:shadow-form rounded-full shadow-xl py-3 px-8 text-center text-base font-semibold text-textColor"
-        onClick={handleClick}
+        onClick={() => signIn()}
       >
         <svg
           width="25"
